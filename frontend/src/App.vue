@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <TopBar></TopBar>
     <img alt="Vue logo" src="./assets/logo.jpeg">
     <hello-world></hello-world>
   </div>
@@ -7,12 +8,13 @@
 
 <script>
 import HelloWorld from './components/HelloWorld.vue';
+import TopBar from './components/Navbar.vue';
 
 export default {
   name: 'app',
   components: {
      HelloWorld,
-    
+    TopBar,
   },
 };
 </script>
