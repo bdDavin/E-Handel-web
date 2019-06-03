@@ -1,20 +1,29 @@
+
+
 <template>
   <div id="app">
     <TopBar></TopBar>
     <img alt="Vue logo" src="./assets/logo.jpeg">
-    <hello-world></hello-world>
+    <!-- <hello-world></hello-world> -->
+    <router-view></router-view>  <!-- need to be imported in main.js -->
+    <product-grid></product-grid>
+    <my-footer></my-footer>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue';
 import TopBar from './components/Navbar.vue';
+import myFooter from './components/myFooter.vue';
+import productGrid from './components/productGrid.vue';
 
 export default {
   name: 'app',
   components: {
      HelloWorld,
     TopBar,
+    myFooter,
+    productGrid
   },
 };
 </script>
