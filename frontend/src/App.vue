@@ -5,7 +5,9 @@
 <template>
   <div id="app">
     <TopBar></TopBar>
-    <router-view></router-view> 
+    <br>
+    <router-view></router-view>
+    <br> 
     <my-footer></my-footer>
   </div>
 </template>
@@ -13,7 +15,7 @@
 
 
 <script>
-
+import './style.scss';
 import TopBar from './components/Navbar.vue';
 import myFooter from './components/MyFooter.vue';
 
@@ -36,43 +38,4 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-</style>
-
-<style lang="scss">
- // Import Bulma's core
-@import "~bulma/sass/utilities/_all";
-
-// Set your colors
-$primary: #464fa3;
-$primary-invert: findColorInvert($primary);
-$twitter: #4099FF;
-$twitter-invert: findColorInvert($twitter);
-
-$color-backround: #454d66; //backround
-$color-primary: #009975; //primary
-$color-button: #58B368; //button
-$color-text: #D9D872; //text
-
-// Setup $colors to use as bulma classes (e.g. 'is-twitter')
-$colors: (
-    "white": ($white, $black),
-    "black": ($black, $white),
-    "light": ($light, $light-invert),
-    "dark": ($dark, $dark-invert),
-    "primary": ($primary, $primary-invert),
-    "info": ($info, $info-invert),
-    "success": ($success, $success-invert),
-    "warning": ($warning, $warning-invert),
-    "danger": ($danger, $danger-invert),
-    "twitter": ($twitter, $twitter-invert)
-);
-
-// Links
-$link: $primary;
-$link-invert: $primary-invert;
-$link-focus-border: $primary;
-
-// Import Bulma and Buefy styles
-@import "~bulma";
-@import "~buefy/src/scss/buefy";
 </style>
