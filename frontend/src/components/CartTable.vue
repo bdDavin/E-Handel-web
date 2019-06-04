@@ -1,35 +1,49 @@
 <template>
-    <b-table :data="this.data" :columns="columns"></b-table>
+    <div>
+        <b-table :data="$store.state.cart" :columns="columns"
+            :striped="true" :hoverable="true" :checkable="false"></b-table>
+        <div slot="footer" class="is-fullwidth">
+        
+            <div class="has-text-weight-bold is-fullwidth">
+                 <div class="has-text-center is-fullwidth">
+                     Total &nbsp &nbsp &nbsp ${{totalCartPrice}} &nbsp 
+                 </div>     
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
     export default {
         data() {
             return {
-                data: [
-                    { 'id': 1, 'first_name': 'Jesse', 'last_name': 'Simmons', 'date': '2016-10-15 13:43:27', 'gender': 'Male' },
-                    { 'id': 2, 'first_name': 'John', 'last_name': 'Jacobs', 'date': '2016-12-15 06:00:53', 'gender': 'Male' },
-                    { 'id': 3, 'first_name': 'Tina', 'last_name': 'Gilbert', 'date': '2016-04-26 06:26:28', 'gender': 'Female' },
-                    { 'id': 4, 'first_name': 'Clarence', 'last_name': 'Flores', 'date': '2016-04-10 10:28:46', 'gender': 'Male' },
-                    { 'id': 5, 'first_name': 'Anne', 'last_name': 'Lee', 'date': '2016-12-06 14:38:38', 'gender': 'Female' }
-                ],
                 columns: [
                     {
-                        field: 'first_name',
-                        label: 'Product',
-                        
+                        field: 'productName',
+                        label: 'Product',  
                     },
                     {
-                        field: 'last_name',
+                        field: 'quantity',
                         label: 'Quantity',
+                        width: '80',
+                        numeric: true
                     },
                     {
-                        field: 'id',
+                        field: 'price',
                         label: 'Price',
                         width: '40',
                         numeric: true
                     }
                 ]
+            }
+        },
+        computed: {
+            totalCartPrice: function() {
+                let tot = 0
+                this.$store.state.cart.forEach(product => {
+                    tot += product.price * product.quantity
+                });
+                return tot;
             }
         }
     }

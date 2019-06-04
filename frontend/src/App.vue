@@ -3,12 +3,12 @@
 
 
 <template>
-  <div id="app">
+  <div id="app" class="is-background">
     <TopBar></TopBar>
     <br>
     <router-view></router-view>
     <br> 
-    <my-footer></my-footer>
+    <my-footer class="fixed-bottom"></my-footer>
   </div>
 </template>
 
@@ -37,5 +37,27 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  /* TODO: Change to $color-backround */
+  background-color: #454d66; 
+
+  position:fixed;
+    padding:0;
+    margin:0;
+    margin-top: 3em;
+
+    top:0;
+    left:0;
+
+    width: 100%;
+    height: 100%;
+}
+
+my-footer {
+  
 }
 </style>
+
+
+
+
+  

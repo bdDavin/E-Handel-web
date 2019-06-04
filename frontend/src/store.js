@@ -4,17 +4,16 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
+
 export default new Vuex.Store({
   state: {
-    cart: {
-      type: Array,
-      default: [
-        {name:'Pinguin', price: 60},
-        {name:'Pinguin', price: 60},
-        {name:'Pinguin', price: 60},
-        {name:'Pinguin', price: 60},
-      ]
-    }
+    cart: [
+        { 'price': 200, 'productName': 'Horse', 'quantity': 1},
+        { 'price': 40, 'productName': 'Dog', 'quantity': 1 },
+        { 'price': 600, 'productName': 'Elephant', 'quantity': 3},
+        { 'price': 45, 'productName': 'Tiger', 'quantity': 1},
+        { 'price': 59, 'productName': 'Snowman', 'quantity': 2},
+    ],
   },
   mutations: {
 
