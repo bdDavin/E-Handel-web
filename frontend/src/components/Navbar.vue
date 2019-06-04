@@ -1,19 +1,10 @@
-<template>
-    <!-- <div class="hero is-primary">
-        <div class="hero-body">
-            <div class="container">
-               
-                
-            </div>
-        </div>
-    </div> -->
 
+
+<template>
   <div>
     <nav class="navbar is-fixed-top is-transparent is-primary" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <a class="navbar-item" href="#">
-          <!-- <img class="is-white" src="https://bulma.io/images/bulma-logo.png" width="112" height="28"> -->
-          <!-- <img class="is-white" src="../assets/logo.jpeg" width="112" height="28"> -->
+        <a class="navbar-item navbar-center" href="#">
           <h1 class=" title is-1">
             Yardsale  
           </h1>
@@ -25,6 +16,7 @@
         </a>
       </div>
 
+      <!-- links -->
       <div class="navbar-menu">
         <div class="navbar-start">
           <router-link to="/" class="navbar-item">
@@ -40,35 +32,39 @@
             temp-Product
           </router-link>
         </div>
-        <!-- Dropdown kundvagn -->
+
+        <!-- Dropdown cart -->
         <div class="navbar-end">
           <div class="navbar-item">
-            <div class="buttons">
-              <b-dropdown aria-role="list">
-                <button class="button is-primary" slot="trigger">
-                  <a class="button is-white">
-                    <b-icon
-                      pack="fas"
-                      icon="shopping-cart"
-                      type="is-dark">
-                    </b-icon>
-                  </a>
-                </button>
-                <b-dropdown-item aria-role="listitem">Action</b-dropdown-item>
-                <b-dropdown-item aria-role="listitem">Another action</b-dropdown-item>
-                <b-dropdown-item aria-role="listitem">Something else</b-dropdown-item>
-              </b-dropdown>
-            </div>
+            <b-dropdown position="is-bottom-left" aria-role="menu">
+              <button class="button is-white" slot="trigger">
+                <a class="button is-white">
+                  <b-icon
+                    pack="fas"
+                    icon="shopping-cart"
+                    type="is-dark">
+                  </b-icon>
+                </a>
+              </button>
+                <!-- cart component -->
+              <cart-drop-down></cart-drop-down>
+            </b-dropdown>
           </div>
         </div>
+       <!-- Dropdown cart end -->
       </div>
     </nav>
   </div>
 </template>
 
+
 <script>
+import CartDropDown from './CartDropDown.vue';
 export default {
   name: 'Navbar',
+  components: {
+    CartDropDown
+  },
   props: {
     msg: String,
   },
@@ -87,6 +83,12 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
+
+  .navbar-item.navbar-center {
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: center;
+  }
 </style>
