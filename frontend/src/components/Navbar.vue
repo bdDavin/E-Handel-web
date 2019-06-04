@@ -44,9 +44,20 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <a class="button is-white">
-                My stuff
-              </a>
+              <b-dropdown aria-role="list">
+                <button class="button is-primary" slot="trigger">
+                  <a class="button is-white">
+                    <b-icon
+                      pack="fas"
+                      icon="shopping-cart"
+                      type="is-dark">
+                    </b-icon>
+                  </a>
+                </button>
+                <b-dropdown-item aria-role="listitem">Action</b-dropdown-item>
+                <b-dropdown-item aria-role="listitem">Another action</b-dropdown-item>
+                <b-dropdown-item aria-role="listitem">Something else</b-dropdown-item>
+              </b-dropdown>
             </div>
           </div>
         </div>
