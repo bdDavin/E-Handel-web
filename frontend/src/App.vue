@@ -3,10 +3,8 @@
 <template>
   <div id="app">
     <TopBar></TopBar>
-    <img alt="Vue logo" src="./assets/logo.jpeg">
-    <!-- <hello-world></hello-world> -->
-    <router-view></router-view>  <!-- need to be imported in main.js -->
-    <product-grid></product-grid>
+    
+    <router-view></router-view> 
     <my-footer></my-footer>
   </div>
 </template>

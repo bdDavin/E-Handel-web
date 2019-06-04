@@ -27,18 +27,20 @@
 
       <div class="navbar-menu">
         <div class="navbar-start">
-          <a class="navbar-item">
+          <router-link to="/" class="navbar-item">
             Home
-          </a>
-
-          <a class="navbar-item">
-            Browse products
-          </a>
-          <a class="navbar-item">
-            Support
-          </a>
+          </router-link>
+          <router-link to="/store" class="navbar-item">
+            Store
+          </router-link>
+          <router-link to="/checkout" class="navbar-item">
+            temp-Checkout
+          </router-link>
+          <router-link to="/product/1" class="navbar-item">
+            temp-Product
+          </router-link>
         </div>
-
+        <!-- Dropdown kundvagn -->
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
@@ -76,5 +78,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 </style>

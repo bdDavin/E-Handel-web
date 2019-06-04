@@ -1,26 +1,30 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import HelloWorld from './components/HelloWorld.vue';
 Vue.use(VueRouter);
 
-const NotFound = Vue.component('not-found', {
-  template: '<h1>404</h1>'
-})
+import HelloWorld from './components/HelloWorld.vue';
+import productGrid from './components/productGrid.vue';
+import StoreContainer from './components/StoreContainer.vue';
+import HomeContainer from './components/HomeContainer.vue';
+import ProductContainer from './components/ProductContainer.vue';
+import CheckoutContainer from './components/CheckoutContainer.vue';
+import NotFoundContainer from './components/NotFoundContainer.vue';
 
-const Home = Vue.component('not-found', {
-  template: '<h1>Home</h1>'
-})
-
-
-export default new Vue.Router( {
+export default new VueRouter( {
   routes: [ {
-      component: Home,
+      component: HomeContainer,
       path: '/'
       }, {
-      component: HelloWorld,
-      path: '/hello'
-      },{
-      component: NotFound,
+      component: StoreContainer,
+      path: '/store'
+      }, {
+      component: CheckoutContainer,
+      path: '/checkout'
+      }, {
+      component: ProductContainer,
+      path: '/product/:productId?'
+      }, {
+      component: NotFoundContainer,
       path: '/404' }, {
       redirect: '/404',
       path: '*'
