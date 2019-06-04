@@ -2,12 +2,10 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
-import HelloWorld from './components/HelloWorld.vue';
-import productGrid from './components/productGrid.vue';
-import StoreContainer from './components/StoreContainer.vue';
-import HomeContainer from './components/HomeContainer.vue';
-import ProductContainer from './components/ProductContainer.vue';
-import CheckoutContainer from './components/CheckoutContainer.vue';
+import StoreContainer from './components/store/StoreContainer.vue';
+import HomeContainer from './components/home/HomeContainer.vue';
+import ProductContainer from './components/product/ProductContainer.vue';
+import CheckoutContainer from './components/chekout/CheckoutContainer.vue';
 import NotFoundContainer from './components/NotFoundContainer.vue';
 
 export default new VueRouter( {

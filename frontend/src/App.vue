@@ -3,25 +3,20 @@
 <template>
   <div id="app">
     <TopBar></TopBar>
-    
     <router-view></router-view> 
     <my-footer></my-footer>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
 import TopBar from './components/Navbar.vue';
-import myFooter from './components/myFooter.vue';
-import productGrid from './components/productGrid.vue';
+import myFooter from './components/MyFooter.vue';
 
 export default {
   name: 'app',
   components: {
-     HelloWorld,
     TopBar,
-    myFooter,
-    productGrid
+    myFooter
   },
 };
 </script>
