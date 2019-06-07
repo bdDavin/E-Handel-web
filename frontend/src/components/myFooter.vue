@@ -2,7 +2,6 @@
   <div class="hero is-primary fix-bottom">
       <div class="hero-body">
           <div class="container">
-              
               <h1>©No single´s club</h1>
           </div>
       </div>

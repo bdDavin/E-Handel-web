@@ -8,6 +8,17 @@ $primary-invert: findColorInvert($primary);
 $twitter: #4099FF;
 $twitter-invert: findColorInvert($twitter);
 
+$color-backround: #454d66; //backround
+$color-primary: #009975; //primary
+$color-button: #58B368; //button
+$color-text: #D9D872; //text
+
+$color-backround-inverted: findColorInvert($color-backround); //backround
+$color-primary-inverted: findColorInvert($color-primary); //primary
+$color-button-inverted: findColorInvert($color-button); //button
+$color-text-inverted: findColorInvert($color-text); //text
+$primary: $color-primary;
+
 // Setup $colors to use as bulma classes (e.g. 'is-twitter')
 $colors: (
     "white": ($white, $black),
@@ -19,7 +30,12 @@ $colors: (
     "success": ($success, $success-invert),
     "warning": ($warning, $warning-invert),
     "danger": ($danger, $danger-invert),
-    "twitter": ($twitter, $twitter-invert)
+    "twitter": ($twitter, $twitter-invert),
+
+    "button": ($color-button, $color-button-inverted),
+    "background":($color-backround, $color-backround-inverted),
+    "text": ($color-text, $color-text-inverted),
+    
 );
 
 // Links
