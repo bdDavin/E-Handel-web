@@ -7,7 +7,7 @@
     <TopBar></TopBar>
     <br>
     <router-view></router-view>
-    <br> 
+    <br>
     <my-footer></my-footer>
   </div>
 </template>
