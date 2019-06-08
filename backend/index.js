@@ -23,7 +23,7 @@ app.get('/api/product/:id?', (request, response) => {
     //SQL fråga för att hämta produkten med det rätt id
     let id = request.params.id
     console.log("product id: " +id);
-    
+
     if (id) {
         response.status(230)
 
@@ -52,16 +52,15 @@ app.get('/api/products/?', (request, response) => {
     //order = asc or decs
     const order = request.query.order
     const searchTerm = request.query.term
-    
+
     //om inga inparametrar så svara med alla varor
     if(!filter && !searchTerm) {
         console.log('all products');
         database.all('SELECT * from products').then(rows => {
             //rows kommer att vara en array
             response.send(rows)
-        }) 
+        })
     } else {
-  
         let search = '%' + searchTerm + '%'
         database.all('SELECT * from products WHERE name LIKE ?', [search]).then(rows => {
             //rows kommer att vara en array

@@ -1,23 +1,21 @@
 <template>
   <div class="foot">
-      <div class="">
-        <nav class="level">
-          <h1 class="level-item has-text-centered">
-            ©No single´s club
-          </h1>
-          <p class="level-item has-text-centered">
-            Policy
+      <nav class="level">
+        <h1 class="level-item has-text-centered">
+          ©No single´s club
+        </h1>
+        <p class="level-item has-text-centered">
+          Policy
+        </p>
+        <p class="level-item has-text-centered">
+          No refund
+        </p>
+        <a href="mailto:someone@yoursite.com" class="level-item has-text-centered">
+          <p>
+            Contact us
           </p>
-          <p class="level-item has-text-centered">
-            No refund
-          </p>
-          <a href="mailto:someone@yoursite.com" class="level-item has-text-centered">
-            <p>
-              Contact us
-            </p>
-          </a>
-        </nav>
-      </div>
+        </a>
+      </nav>
   </div>
 </template>
 
@@ -39,9 +37,13 @@ $primary-color: #009975;
   background-color: $primary-color;
   color: #D9D872;
 }
+.level {
+  height: 60%;
+}
 .level-item {
   background-color: $primary-color;
   color: #D9D872;
+  height: 100%;
 }
 
 
