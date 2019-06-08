@@ -7,7 +7,6 @@
     <TopBar></TopBar>
     <br>
     <router-view></router-view>
-    <br> 
     <my-footer class="fixed-bottom"></my-footer>
   </div>
 </template>
@@ -38,9 +37,9 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
   /* TODO: Change to $color-backround */
-  background-color: #454d66; 
+  /*background-color: #454d66; */
 
-  position:fixed;
+  /*position:fixed;*/
     padding:0;
     margin:0;
     margin-top: 3em;

@@ -1,13 +1,19 @@
 const express = require('express')
 const app = express()
+const sqlite = require('sqlite')
 const bodyParser = require('body-parser')
 const path = require('path')
 app.use((request, response, next) => {
     response.header('Access-Control-Allow-Origin', '*')
     next()
-  })
+})
 app.use(bodyParser.json())
 app.use(express.static(path.join(path.resolve(), 'public')))
+
+let db
+sqlite.open('yardsale.db').then(database => {
+    db = database
+})
 
 app.get('/api/product/:id', (request, response) => {
     //SQL fråga för att hämta produkten med det rätt id
@@ -20,9 +26,31 @@ app.get('/api/product/:id', (request, response) => {
     response.send(testProduct)
 })
 
-app.get('/api/products/:filter', (request, response) => {
+app.get('/api/products/:tab/:letter', (request, response) => {
     //SQL fråga för att hämta alla produkter baserat på filtret
-    response.send(products)
+    const tab = request.params.tab
+    const letter = request.params.letter
+    if (tab === '0') {
+        db.all('SELECT * FROM products')
+        .then(products => {
+            response.send(products)
+            console.log(products)
+        })
+    } else if (tab === '1') {
+        //Fråga för att hämta ordnad lista efter mest köpta
+        db.all('SELECT * FROM products ')
+        .then(products => {
+            response.send(products)
+            console.log(products)
+        })
+    } else if (tab === '3') {
+        db.all('SELECT * FROM products WHERE name LIKE "?%"',[letter])
+        .then(products => {
+            response.send(products)
+            console.log(products)
+        })
+    }
+    
 })
 
 app.post('/api/order', (request, response) => {
