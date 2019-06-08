@@ -71,14 +71,14 @@ html,body{
   padding:0;
 }
 .pageContentWrapper{
-  margin-bottom: 100px;/* Height of footer*/
+  margin-bottom: 80px;/* Height of footer*/
 } 
 .myFooter{
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 100px;
+    height: 80px;
 }
 
 </style>

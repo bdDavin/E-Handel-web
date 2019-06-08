@@ -35,7 +35,7 @@ $primary-color: #009975;
   color: #D9D872;
 }
 .level {
-  height: 60%;
+  height: 100%;
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
