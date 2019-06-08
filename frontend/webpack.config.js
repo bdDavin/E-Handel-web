@@ -1,4 +1,5 @@
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+/*jshint esversion: 6 */
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
   entry: './src/main.js',
@@ -18,6 +19,10 @@ module.exports = {
         use: ['vue-style-loader', 'css-loader', 'sass-loader'],
       },
       {
+        test: /\.sass$/,
+        use: ['vue-style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
         test: /\.vue$/,
         use: ['vue-loader']
       }
@@ -30,4 +35,4 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin()
   ]
-}
+};
