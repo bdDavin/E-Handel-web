@@ -45,7 +45,7 @@ export default {
   margin-top: 60px;
   /* TODO: Change to $color-backround */
   /* background-color: #454d66;  */
-  background-color: #D9D872;
+  
 
   /*position:fixed;*/
     padding:0;
@@ -64,6 +64,7 @@ export default {
 html{
   position:relative; 
   min-height: 100%;
+  background-color: #D9D872;
 }
 /* Normalize html and body elements,this style is just good to have */
 html,body{
