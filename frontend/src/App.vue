@@ -7,6 +7,7 @@
     <div class="pageContentWrapper">
         <TopBar></TopBar>
         <br>
+        <br>
         <router-view></router-view>
     </div>
     <my-footer class="myFooter"></my-footer>
@@ -43,7 +44,8 @@ export default {
   color: #D9D872;
   margin-top: 60px;
   /* TODO: Change to $color-backround */
-  /*background-color: #454d66; */
+  /* background-color: #454d66;  */
+  background-color: #D9D872;
 
   /*position:fixed;*/
     padding:0;
