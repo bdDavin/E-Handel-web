@@ -5,9 +5,6 @@
           ©No single´s club
         </h1>
         <p class="level-item has-text-centered">
-          Policy
-        </p>
-        <p class="level-item has-text-centered">
           No refund
         </p>
         <a href="mailto:someone@yoursite.com" class="level-item has-text-centered">
@@ -39,11 +36,17 @@ $primary-color: #009975;
 }
 .level {
   height: 60%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  // justify-content: space-around;
 }
 .level-item {
   background-color: $primary-color;
   color: #D9D872;
   height: 100%;
+  flex-shrink: 40;
+  padding: 1em
 }
 
 
