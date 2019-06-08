@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="cart">
         <!-- <b-dropdown> -->
         <b-dropdown-item aria-role="menu-item" custom paddingless>
         <form action="">
@@ -41,6 +41,7 @@ export default {
 };
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+    
 </style>
+

@@ -4,16 +4,40 @@
   <div>
     <nav class="navbar is-fixed-top is-transparent is-primary" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <a class="navbar-item navbar-center" href="#">
+
+        <!-- burger icon -->
+        <a role="button" @click="burgerTapped" class="navbar-burger burger" 
+          aria-label="menu" aria-expanded="false" 
+          data-target="navMenu" ref="burger">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+        <!-- burger list -->
+        <div id="navMenu" ref="navMenu" v-if="isMenuShowing" class="navbar-menu">
+          <div class="navbar-end">
+            <router-link to="/" class="navbar-item">
+            Home
+          </router-link>
+          <router-link to="/store" class="navbar-item">
+            Store
+          </router-link>
+          <router-link to="/checkout" class="navbar-item">
+            temp-Checkout
+          </router-link>
+          <router-link to="/product/1" class="navbar-item">
+            temp-Product
+          </router-link>
+          </div>
+        </div>
+
+        <!-- logo -->
+        <router-link to="/" class="navbar-item navbar-center">
           <h1 class=" title is-1">
             Yardsale  
           </h1>
-        </a>
-        <a role="button" @click="burgerTapped" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
+        </router-link>
+        
       </div>
 
       <!-- links -->
@@ -58,6 +82,7 @@
 </template>
 
 
+
 <script>
 import CartDropDown from './CartDropDown.vue';
 export default {
@@ -70,14 +95,21 @@ export default {
   },
   methods: {
       burgerTapped() {
-        // $(".navbar-burger").toggleClass("is-active");
-        // $(".navbar-menu").toggleClass("is-active");
-        this.isHamburgerActive = !this.isHamburgerActive
+        this.$refs.navMenu.classList.toggle('is-active')
+        this.$refs.burger.classList.toggle('is-active')
+
+        // if (this.burger.classList.contains('is-active')) {
+        //   this.isMenuShowing = true
+        // } else {
+        //   this.isMenuShowing = true
+        // }
       }
   },
   data: function () {
     return {
-      isHamburgerActive: false
+      isMenuShowing: true,
+      burger: [],
+      navMenu: []
     }
   }
 };
@@ -90,5 +122,9 @@ export default {
     flex-grow: 1;
     flex-direction: column;
     justify-content: center;
+  }
+
+  .navbar-item {
+    color: #D9D872 !important
   }
 </style>

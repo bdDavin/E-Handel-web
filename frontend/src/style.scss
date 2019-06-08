@@ -12,6 +12,8 @@ $color-backround: #454d66; //backround
 $color-primary: #009975; //primary
 $color-button: #58B368; //button
 $color-text: #D9D872; //text
+$red: rgb(186, 65, 65);
+$red-invert: findColorInvert($red);
 
 $color-backround-inverted: findColorInvert($color-backround); //backround
 $color-primary-inverted: findColorInvert($color-primary); //primary
