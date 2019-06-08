@@ -5,7 +5,6 @@ const app = express()
 const sqlite = require('sqlite')
 const bodyParser = require('body-parser')
 const path = require('path')
-const sqlite = require('sqlite')
 
 app.use((request, response, next) => {
     response.header('Access-Control-Allow-Origin', '*')

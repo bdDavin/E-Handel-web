@@ -7,7 +7,7 @@
         <p class="level-item has-text-centered">
           No refund
         </p>
-        <a href="mailto:someone@yoursite.com" class="level-item has-text-centered">
+        <a href="mailto:friends@yardsale.com" class="level-item has-text-centered">
           <p>
             Contact us
           </p>

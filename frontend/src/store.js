@@ -35,7 +35,8 @@ export default new Vuex.Store({
       context.dispatch('getProductsFromDB')
     },
     getProductsFromDB(context){
-      fetch('http://localhost:5000/api/products/'+context.state.productFilter.tab+'/'+context.state.productFilter.letter)
+      fetch('http://localhost:5000/api/products/'
+      /*+context.state.productFilter.tab+'/'+context.state.productFilter.letter*/)
       .then(response => response.json())
       .then(result => {
         context.commit('setProducts', result)

@@ -58,7 +58,7 @@
         </div>
 
         <!-- Dropdown cart -->
-        <div class="navbar-end">
+        <div class="navbar-end navbar-brand">
           <div class="navbar-item">
             <b-dropdown position="is-bottom-left" aria-role="menu">
               <button class="button is-white" slot="trigger">

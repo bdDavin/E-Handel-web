@@ -22,6 +22,9 @@ import myFooter from './components/MyFooter.vue';
 import tot from './components/HelloWorld.vue';
 
 export default {
+  created: function () {
+    this.$store.dispatch('getProductsFromDB')
+  },
   name: 'app',
   components: {
     TopBar,
@@ -73,7 +76,7 @@ html,body{
     bottom: 0;
     left: 0;
     right: 0;
-    height: 120px;
+    height: 100px;
 }
 
 </style>
