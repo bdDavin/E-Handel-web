@@ -28,8 +28,10 @@ export default {
       return '/product/'+this.product.id
     },
     productImage() {
-      return this.product.image
-      //return 'src/assets/products/' +this.product.id +'.png'
+      //return this.product.image
+      //console.log(this.product);
+      
+      return 'src/assets/products/' +this.product.id +'.png'
     }
   },
   name: 'ProductCard',

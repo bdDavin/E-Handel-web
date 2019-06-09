@@ -16,7 +16,7 @@
                     </footer>
                 </div>
             </form>
-            <h1 v-else class=" is-4">Empty</h1>
+            <h1 v-else class="is-4">Cart is empty</h1>
         </b-dropdown-item>
         <!-- </b-dropdown> -->
     </div>

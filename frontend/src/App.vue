@@ -45,7 +45,7 @@ export default {
   margin-top: 60px;
   /* TODO: Change to $color-backround */
   /* background-color: #454d66;  */
-  
+
 
   /*position:fixed;*/
     padding:0;
@@ -62,7 +62,7 @@ export default {
 
 /* Fixes the footer to the bottom */
 html{
-  position:relative; 
+  position:relative;
   min-height: 100%;
   background-color: #D9D872;
 }
@@ -73,7 +73,7 @@ html,body{
 }
 .pageContentWrapper{
   margin-bottom: 80px;/* Height of footer*/
-} 
+}
 .myFooter{
     position: absolute;
     bottom: 0;
@@ -83,8 +83,3 @@ html,body{
 }
 
 </style>
-
-
-
-
-  

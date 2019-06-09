@@ -18,9 +18,6 @@ export default new Vuex.Store({
     products: []
   },
   getters: {
-    getProducts: state => {
-      return state.products
-    },
     priceMultiplier() { 
       //in procent
       let min = 80; 
@@ -100,10 +97,6 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    setFilter(context, filter){
-      context.commit('setFilter', filter)
-      context.dispatch('getProductsFromDB')
-    },
     getProductsFromDB(context){
       fetch('http://localhost:5000/api/products/'
       /*+context.state.productFilter.tab+'/'+context.state.productFilter.letter*/)
@@ -117,7 +110,9 @@ export default new Vuex.Store({
           product.price /= 10
           product.price = Math.round(product.price)
           product.price *= 10
-
+          
+          console.log(product);
+          
           //set image
           product.image = 'src/assets/products/' +product.id +'.png'
         });
@@ -128,6 +123,5 @@ export default new Vuex.Store({
           console.log(error.message)
       })
     }
-
   },
 });

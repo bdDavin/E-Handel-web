@@ -20,7 +20,8 @@
                 
                 <b-table-column field="name" center label="Product">
                     <router-link :to="'/product/'+props.row.id">
-                    <img :src="props.row.image" alt="image">
+                    <!-- <img :src="props.row.image" alt="image"> -->
+                    <img :src="demoImage" alt="image">
                     <br>
                     {{ props.row.name }}
                     </router-link>
@@ -70,6 +71,7 @@
     export default {
         data() {
             return {
+                demoImage: 'src/assets/products/1.png',
                 data: this.$store.state.cart,
                  columns: [
                  ]

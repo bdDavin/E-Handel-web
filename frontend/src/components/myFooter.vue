@@ -5,7 +5,7 @@
           ©No single´s club
         </h1>
         <p class="level-item has-text-centered">
-          No refund
+          No refunds
         </p>
         <a href="mailto:friends@yardsale.com" class="level-item has-text-centered">
           <p>
