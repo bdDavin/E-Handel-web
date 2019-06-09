@@ -1,275 +1,46 @@
-<template>
-  <section>
-    <div class="container">
-      <div class="block">
-        <div class="box">
-          <b-field>
-
-          </b-field>
-            <h1 class="title">Checkout</h1>
-            <br>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae, quia.</p>
-        </div>
-      </div>
-
-
-
-
-
-
-
-
-      <!--
-
-      Personal details
-
-      !-->
-    <b-collapse
-                aria-id="contentIdForA11y2"
-                class="panel"
-                :open.sync="isOpenOne">
-            <div
-                slot="trigger"
-                class="panel-heading"
-                role="button"
-                aria-controls="contentIdForA11y2">
-                <strong>Personal details</strong>
-            </div>
-
-            <div class="panel-block">
-                <div class="block">
-                  <b-field>
-                      <div class="control has-icons-left has-icons-right">
-                        <input
-                          style="width:25em"
-                          class="input is-primary is-medium"
-                          type="text"
-                          placeholder="First name"
-                          >
-                          <span class="icon is-left">
-                            <i class="fas fa-user"></i>
-                          </span>
-                          <span class="icon is-right">
-                            <i class="fas fa-check"></i>
-                          </span>
-                        </div>
-                        </b-field>
-
-
-                        <b-field>
-                    <div class="control has-icons-left has-icons-right">
-                      <input class="input is-primary is-medium"
-                        type="text"
-                        style="width:25em"
-                        placeholder="Last name"
-                        expanded>
-                        <span class="icon is-left">
-                          <i class="fas fa-user"></i>
-                        </span>
-                        <span class="icon is-right">
-                          <i class="fas fa-check"></i>
-                        </span>
-                    </div>
-                  </b-field>
-
-
-                  <b-field>
-                    <div class="control has-icons-left has-icons-right">
-                      <input
-                      class="input is-primary is-medium"
-                      type="email"
-                      placeholder="Email"
-                      style="width:25em">
-                        <span class="icon is-left">
-                          <i class="fas fa-envelope"></i>
-                        </span>
-                        <span class="icon is-right">
-                          <i class="fas fa-check"></i>
-                        </span>
-                    </div>
-                  </b-field>
-
-
-                   <div class="field-body">
-                     <div class="field is-expanded">
-                       <div class="field has-addons">
-                         <p class="control">
-                           <a class="button is-static is-medium" style="width:5em">
-                             +46
-                           </a>
-                         </p>
-                         <p class="control is-expanded">
-                           <input
-                           class="input is-medium"
-                           type="tel"
-                           placeholder="Phone number"
-                           style="width:20em">
-                         </p>
-                       </div>
-                     </div>
-                   </div>
-
-
-                     <div class="block">
-                       <button
-                       class="button is-medium is-primary"
-                       @click="isOpenTwo = !isOpenTwo"
-                       aria-controls="contentIdForA11y2">
-                       Continue
-                     </button>
-                   </div>
-                </div>
-            </div>
-
-
-        </b-collapse>
-
-<!--
-
-Shipping details
-
-!-->
-        <b-collapse
-                aria-id="contentIdForA11y2"
-                class="panel"
-                :open.sync="isOpenTwo">
-            <div
-                slot="trigger"
-                class="panel-heading"
-                role="button"
-                aria-controls="contentIdForA11y2">
-                <strong>Shipping details</strong>
-            </div>
-
-
-            <b-field>
-
-                  <div class="control has-icons-left has-icons-right">
-                    <input class="input is-medium"
-                      type="text"
-                      placeholder="Address"
-                      style="width:20em">
-                      <span class="icon is-left">
-                        <i class="fas fa-user"></i>
-                      </span>
-                      <span class="icon is-right">
-                        <i class="fas fa-check"></i>
-                      </span>
-                    </div>
-
-                    <div class="field">
-                      <p class="control has-icons-left">
-                        <span class="select is-medium">
-                          <select>
-                            <option selected>Sweden</option>
-                            <option>USA</option>
-                            <option>Germany</option>
-                            <option>Argentina</option>
-                            <option>India</option>
-                            <option>Australia</option>
-                            <option>Brazil</option>
-                            <option>Canada</option>
-                            <option>Russia</option>
-                          </select>
-                        </span>
-                        <span class="icon is-small is-left">
-                          <i class="fas fa-globe"></i>
-                        </span>
-                      </p>
-                    </div>
-
-
-                    </b-field>
-
-                  <b-field>
-                    <div class="control has-icons-left has-icons-right">
-                      <input class="input is-medium"
-                        type="text"
-                        placeholder="State"
-                        style="width:20em">
-                        <span class="icon is-left">
-                          <i class="fas fa-user"></i>
-                        </span>
-                        <span class="icon is-right">
-                          <i class="fas fa-check"></i>
-                        </span>
-                      </div>
-                    </b-field>
-
-
-
-
-                  <b-field>
-                    <div class="control has-icons-left has-icons-right">
-                      <input class="input is-primary is-medium"
-                        type="text"
-                        placeholder="ZIP code"
-                        style="width:20em">
-                        <span class="icon is-left">
-                          <i class="fas fa-user"></i>
-                        </span>
-                        <span class="icon is-right">
-                          <i class="fas fa-check"></i>
-                        </span>
-
-
-
-
-
-
-
-
-
-
-                  <button
-                      class="button is-medium is-primary"
-                      @click="isOpenThree = !isOpenThree"
-                      aria-controls="contentIdForA11y2">
-                      Continue
-                  </button>
-                </div>
-              </b-field>
-
-      </b-collapse>
-
-
-      <!--
-
-      Payment
-
-      !-->
-
-      <b-collapse
-          aria-id="contentIdForA11y2"
-          class="panel"
-          :open.sync="isOpenThree">
-        <div
-            slot="trigger"
-            class="panel-heading"
-            role="button"
-            aria-controls="contentIdForA11y2">
-          <strong>Payment</strong>
-        </div>
-        <div class="panel-block">
-          <div class="tile is-parent">
-            <article class="tile is-child notification is-primary">
-              <p class="title">Middle tile</p>
-              <p class="subtitle">With an image</p>
-              <figure class="image is-4by3">
-                <img src="https://bulma.io/images/placeholders/640x480.png">
-              </figure>
-            </article>
-          </div>
-        <div class="block">
-          <button
-              class="button is-medium is-primary"
-              @click="isOpenThree = !isOpenThree"
-              aria-controls="contentIdForA11y2">
-              Make order
-          </button>
-        </div>
-        </div>
-      </b-collapse>
-    </div>
-  </section>
-</template>
+<ul class="steps is-narrow is-medium is-centered has-content-centered">
+<li class="steps-segment">
+<a href="#" class="has-text-dark">
+ <span class="steps-marker">
+   <span class="icon">
+     <i class="fa fa-user"></i>
+   </span>
+ </span>
+ <div class="steps-content">
+   <p class="heading">Personal details</p>
+ </div>
+</a>
+</li>
+<li class="steps-segment">
+<a href="#" class="has-text-dark">
+ <span class="steps-marker">
+   <span class="icon">
+     <i class="fa fa-plane"></i>
+   </span>
+ </span>
+ <div class="steps-content">
+   <p class="heading">Shipping details</p>
+ </div>
+</a>
+</li>
+<li class="steps-segment is-active has-gaps">
+<span class="steps-marker">
+ <span class="icon">
+   <i class="fa fa-dollar-sign"></i>
+ </span>
+</span>
+<div class="steps-content">
+ <p class="heading">Payment details</p>
+</div>
+</li>
+<li class="steps-segment">
+<span class="steps-marker is-hollow">
+ <span class="icon">
+   <i class="fa fa-check"></i>
+ </span>
+</span>
+<div class="steps-content">
+ <p class="heading">Confirmation</p>
+</div>
+</li>
+</ul>

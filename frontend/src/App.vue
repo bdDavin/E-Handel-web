@@ -40,10 +40,10 @@ export default {
   /* TODO: Change to $color-backround */
   background-color: #454d66;
 
-  position:fixed;
+  /* position:fixed;
     padding:0;
     margin:0;
-    margin-top: 3em;
+    margin-top: 3em; */
 
     top:0;
     left:0;
