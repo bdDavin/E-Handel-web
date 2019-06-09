@@ -5,7 +5,6 @@ const app = express()
 const sqlite = require('sqlite')
 const bodyParser = require('body-parser')
 const path = require('path')
-const sqlite = require('sqlite')
 
 app.use((request, response, next) => {
     response.header('Access-Control-Allow-Origin', '*')
@@ -16,7 +15,7 @@ app.use(express.static(path.join(path.resolve(), 'public')))
 
 //skapar refference till databas
 let database
-sqlite.open('database.sqlite').then(database_ => {
+sqlite.open('yardsale.db').then(database_ => {
   database = database_
 })
 
@@ -30,7 +29,7 @@ app.get('/api/product/:id?', (request, response) => {
 
         database.all('SELECT * FROM Products WHERE id=?', [id])
         .then(rows => {
-          console.log("producted fetched");
+          console.log("product fetched");
           response.send(rows)
         })
     } else {
@@ -48,29 +47,136 @@ app.get('/api/product/:id?', (request, response) => {
 app.get('/api/products/?', (request, response) => {
     //SQL fråga för att hämta alla produkter baserat
     //på filtret och sökning
-
     const filter = request.query.filter
+    const letter = request.query.letter
     //order = asc or decs
     const order = request.query.order
     const searchTerm = request.query.term
 
-    //om inga inparametrar så svara med alla varor
-    if(!filter && !searchTerm) {
-        console.log('all products');
-        database.all('SELECT * from products').then(rows => {
+    if (filter === '0') {
+        console.log('all products')
+        database.all('SELECT * FROM products')
+        .then(rows => {
             //rows kommer att vara en array
+            console.log(rows)
+            
             response.send(rows)
         })
-    } else {
-        let search = '%' + searchTerm + '%'
-        database.all('SELECT * from products WHERE name LIKE ?', [search]).then(rows => {
+    } else if (filter === '1'){
+        console.log('popular products')
+        //Alla populära
+        response.send([{id: 1, name: 'Popis', price: 499}])
+    } else if (filter === '2'){
+        console.log('filter by letter'+ letter)
+        let n = numberToLetter(letter)+'%'
+        console.log(n)
+        database.all('SELECT * FROM products WHERE name LIKE ?', [n])
+        .then(rows => {
             //rows kommer att vara en array
             response.send(rows)
         })
     }
+    //om inga inparametrar så svara med alla varor
+    // if(!filter && !searchTerm) {
+    //     console.log('all products');
+    //     database.all('SELECT * from products')
+    //     .then(rows => {
+    //         //rows kommer att vara en array
+    //         response.send(rows)
+    //     })
+    // } else {
+    //     let search = '%' + searchTerm + '%'
+    //     database.all('SELECT * from products WHERE name LIKE ?', [search])
+    //     .then(rows => {
+    //         //rows kommer att vara en array
+    //         response.send(rows)
+    //     })
+    // }
 })
-
-
+function numberToLetter(n) {
+    let letter
+    switch (n) {
+        case '0':
+            letter = 'A'
+            break;
+        case '1':
+            letter = 'B'
+            break;
+        case '2':
+            letter = 'C'
+            break;
+        case '3':
+            letter = 'D'
+            break;
+        case '4':
+            letter = 'E'
+            break;
+        case '5':
+            letter = 'F'
+            break;
+        case '6':
+            letter = 'G'
+            break;
+        case '7':
+            letter = 'H'
+            break;
+        case '8':
+            letter = 'I'
+            break;
+        case '9':
+            letter = 'J'
+            break;
+        case '10':
+            letter = 'K'
+            break;
+        case '11':
+            letter = 'L'
+            break;
+        case '12':
+            letter = 'M'
+            break;
+        case '13':
+            letter = 'N'
+            break;
+        case '14':
+            letter = 'O'
+            break;
+        case '15':
+            letter = 'P'
+            break;
+        case '16':
+            letter = 'Q'
+            break;
+        case '17':
+            letter = 'R'
+            break;
+        case '18':
+            letter = 'S'
+            break;
+        case '19':
+            letter = 'T'
+            break;
+        case '20':
+            letter = 'U'
+            break;
+        case '21':
+            letter = 'V'
+            break;
+        case '22':
+            letter = 'W'
+            break;
+        case '23':
+            letter = 'X'
+            break;
+        case '24':
+            letter = 'Y'
+            break;
+        case '25':
+            letter = 'Z'
+            break;
+    }
+    return letter
+}
 app.post('/api/order', (request, response) => {
     //Lägg upp order i databasen
     let newOrder = request.body

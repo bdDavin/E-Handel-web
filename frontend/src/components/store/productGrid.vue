@@ -1,9 +1,44 @@
 <template>
   <div>
+    <b-tabs @change="getProductsFromDB" position="is-centered" v-model="activeTab">
+      <b-tab-item label="All">
+      </b-tab-item>
+      <b-tab-item label="Popular">
+      </b-tab-item>
+      <b-tab-item label="A-Z">
+        <b-tabs @change="getProductsFromDB" :animated="false" position="is-centered" size="is-small" v-model="activeLetter">
+          <b-tab-item label="A"></b-tab-item>
+          <b-tab-item label="B"></b-tab-item>
+          <b-tab-item label="C"></b-tab-item>
+          <b-tab-item label="D"></b-tab-item>
+          <b-tab-item label="E"></b-tab-item>
+          <b-tab-item label="F"></b-tab-item>
+          <b-tab-item label="G"></b-tab-item>
+          <b-tab-item label="H"></b-tab-item>
+          <b-tab-item label="I"></b-tab-item>
+          <b-tab-item label="J"></b-tab-item>
+          <b-tab-item label="K"></b-tab-item>
+          <b-tab-item label="L"></b-tab-item>
+          <b-tab-item label="M"></b-tab-item>
+          <b-tab-item label="N"></b-tab-item>
+          <b-tab-item label="O"></b-tab-item>
+          <b-tab-item label="P"></b-tab-item>
+          <b-tab-item label="Q"></b-tab-item>
+          <b-tab-item label="R"></b-tab-item>
+          <b-tab-item label="S"></b-tab-item>
+          <b-tab-item label="T"></b-tab-item>
+          <b-tab-item label="V"></b-tab-item>
+          <b-tab-item label="W"></b-tab-item>
+          <b-tab-item label="X"></b-tab-item>
+          <b-tab-item label="Y"></b-tab-item>
+          <b-tab-item label="Z"></b-tab-item>
+        </b-tabs>
+      </b-tab-item>
+    </b-tabs>
     <section class="section">
       <div class="container is-fluid">
         <div class="columns is-multiline">
-          <div class="column is-one-quarter" v-for="product in $store.state.products" :key="product.id">
+          <div class="column is-one-quarter is-one-fifth-desktop is-2-fullhd is-2-widescreen" v-for="product in products" :key="product.id">
             <product-card :product="product"></product-card>
           </div>
         </div>
@@ -16,13 +51,30 @@
 import ProductCard from './ProductCard.vue'
 
 export default {
-  name: 'ProductGrid',
+  name: 'ProductTest',
+  created() {
+    this.getProductsFromDB()
+  },
   components: {
     ProductCard
   },
   data() {
-    return {  
-      //products: [{id: 412, name: "Elefant", price:"2414"},{id: 413, name: "Elefant", price:"2414"},{id: 124, name: "Elefant", price:"2414"},{id: 654, name: "Elefant", price:"2414"},{id: 754, name: "Elefant", price:"2414"},{id: 1527, name: "Elefant", price:"2414"},{id: 742, name: "Elefant", price:"2414"},{id: 333, name: "Elefant", price:"2414"}]
+    return {
+      activeTab: 0,
+      activeLetter: 0,
+      false: false,
+      products: []
+    }
+  },
+  methods: {
+    getProductsFromDB(){
+      fetch('http://localhost:5000/api/products/?filter='+this.activeTab+'&letter='+this.activeLetter)
+      .then(response => response.json())
+      .then(result => {
+        this.products = result
+      }).catch(error => {
+          console.log(error.message)
+      })
     }
   }
 };
