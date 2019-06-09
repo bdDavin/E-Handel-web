@@ -7,6 +7,7 @@
     <div class="pageContentWrapper">
         <TopBar></TopBar>
         <br>
+        <br>
         <router-view></router-view>
     </div>
     <my-footer class="myFooter"></my-footer>
@@ -22,6 +23,9 @@ import myFooter from './components/MyFooter.vue';
 import tot from './components/HelloWorld.vue';
 
 export default {
+  created: function () {
+    this.$store.dispatch('getProductsFromDB')
+  },
   name: 'app',
   components: {
     TopBar,
@@ -40,7 +44,8 @@ export default {
   color: #D9D872;
   margin-top: 60px;
   /* TODO: Change to $color-backround */
-  /*background-color: #454d66; */
+  /* background-color: #454d66;  */
+
 
   /*position:fixed;*/
     padding:0;
@@ -57,8 +62,9 @@ export default {
 
 /* Fixes the footer to the bottom */
 html{
-  position:relative; 
+  position:relative;
   min-height: 100%;
+  background-color: #D9D872;
 }
 /* Normalize html and body elements,this style is just good to have */
 html,body{
@@ -66,19 +72,14 @@ html,body{
   padding:0;
 }
 .pageContentWrapper{
-  margin-bottom: 100px;/* Height of footer*/
-} 
+  margin-bottom: 80px;/* Height of footer*/
+}
 .myFooter{
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 120px;
+    height: 80px;
 }
 
 </style>
-
-
-
-
-  

@@ -3,7 +3,7 @@
     <router-link :to="productId">
       <div class="card-image">
         <figure class="image is-4by3">
-          <img id="image" src="../../assets/1.png" alt="Placeholder image">
+          <img id="image" :src="productImage" alt="Placeholder image">
         </figure>
       </div>
       <div class="card-content">
@@ -28,7 +28,7 @@ export default {
       return '/product/'+this.product.id
     },
     productImage() {
-      return '../../assets/products/'+this.product.id
+      return 'src/assets/products/' +this.product.id +'.png'
     }
   },
   name: 'ProductCard',
@@ -43,7 +43,7 @@ export default {
   methods: {
     addToCart() {
       console.log("added to cart "+ this.product.id)
-      
+      //TODO: Update cart in vue store
     }
   }
 }

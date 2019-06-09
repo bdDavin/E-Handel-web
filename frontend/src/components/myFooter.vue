@@ -7,7 +7,7 @@
         <p class="level-item has-text-centered">
           No refunds
         </p>
-        <a href="mailto:someone@yoursite.com" class="level-item has-text-centered">
+        <a href="mailto:friends@yardsale.com" class="level-item has-text-centered">
           <p>
             Contact us
           </p>
@@ -35,7 +35,7 @@ $primary-color: #009975;
   color: #D9D872;
 }
 .level {
-  height: 60%;
+  height: 100%;
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
