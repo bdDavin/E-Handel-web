@@ -28,7 +28,8 @@ export default {
       return '/product/'+this.product.id
     },
     productImage() {
-      return 'src/assets/products/' +this.product.id +'.png'
+      return this.product.image
+      //return 'src/assets/products/' +this.product.id +'.png'
     }
   },
   name: 'ProductCard',
@@ -42,8 +43,7 @@ export default {
   },
   methods: {
     addToCart() {
-      console.log("added to cart "+ this.product.id)
-      //TODO: Update cart in vue store
+      this.$store.commit('updateCart', this.product)
     }
   }
 }
