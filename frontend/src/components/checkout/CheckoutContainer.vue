@@ -139,7 +139,7 @@ Shipping details collapse
 <b-collapse
       aria-id="contentIdForA11y2"
       class="panel"
-      :open.sync="isOpenOne">
+      :open.sync="isOpenTwo">
   <div
       class="panel-heading"
       role="button"
@@ -263,7 +263,7 @@ Shipping details collapse
    <div class="block">
      <button
      class="button is-medium is-button"
-     @click="isOpenTwo = !isOpenTwo"
+     @click="isOpenThree = !isOpenThree"
      aria-controls="contentIdForA11y2">
      Continue
    </button>
@@ -513,9 +513,9 @@ export default {
         data() {
             return {
                 isOpenOne: true,
-                isOpenTwo: true,
-                isOpenThree: true,
-                isOpenFour: true
+                isOpenTwo: false,
+                isOpenThree: false,
+                isOpenFour: false
             }
         }
     }
