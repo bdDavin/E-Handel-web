@@ -73,7 +73,9 @@
                 </a>
               </button>
                 <!-- cart component -->
-              <cart-drop-down></cart-drop-down>
+              <b-dropdown-item aria-role="menu-item" custom paddingless>
+                <cart-drop-down></cart-drop-down>
+              </b-dropdown-item>
             </b-dropdown>
           </div>
         </div>

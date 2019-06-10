@@ -1,24 +1,20 @@
 <template>
     <div class="cart">
-        <!-- <b-dropdown> -->
-        <b-dropdown-item aria-role="menu-item" custom paddingless>
-            <form  v-if="$store.state.cart.length > 0" action="">
-                <div class="modal-card" style="width:300px;">
-                    <section class="modal-card-body">
-                        <cart-table ></cart-table>
-                    </section>
-                    <footer class="modal-card-foot">
-                        <!-- <button class="button is-primary"> -->
-                            <router-link to="/checkout" class="is-button button is-fullwidth">
-                                Checkout
-                            </router-link>
-                        <!-- </button> -->
-                    </footer>
-                </div>
-            </form>
-            <h1 v-else class="is-4">Cart is empty</h1>
-        </b-dropdown-item>
-        <!-- </b-dropdown> -->
+        <form  v-if="$store.state.cart.length > 0" action="">
+            <div class="modal-card" style="width:300px;">
+                <section class="modal-card-body">
+                    <cart-table ></cart-table>
+                </section>
+                <footer class="modal-card-foot">
+                    <!-- <button class="button is-primary"> -->
+                        <router-link to="/checkout" class="is-button button is-fullwidth">
+                            Checkout
+                        </router-link>
+                    <!-- </button> -->
+                </footer>
+            </div>
+        </form>
+        <h1 v-else class="is-4">Cart is empty</h1>
     </div>
 </template>
 
