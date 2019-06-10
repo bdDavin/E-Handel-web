@@ -15,7 +15,7 @@ app.use(express.static(path.join(path.resolve(), 'public')))
 
 //skapar refference till databas
 let database
-sqlite.open('yardsale.db').then(database_ => {
+sqlite.open('database.sqlite').then(database_ => {
   database = database_
 })
 

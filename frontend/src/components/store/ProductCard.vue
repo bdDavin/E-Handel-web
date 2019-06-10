@@ -42,8 +42,7 @@ export default {
   },
   methods: {
     addToCart() {
-      console.log("added to cart "+ this.product.id)
-      //TODO: Update cart in vue store
+      this.$store.commit('updateCart', this.product)
     }
   }
 }
