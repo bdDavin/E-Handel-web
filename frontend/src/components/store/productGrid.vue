@@ -1,63 +1,82 @@
 <template>
   <div>
-    <div class="columns is-mobile">
-      <div v-for="(item, index) in test" class="column">
-        
-        <div class="card">
-  <div class="card-image">
-    <figure class="image is-4by3">
-      <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-    </figure>
-  </div>
-  <div class="card-content">
-    <div class="media">
-      <div class="media-left">
-        <figure class="image is-48x48">
-          <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
-        </figure>
-      </div>
-      <div class="media-content">
-        <p class="title is-4">{{item.name}}</p>
-        <p class="subtitle is-6">@johnsmith</p>
-      </div>
-    </div>
-
-    <div class="content">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-      <a href="#">#css</a> <a href="#">#responsive</a>
-      <br>
-      <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-    </div>
-  </div>
-</div>
+    <b-tabs @change="getProductsFromDB" position="is-centered" v-model="activeTab">
+      <b-tab-item label="All">
+      </b-tab-item>
+      <b-tab-item label="Popular">
+      </b-tab-item>
+      <b-tab-item label="A-Z">
+        <b-tabs @change="getProductsFromDB" :animated="false" position="is-centered" size="is-small" v-model="activeLetter">
+          <b-tab-item label="A"></b-tab-item>
+          <b-tab-item label="B"></b-tab-item>
+          <b-tab-item label="C"></b-tab-item>
+          <b-tab-item label="D"></b-tab-item>
+          <b-tab-item label="E"></b-tab-item>
+          <b-tab-item label="F"></b-tab-item>
+          <b-tab-item label="G"></b-tab-item>
+          <b-tab-item label="H"></b-tab-item>
+          <b-tab-item label="I"></b-tab-item>
+          <b-tab-item label="J"></b-tab-item>
+          <b-tab-item label="K"></b-tab-item>
+          <b-tab-item label="L"></b-tab-item>
+          <b-tab-item label="M"></b-tab-item>
+          <b-tab-item label="N"></b-tab-item>
+          <b-tab-item label="O"></b-tab-item>
+          <b-tab-item label="P"></b-tab-item>
+          <b-tab-item label="Q"></b-tab-item>
+          <b-tab-item label="R"></b-tab-item>
+          <b-tab-item label="S"></b-tab-item>
+          <b-tab-item label="T"></b-tab-item>
+          <b-tab-item label="V"></b-tab-item>
+          <b-tab-item label="W"></b-tab-item>
+          <b-tab-item label="X"></b-tab-item>
+          <b-tab-item label="Y"></b-tab-item>
+          <b-tab-item label="Z"></b-tab-item>
+        </b-tabs>
+      </b-tab-item>
+    </b-tabs>
+    <div class="container is-fluid">
+      <div class="columns is-multiline">
+        <div class="column is-one-quarter is-one-fifth-desktop is-2-fullhd is-2-widescreen" v-for="product in products" :key="product.id">
+          <product-card :product="product"></product-card>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import ProductCard from './ProductCard.vue'
+
 export default {
-  name: 'ProductGrid',
-  props: {
-    products: [Object]
-  }, 
+  name: 'ProductTest',
+  created() {
+    this.getProductsFromDB()
+  },
+  components: {
+    ProductCard
+  },
   data() {
     return {
-      test: [
-        {name: "Spaceship"},
-        {name: "Pinguin"},
-        {name: "Tree"},
-        {name: "Magic mirror"}
-      ]
+      activeTab: 0,
+      activeLetter: 0,
+      products: []
+    }
+  },
+  methods: {
+    getProductsFromDB(){
+      fetch('http://localhost:5000/api/products/?filter='+this.activeTab+'&letter='+this.activeLetter)
+      .then(response => response.json())
+      .then(result => {
+        this.products = result
+      }).catch(error => {
+          console.log(error.message)
+      })
     }
   }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .card {
-    margin: 15px;
-  }
+  
 </style>

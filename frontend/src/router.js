@@ -20,12 +20,13 @@ export default new VueRouter( {
       path: '/checkout'
       }, {
       component: ProductContainer,
-      path: '/product/:productId?'
+      path: '/product/:Id'
       }, {
       component: NotFoundContainer,
-      path: '/404' }, {
+      path: '/404' 
+      }, {
       redirect: '/404',
       path: '*'
-   }  
+      }
   ]
 });

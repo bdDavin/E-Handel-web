@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "buefy": "^0.7.7",
+    "bulma-o-steps": "^1.0.9",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",
     "vue": "^2.6.10",
