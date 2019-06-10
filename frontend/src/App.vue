@@ -41,11 +41,9 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #D9D872;
   margin-top: 60px;
   /* TODO: Change to $color-backround */
   /* background-color: #454d66;  */
-
 
   /*position:fixed;*/
     padding:0;
