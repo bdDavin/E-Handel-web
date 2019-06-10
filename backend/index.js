@@ -22,26 +22,15 @@ sqlite.open('database.sqlite').then(database_ => {
 app.get('/api/product/:id', (request, response) => {
     //SQL fråga för att hämta produkten med det rätt id
     let id = request.params.id
-    console.log("product id: " +id);
+    console.log("product id: " +id)
+    response.status(230)
 
-    if (id) {
-        response.status(230)
+    database.all('SELECT * FROM products WHERE id=?', [id])
+    .then(rows => {
+        console.log("product fetched")
+        response.send(rows)
+    })
 
-        database.all('SELECT * FROM products WHERE id=?', [id])
-        .then(rows => {
-          console.log("product fetched")
-          response.send(rows)
-        })
-    } else {
-        let testProduct = {
-            'id': 563478,
-            'name':'Dummy Vara',
-            'price': 99999,
-            'description':'Inget id angavs -> /api/product/id',
-            'imageAdress': 'https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwjf0Pi9xc_iAhVYxcQBHRFSBHoQjRx6BAgBEAU&url=https%3A%2F%2Fsv.wikipedia.org%2Fwiki%2FBild_(tidning)&psig=AOvVaw26-XNq7Iz9hVdCheZbR5Xh&ust=1559727934459313'
-        }
-        response.send(testProduct)
-    }
 })
 
 app.get('/api/products/?', (request, response) => {

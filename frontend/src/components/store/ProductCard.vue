@@ -8,8 +8,12 @@
       </div>
       <div class="card-content">
         <div class="level is-mobile">
-          <p class="level-left">{{product.name}}</p>
-          <P class="level-right">{{product.price}}$</P>
+          <div class="level-item">
+            <p class="level-left">{{product.name}}</p>
+          </div>
+          <div class="level-item">
+            <P class="level-right">{{product.price}}$</P>
+          </div>
         </div>
       </div>
     </router-link>
@@ -57,6 +61,7 @@ export default {
   }
   #image{
     border-top-left-radius: 5px;
-    border-top-right-radius: 5px
+    border-top-right-radius: 5px;
+    object-fit: cover;
   }
 </style>
