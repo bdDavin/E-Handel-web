@@ -37,13 +37,19 @@ $colors: (
     "button": ($color-button, $color-button-inverted),
     "background":($color-backround, $color-backround-inverted),
     "text": ($color-text, $color-text-inverted),
-    
+
 );
 
 // Links
 $link: $primary;
 $link-invert: $primary-invert;
 $link-focus-border: $primary;
+
+
+// Checkout page
+.custom-field-size{ max-width: 30em; }
+.custom-numbutton-size{ max-width: 5em; }
+.custom-dropdown-size{ max-width: 11em; }
 
 // Import Bulma and Buefy styles
 @import "~bulma";
