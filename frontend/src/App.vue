@@ -64,7 +64,7 @@ export default {
 html{
   position:relative;
   min-height: 100%;
-  background-color: #D9D872;
+  background-color: white;
 }
 /* Normalize html and body elements,this style is just good to have */
 html,body{

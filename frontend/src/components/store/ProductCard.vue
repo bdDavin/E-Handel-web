@@ -30,7 +30,7 @@ export default {
     productImage() {
       //return this.product.image
       //console.log(this.product);
-      
+
       return 'src/assets/products/' +this.product.id +'.png'
     }
   },
