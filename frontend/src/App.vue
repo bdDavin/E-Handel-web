@@ -14,8 +14,6 @@
   </div>
 </template>
 
-
-
 <script>
 import './style.scss';
 import TopBar from './components/Navbar.vue';
@@ -34,18 +32,15 @@ export default {
 };
 </script>
 
-
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #D9D872;
   margin-top: 60px;
   /* TODO: Change to $color-backround */
   /* background-color: #454d66;  */
-
 
   /*position:fixed;*/
     padding:0;

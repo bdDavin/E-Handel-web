@@ -37,7 +37,7 @@
     </b-tabs>
     <div class="container is-fluid">
       <div class="columns is-multiline">
-        <div class="column is-one-quarter is-one-fifth-desktop is-2-fullhd is-2-widescreen" v-for="product in products" :key="product.id">
+        <div class="column is-one-third" v-for="product in products" :key="product.id">
           <product-card :product="product"></product-card>
         </div>
       </div>
