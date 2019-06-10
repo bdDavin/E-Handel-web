@@ -1,58 +1,30 @@
 
 <template>
 
-  <!-- <div class="columns">
-
-    <div class="column">
-      <figure>
-        <img src="E-Handel-web/frontend/src/assets/dartboard1.jpeg" >
-      </figure>
-    </div>
-
-    <div class="column">
-
-        <h1 class="is-size-5">Dartboard set</h1>
-        <p class="is-size-4">$499</p>
-          <section>
-            <b-button @click="clickMe" size="is-medium">Add to Cart</b-button>
-            <h1> he  </h1>
-          </section>
-
-      </div>
-
-  </div> -->
-
-
-
-<div id="app">
-
-  <div class="container is-fluid">
-
-  <div class="columns">
-
-        <div class="column">
-          <div class="product-image">
+  <div id="app">
+    <div class="container is-fluid">
+     <div class="columns">
+        <div class="column is-half is-gapless">
+          <figure>
             <img src='../../assets/dartboard1.jpeg' >
-          </div>
+          </figure>
         </div>
-
-        <div class="column">
-
+        <div class="column is-half is-gapless">
           <div class="product-info">
-            <h1 class='is-size-3rem'><strong> {{ product }} </strong> </h1>
-            <p v-if="inventory > 10">In Stock</p>
-            <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out</p>
-            <p v-else>Out of Stock</p>
-            <p class="is-size-3rem"> {{ price }}</p>
-
-          </div>
-          <b-button v-on:click="addToCart">Add to Cart</b-button>
-
+            <h1 class='is-size-1'><strong> {{ product }} </strong> </h1>
+            <p class="is-size-3">{{ description }}</p>
+            <p class="is-size-3"> {{ price }}</p>
+           </div>
+            <b-button class="is-size-3" v-on:click="addToCart">Add to Cart</b-button>
+       </div>
+     </div>
+      <div class="columns">
+        <div class="column is-full">
+          
         </div>
+       </div>
+     </div>
   </div>
-  </div>
-</div>
-
 </template>
 
 
@@ -64,10 +36,9 @@ export default {
     return {
       product: 'Dartboard set',
       image: '../../assets/dartboard1.jpeg',
-      inventory: 10,
-      price: 499
-     
-  }
+      price: '$499',
+      description: 'hej'
+    }
   },
   methods: {
     clickMe() {
