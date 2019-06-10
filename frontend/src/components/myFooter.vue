@@ -2,7 +2,7 @@
   <div class="foot">
       <nav class="level">
         <h1 class="level-item has-text-centered">
-          ©No single´s club
+          ©Yardsale Corperation
         </h1>
         <p class="level-item has-text-centered">
           No refunds
