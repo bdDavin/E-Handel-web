@@ -2,10 +2,10 @@
     <div class="cart">
         <!-- <b-dropdown> -->
         <b-dropdown-item aria-role="menu-item" custom paddingless>
-        <form action="">
-            <div class="modal-card" style="width:300px;">
-                <section class="modal-card-body">
-                    <cart-table ></cart-table>
+            <form action="">
+                <div class="modal-card" style="width:300px;">
+                    <section class="modal-card-body">
+                        <cart-table ></cart-table>
                     </section>
                     <footer class="modal-card-foot">
                         <!-- <button class="button is-primary"> -->

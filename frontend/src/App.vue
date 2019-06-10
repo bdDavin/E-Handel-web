@@ -6,9 +6,9 @@
   <div id="app" class="is-backround">
     <div class="pageContentWrapper">
         <TopBar></TopBar>
-        <br>
-        <br>
-        <router-view></router-view>
+        <section class="section">
+          <router-view></router-view>
+        </section>
     </div>
     <my-footer class="myFooter"></my-footer>
   </div>
