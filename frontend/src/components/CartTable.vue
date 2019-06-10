@@ -21,7 +21,7 @@
                 <b-table-column field="name" center label="Product">
                     <router-link :to="'/product/'+props.row.id">
                     <!-- <img :src="props.row.image" alt="image"> -->
-                    <img :src="demoImage" alt="image">
+                    <img :src="productImage(props.row)" alt="image">
                     <br>
                     {{ props.row.name }}
                     </router-link>
@@ -84,6 +84,11 @@
                     tot += product.price * product.quantity
                 });
                 return tot;
+            }
+        },
+        methods: {
+            productImage(product) {
+                return 'src/assets/products/' +product.id +'.png'
             }
         }
     }

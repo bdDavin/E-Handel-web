@@ -23,9 +23,10 @@ export default new VueRouter( {
       path: '/product/:Id'
       }, {
       component: NotFoundContainer,
-      path: '/404' }, {
+      path: '/404' 
+      }, {
       redirect: '/404',
       path: '*'
-   }  
+      }
   ]
 });

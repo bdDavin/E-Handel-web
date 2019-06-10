@@ -35,15 +35,13 @@
         </b-tabs>
       </b-tab-item>
     </b-tabs>
-    <section class="section">
-      <div class="container is-fluid">
-        <div class="columns is-multiline">
-          <div class="column is-one-quarter is-one-fifth-desktop is-2-fullhd is-2-widescreen" v-for="product in products" :key="product.id">
-            <product-card :product="product"></product-card>
-          </div>
+    <div class="container is-fluid">
+      <div class="columns is-multiline">
+        <div class="column is-one-quarter is-one-fifth-desktop is-2-fullhd is-2-widescreen" v-for="product in products" :key="product.id">
+          <product-card :product="product"></product-card>
         </div>
       </div>
-    </section>
+    </div>
   </div>
 </template>
 
@@ -62,7 +60,6 @@ export default {
     return {
       activeTab: 0,
       activeLetter: 0,
-      false: false,
       products: []
     }
   },
