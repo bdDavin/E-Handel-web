@@ -11,7 +11,7 @@ Vue.use(Buefy)
 
 new Vue({
   data: {
-    horse: 'horse'
+    horse: 'horse',
   },
   store,
   router,
