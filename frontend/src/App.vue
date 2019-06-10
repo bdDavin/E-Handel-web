@@ -14,8 +14,6 @@
   </div>
 </template>
 
-
-
 <script>
 import './style.scss';
 import TopBar from './components/Navbar.vue';
@@ -33,7 +31,6 @@ export default {
   },
 };
 </script>
-
 
 <style>
 #app {

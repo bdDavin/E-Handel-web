@@ -19,7 +19,7 @@ sqlite.open('database.sqlite').then(database_ => {
   database = database_
 })
 
-app.get('/api/product/:id?', (request, response) => {
+app.get('/api/product/:id', (request, response) => {
     //SQL fråga för att hämta produkten med det rätt id
     let id = request.params.id
     console.log("product id: " +id);
@@ -27,9 +27,9 @@ app.get('/api/product/:id?', (request, response) => {
     if (id) {
         response.status(230)
 
-        database.all('SELECT * FROM Products WHERE id=?', [id])
+        database.all('SELECT * FROM products WHERE id=?', [id])
         .then(rows => {
-          console.log("product fetched");
+          console.log("product fetched")
           response.send(rows)
         })
     } else {
@@ -93,6 +93,13 @@ app.get('/api/products/?', (request, response) => {
     //     })
     // }
 })
+
+app.post('/api/order', (request, response) => {
+    //Lägg upp order i databasen
+    let newOrder = request.body
+    response.send()
+})
+
 function numberToLetter(n) {
     let letter
     switch (n) {
@@ -177,11 +184,7 @@ function numberToLetter(n) {
     }
     return letter
 }
-app.post('/api/order', (request, response) => {
-    //Lägg upp order i databasen
-    let newOrder = request.body
-    response.send()
-})
+
 app.listen(5000, () => {
     console.log('Service is running')
 })

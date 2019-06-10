@@ -20,7 +20,7 @@ export default new VueRouter( {
       path: '/checkout'
       }, {
       component: ProductContainer,
-      path: '/product/:Id'
+      path: '/product/:id'
       }, {
       component: NotFoundContainer,
       path: '/404' 

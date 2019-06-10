@@ -39,11 +39,8 @@
         <div class="column">
 
           <div class="product-info">
-            <h1 class='is-size-3rem'><strong> {{ product }} </strong> </h1>
-            <p v-if="inventory > 10">In Stock</p>
-            <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out</p>
-            <p v-else>Out of Stock</p>
-            <p class="is-size-3rem"> {{ price }}</p>
+            <h1 class='is-size-3rem'><strong> {{ product.name }} </strong> </h1>
+            <p class="is-size-3rem"> {{ product.price }}</p>
 
           </div>
           <b-button v-on:click="addToCart">Add to Cart</b-button>
@@ -55,31 +52,39 @@
 
 </template>
 
-
-
 <script>
 export default {
   name: 'ProductContainer',
+  created() {
+    this.getProduct()
+  },
   data() {
     return {
-      product: 'Dartboard set',
-      image: '../../assets/dartboard1.jpeg',
-      inventory: 10,
-      price: 499
-     
-  }
+      product: {}
+    }
   },
   methods: {
-    clickMe() {
-
+    addToCart() {
+      this.$store.commit('updateCart', this.product)
+    },
+    getProduct() {
+      let id = this.$route.params.id
+      fetch('http://localhost:5000/api/product/'+id)
+      .then(response => response.json())
+      .then(result => {
+        if (result.length === 1) {
+          this.product = result[0]
+        } else {
+          this.$router.push('/404')
+        }
+      }).catch(error => {
+          console.log(error.message)
+      })
     }
   }
-};
-
-
+}
 </script>
 
 <style scoped>
-
 
 </style>
