@@ -1,5 +1,40 @@
   <template>
     <div class="container">
+      <b-collapse
+        class="panel">
+    <div
+        class="panel-heading"
+        role="button"
+        aria-controls="contentIdForA11y2">
+        <strong>Cart</strong>
+    </div>
+    <section class="box">
+      <b-field grouped position="is-centered">
+
+      <table class="table">
+    <section v-for="item in $store.state.cart">
+      <thead>
+        <th><abbr title="Position">{{item.id}}</abbr></th>
+        <th><abbr title="Image">
+                     <figure class="image is-64x64">
+                        <img :src="productImage(item)" alt="image">
+                    </figure></abbr></th>
+        <th><abbr title="Name">{{item.name}}</abbr></th>
+        <th><abbr title="Quantity">{{item.quantity}}x</abbr></th>
+        <th><abbr title="Price">{{item.price}}$</abbr></th>
+
+      </thead>
+      </section>
+
+
+
+
+    </table>
+
+  </b-field>
+</section>
+</b-collapse>
+
   <b-collapse
         aria-id="contentIdForA11y2"
         class="panel"
@@ -515,7 +550,12 @@ export default {
                 isOpenOne: true,
                 isOpenTwo: false,
                 isOpenThree: false,
-                isOpenFour: false
+                isOpenFour: false,
+            }
+        },
+        methods: {
+            productImage(product) {
+                return '../src/assets/products/' +product.id +'.png'
             }
         }
     }
