@@ -1,10 +1,7 @@
 <template>
   <div>
-    <section class="hero is-large has-bg-img"> 
-      <div class="hero-body">
-        <h1 class="is-title is-large">
-            Welcome!
-          </h1> 
+    <section ref="banner" class="hero is-large has-bg-img"> 
+      <div class="hero-body"> 
         <div class="container has-text-centered">
           <button ref="rButton" class="button is-large is-button is-one-fifth" @click="randomTapped">
             Generate!
@@ -52,6 +49,7 @@ export default {
       let delayres = await delay(3000);
       
       let rButton = that.$refs.rButton
+      let banner = that.$refs.banner
       
       anime({
         targets: rButton,
@@ -60,6 +58,10 @@ export default {
         duration: 2000,
         easing: 'linear',
         direction: 'alternate',
+        translateX:[
+          {translateX: 0, duration: 4000},
+          {translateX: 800, duration: 4000}
+        ],
       });
     }
     delayFunction();     
