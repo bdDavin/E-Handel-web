@@ -3,10 +3,10 @@
         <b-table :data="data" :columns="columns"
             :striped="false" :hoverable="true" :checkable="false"
             class="has-text-center">
-            
+
             <!-- row template -->
             <template slot-scope="props">
-                
+
                 <b-table-column center field="remove" label="" width="40" numeric>
                     <a @click="$store.commit('removeItem', props.row)">
                 <b-icon
@@ -17,13 +17,16 @@
                 </b-icon>
                 </a>
                 </b-table-column>
-                
+
                 <b-table-column field="name" center label="Product">
                     <router-link :to="'/product/'+props.row.id">
                     <!-- <img :src="props.row.image" alt="image"> -->
-                    <img :src="productImage(props.row)" alt="image">
-                    <br>
+                    <figure class="image is-64x64">
+                    <img id="image":src="productImage(props.row)" alt="image">
                     {{ props.row.name }}
+                    </figure>
+
+
                     </router-link>
                 </b-table-column>
 
@@ -48,20 +51,20 @@
                 <b-table-column field="price" label="Price" width="40" numeric>
                     {{ props.row.price * props.row.quantity }}
                 </b-table-column>
-            
+
             </template>
-            
+
 
 
 
 
         </b-table>
         <div slot="footer" class="is-fullwidth">
-        
+
             <div class="has-text-weight-bold is-fullwidth">
                  <div class="has-text-center is-fullwidth is-centered">
-                     Total &nbsp; &nbsp; &nbsp; ${{totalCartPrice}} &nbsp; 
-                 </div>     
+                     Total &nbsp; &nbsp; &nbsp; ${{totalCartPrice}} &nbsp;
+                 </div>
             </div>
         </div>
     </div>
@@ -94,4 +97,6 @@
     }
 </script>
 
-
+<style>
+  object-fit: cover;
+</style>
