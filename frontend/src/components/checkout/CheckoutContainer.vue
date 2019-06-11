@@ -6,33 +6,11 @@
         class="panel-heading"
         role="button"
         aria-controls="contentIdForA11y2">
-        <strong>Cart</strong>
+        <strong>Checkout</strong>
     </div>
     <section class="box">
-      <b-field grouped position="is-centered">
-
-      <table class="table">
-    <section v-for="item in $store.state.cart">
-      <thead>
-        <th><abbr title="Position">{{item.id}}</abbr></th>
-        <th><abbr title="Image">
-                     <figure class="image is-64x64">
-                        <img :src="productImage(item)" alt="image">
-                    </figure></abbr></th>
-        <th><abbr title="Name">{{item.name}}</abbr></th>
-        <th><abbr title="Quantity">{{item.quantity}}x</abbr></th>
-        <th><abbr title="Price">{{item.price}}$</abbr></th>
-
-      </thead>
-      </section>
-
-
-
-
-    </table>
-
-  </b-field>
-</section>
+      <cart-table></cart-table>
+    </section>
 </b-collapse>
 
   <b-collapse
@@ -94,7 +72,7 @@
 </li>
 </ul>
 </b-field>
-<br>
+  <br>
 <b-field grouped position="is-centered">
   <b-field class="is-expanded custom-field-size">
       <div class="control has-icons-left">
@@ -544,7 +522,11 @@ export default {
 </style>
 
 <script>
+    import CartTable from '../CartTable.vue'
     export default {
+      components: {
+        CartTable
+      },
         data() {
             return {
                 isOpenOne: true,

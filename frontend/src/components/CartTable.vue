@@ -21,9 +21,12 @@
                 <b-table-column field="name" center label="Product">
                     <router-link :to="'/product/'+props.row.id">
                     <!-- <img :src="props.row.image" alt="image"> -->
-                    <img :src="productImage(props.row)" alt="image">
-                    <br>
+                    <figure class="image is-64x64">
+                    <img id="image":src="productImage(props.row)" alt="image">
                     {{ props.row.name }}
+                    </figure>
+
+
                     </router-link>
                 </b-table-column>
 
@@ -93,3 +96,7 @@
         }
     }
 </script>
+
+<style>
+  object-fit: cover;
+</style>
