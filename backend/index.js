@@ -191,7 +191,7 @@ app.get('/api/randomProduct', (request, response) => {
         database.all('SELECT * FROM Products WHERE id = ?',[index])
             .then(randomProduct => {
                 //response.sendStatus(302)
-                response.send(randomProduct)
+                response.send(randomProduct[0])
         })
     })
     
