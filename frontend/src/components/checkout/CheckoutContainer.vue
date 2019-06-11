@@ -135,7 +135,7 @@
      <div class="block">
        <button
        class="button is-medium is-button"
-       @click="isOpenTwo = !isOpenTwo"
+       @click="isOpenTwo = !isOpenTwo ; isOpenOne =! isOpenOne"
        aria-controls="contentIdForA11y2">
        Continue
      </button>
@@ -276,7 +276,7 @@ Shipping details collapse
    <div class="block">
      <button
      class="button is-medium is-button"
-     @click="isOpenThree = !isOpenThree"
+     @click="isOpenThree = !isOpenThree ; isOpenTwo = !isOpenTwo"
      aria-controls="contentIdForA11y2">
      Continue
    </button>
@@ -421,7 +421,7 @@ Payment
      <div class="block">
        <button
        class="button is-medium is-button"
-       @click="isOpenFour = !isOpenFour"
+       @click="isOpenFour = !isOpenFour ; isOpenThree = !isOpenThree ; newOrder()"
        aria-controls="contentIdForA11y2">
        Continue
      </button>
@@ -538,6 +538,18 @@ export default {
         methods: {
             productImage(product) {
                 return '../src/assets/products/' +product.id +'.png'
+            },
+            newOrder() {
+            fetch('http://localhost:8080/api/order', {
+              body: '{ "name": "Teststad", "population": 123 }',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              method: 'POST' }).then(function (response) {
+                return response.json()
+              }).then(function (result) {
+                console.log(result)
+              })
             }
         }
     }
