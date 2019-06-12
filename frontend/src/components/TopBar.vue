@@ -51,15 +51,15 @@
 </template>
 
 <script>
-import CartDropDown from './CartDropDown.vue'
 import CartTable from './CartTable.vue'
 export default {
-  computed: {
-
-  },
   name: 'Navbar',
+  watch: {
+      $route (to, from){
+          this.burgerTapped()
+      }
+  },
   components: {
-    CartDropDown,
     CartTable
   },
   data: function () {

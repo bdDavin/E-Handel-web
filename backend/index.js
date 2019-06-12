@@ -38,35 +38,33 @@ app.get('/api/products/?', (request, response) => {
     //på filtret och sökning
     const filter = request.query.filter
     const letter = request.query.letter
+    const offset = 15 * (request.query.page - 1)    
     //order = asc or decs
     const order = request.query.order
     const searchTerm = request.query.term
-
     if (filter === '0') {
         console.log('all products')
-        database.all('SELECT * FROM products ORDER BY id desc')
+        database.all('SELECT *, count(*) OVER() AS full_count FROM products ORDER BY id desc LIMIT 15 OFFSET ?',[offset])
         .then(rows => {
             //rows kommer att vara en array
             console.log(rows)
-            
             response.send(rows)
         })
     } else if (filter === '1'){
         console.log('popular products')
-        //Alla populära
-        console.log('popular products')
-        database.all('SELECT * FROM products ORDER BY sales desc LIMIT 15')
+        database.all('SELECT *, 15 AS full_count FROM products ORDER BY sales desc LIMIT 15')
         .then(rows => {
             //rows kommer att vara en array
+            console.log(rows)
             response.send(rows)
         })
     } else if (filter === '2'){
         console.log('filter by letter'+ letter)
         let n = numberToLetter(letter)+'%'
-        console.log(n)
-        database.all('SELECT * FROM products WHERE name LIKE ?', [n])
+        database.all('SELECT *, count(*) OVER() AS full_count FROM products WHERE name LIKE ? ORDER BY id desc LIMIT 15 OFFSET ?', [n, offset])
         .then(rows => {
             //rows kommer att vara en array
+            console.log(rows)
             response.send(rows)
         })
     }
