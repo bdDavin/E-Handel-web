@@ -22,7 +22,7 @@
                     <router-link :to="'/product/'+props.row.id">
                     <!-- <img :src="props.row.image" alt="image"> -->
                     <figure class="image is-64x64">
-                    <img id="image":src="productImage(props.row)" alt="image">
+                    <img id="image" :src="productImage(props.row)" alt="image">
                     {{ props.row.name }}
                     </figure>
 
@@ -53,11 +53,6 @@
                 </b-table-column>
 
             </template>
-
-
-
-
-
         </b-table>
         <div slot="footer" class="is-fullwidth">
 
@@ -98,5 +93,7 @@
 </script>
 
 <style>
-  object-fit: cover;
+    #image {
+        object-fit: cover;
+    }
 </style>

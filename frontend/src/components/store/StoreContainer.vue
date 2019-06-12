@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <product-grid></product-grid>
-  </div>
+  <product-grid></product-grid>
 </template>
 
 <script>
-import ProductGrid from './productGrid.vue'
+import ProductGrid from './ProductGrid.vue'
 
 export default {
   name: 'StoreContainer',
