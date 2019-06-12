@@ -1,0 +1,84 @@
+<template>
+  <div ref="grid" class="contair">
+    <div class="container is-fluide">
+      <div class="columns is-multilinee">
+        <div class="column is-mobile is-one-fifth" v-for="product in products" :key="product.id">
+          <product-card ref="product" :product="product"></product-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import ProductCard from '../store/ProductCard.vue'
+import anime from 'animejs';
+
+export default {
+  name: 'ProductTest',
+  created() {
+    this.getProductsFromDB()  
+  },
+  mounted() {
+      let startAnimation = this.startGridAnimation
+
+      async function delay(delayInms) {
+      return new Promise(resolve  => {
+        setTimeout(() => {
+          resolve(2);
+        }, delayInms);
+      });
+    }
+    async function delayFunction() {
+      let delayres = await delay(3000);
+      startAnimation()
+    }
+    delayFunction();     
+  },
+  components: {
+    ProductCard
+  },
+  data() {
+    return {
+      activeTab: 0,
+      activeLetter: 0,
+      products: []
+    }
+  },
+  methods: {
+    getProductsFromDB(){
+      fetch('http://localhost:5000/api/products/?filter='+this.activeTab+'&letter='+this.activeLetter)
+      .then(response => response.json())
+      .then(result => {
+        this.products = result
+      }).catch(error => {
+          console.log(error.message)
+      })
+    },
+    startGridAnimation() {
+        let grid = this.$refs.grid
+        let pArray = this.$refs.product
+        let divArray = []
+
+        pArray.forEach(p => {
+            divArray.push(p.$el)
+        });
+        anime({
+        targets: divArray,
+        translateX: [
+            { value: -1500},
+            { value: 0},      
+        ],
+        loop: true,
+        duration: 140000,
+        autoplay: true,
+        easing: 'linear',
+        });
+    }
+  }
+};
+</script>
+
+<style scoped>
+  
+</style>

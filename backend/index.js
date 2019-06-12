@@ -180,3 +180,22 @@ function numberToLetter(n) {
 app.listen(5000, () => {
     console.log('Service is running')
 })
+
+app.get('/api/randomProduct', (request, response) => {
+    response.status(302)
+    //SQL fråga för att hämta produkten med det rätt id
+    database.all('SELECT COUNT(*) AS count FROM Products')
+    .then(numberOfProducts => {
+        
+        let min=0; 
+        let max=numberOfProducts[0].count - 1;  
+         let index = Math.round(Math.random() * (+max - +min) +min )
+        // response.send("index")
+        database.all('SELECT * FROM Products WHERE id = ?',[index])
+            .then(randomProduct => {
+                //response.sendStatus(302)
+                response.send(randomProduct[0])
+        })
+    })
+    
+})

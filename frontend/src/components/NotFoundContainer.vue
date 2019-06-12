@@ -1,14 +1,24 @@
 <template>
   <div>
-    <div class="container">
-      <h1 class="title is-1">Page not found</h1>
+    <div class="container" ref="notFound">
+      <h1 id="hej" class="title is-1 item">Page not found</h1>
     </div>
   </div>
 </template>
 
 <script>
+import anime from 'animejs';
 export default {
-  name: 'StoreContainer'
+  created() {
+    // let elements = document.querySelectorAll('#hej');
+    // let a = this.$refs.notFound
+    // anime({
+    //     targets: el.querySelectorAll('.item'),
+    //     rotate: '4turn',
+    //     duration: 3000
+    //   });
+  },
+  name: 'NotFoundContainer'
 };
 </script>
 

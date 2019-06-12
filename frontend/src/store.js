@@ -6,29 +6,29 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    
+
     cart: [
-        // { 'price': 200, 'name': 'Horse', 'quantity': 1, 'id': 2},
-        // { 'price': 40, 'name': 'Dog', 'quantity': 1, 'id': 2 },
-        // { 'price': 600, 'name': 'Elephant', 'quantity': 3, 'id': 2},
-        // { 'price': 45, 'name': 'Tiger', 'quantity': 1, 'id': 2},
-        // { 'price': 59, 'name': 'Snowman', 'quantity': 2, 'id': 2},
+        { 'price': 200, 'name': 'Horse', 'quantity': 1, 'id': 1},
+        { 'price': 40, 'name': 'Dog', 'quantity': 1, 'id': 2 },
+        { 'price': 600, 'name': 'Elephant', 'quantity': 3, 'id': 3},
+        { 'price': 45, 'name': 'Tiger', 'quantity': 1, 'id': 4},
+        { 'price': 59, 'name': 'Snowman', 'quantity': 2, 'id': 5},
     ],
     productFilter: {tab: 0, letter: 0},
     products: []
   },
   getters: {
-    priceMultiplier() { 
+    priceMultiplier() {
       //in procent
-      let min = 80; 
+      let min = 80;
 
       // 100 = default
 
-      let max = 250;  
+      let max = 250;
 
-      let random = Math.random() * (+max - +min) + min; 
+      let random = Math.random() * (+max - +min) + min;
       console.log(random);
-      
+
       //return value between 0.8 and 2.5 ∞∞∞ 80 250
       return random / 100
     }
@@ -53,13 +53,13 @@ export default new Vuex.Store({
       //add quantity if allready in cart
       for (let i = 0; i < state.cart.length; i+= 1) {
         const cartProduct = state.cart[i];
-        
+
         if(cartProduct.id === product.id) {
-          
+
           if(state.cart[i].quantity > 1) {
 
             state.cart[i].quantity -=  1//product.quantity
-          
+
             //update cart
             state.cart.push({})
             state.cart.pop()
@@ -72,7 +72,7 @@ export default new Vuex.Store({
       }
     },
     updateCart(state, product) {
-    
+
       if(!product.quantity) {
         product.quantity = 1
       }
@@ -80,9 +80,9 @@ export default new Vuex.Store({
      //add quantity if allready in cart
       for (let i = 0; i < state.cart.length; i+= 1) {
         const cartProduct = state.cart[i];
-        
+
         if(cartProduct.id === product.id) {
-          
+
           state.cart[i].quantity +=  1//product.quantity
 
           //update cart
@@ -102,7 +102,7 @@ export default new Vuex.Store({
       /*+context.state.productFilter.tab+'/'+context.state.productFilter.letter*/)
       .then(response => response.json())
       .then(result => {
-        
+
         //TODO: testing with price multiplier
         result.forEach(product => {
           let multiplier = context.getters.priceMultiplier
@@ -110,9 +110,9 @@ export default new Vuex.Store({
           product.price /= 10
           product.price = Math.round(product.price)
           product.price *= 10
-          
+
           console.log(product);
-          
+
           //set image
           product.image = 'src/assets/products/' +product.id +'.png'
         });
