@@ -1,9 +1,9 @@
 <template>
   <div ref="grid" class="contair">
     <div class="container is-fluide">
-      <div class="columns is-multilinee">
-        <div class="column is-mobile is-one-fifth" v-for="product in products" :key="product.id">
-          <product-card ref="product" :product="product"></product-card>
+      <div class="columns is-mobile">
+        <div class="column" v-for="product in products" :key="product.id">
+          <product-card ref="product" :isHoverable="false" :product="product"></product-card>
         </div>
       </div>
     </div>
@@ -30,7 +30,7 @@ export default {
       });
     }
     async function delayFunction() {
-      let delayres = await delay(3000);
+      let delayres = await delay(1000);
       startAnimation()
     }
     delayFunction();     
