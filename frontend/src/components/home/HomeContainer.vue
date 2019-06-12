@@ -75,7 +75,7 @@ export default {
     },
     randomTapped() {
       let destination = '/product/'+this.randomProduct.id
-      
+      window.scrollTo(0, 90)
       this.breathAnimation.pause()
 
       //animate

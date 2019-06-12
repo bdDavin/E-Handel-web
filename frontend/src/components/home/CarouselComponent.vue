@@ -15,7 +15,7 @@ import ProductCard from '../store/ProductCard.vue'
 import anime from 'animejs';
 
 export default {
-  name: 'ProductTest',
+  name: 'ProductSlider',
   created() {
     this.getProductsFromDB()  
   },
@@ -46,10 +46,15 @@ export default {
     }
   },
   methods: {
-    getProductsFromDB(){
-      fetch('http://localhost:5000/api/products/?filter='+this.activeTab+'&letter='+this.activeLetter)
+    getProductsFromDB(payload){
+      fetch('http://localhost:5000/api/products/?filter=1')
       .then(response => response.json())
       .then(result => {
+        if (result.length === 0) {
+          this.totalCount = 0
+        }else {
+          this.totalCount = result[0].full_count
+        }
         this.products = result
       }).catch(error => {
           console.log(error.message)

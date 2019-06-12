@@ -108,9 +108,6 @@ export default {
   components: {
     CartDropDown
   },
-  props: {
-    msg: String,
-  },
   methods: {
       burgerTapped() {
         this.$refs.navMenu.classList.toggle('is-active')

@@ -60,7 +60,7 @@
 import ProductCard from './ProductCard.vue'
 
 export default {
-  name: 'ProductTest',
+  name: 'ProductGrid',
   created() {
     this.getProductsFromDB(1)
   },

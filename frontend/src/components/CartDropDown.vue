@@ -21,7 +21,7 @@
 <script>
 import CartTable from './CartTable.vue';
 export default {
-    name: 'Navbar',
+    name: 'CartDropDown',
     components: {
         CartTable
     },
