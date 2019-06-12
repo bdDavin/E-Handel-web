@@ -35,13 +35,23 @@
         </b-tabs>
       </b-tab-item>
     </b-tabs>
-    <div class="container is-fluid">
+    <section class="section">
       <div class="columns is-multiline">
-        <div class="column is-one-third" v-for="product in products" :key="product.id">
+        <div class="column is-one-third" v-for="product in productsToShow" :key="product.id">
           <product-card :product="product"></product-card>
         </div>
       </div>
-    </div>
+      <b-pagination @change="pageChanged"
+            :total="products.length"
+            :current.sync="currentPage"
+            order="is-centered"
+            :per-page="productsPerPage"
+            aria-next-label="Next page"
+            aria-previous-label="Previous page"
+            aria-page-label="Page"
+            aria-current-label="Current page">
+        </b-pagination>
+    </section>
   </div>
 </template>
 
@@ -58,9 +68,12 @@ export default {
   },
   data() {
     return {
+      currentPage: 1,
+      productsPerPage: 15,
       activeTab: 0,
       activeLetter: 0,
-      products: []
+      products: [],
+      productsToShow: []
     }
   },
   methods: {
@@ -72,11 +85,19 @@ export default {
       }).catch(error => {
           console.log(error.message)
       })
+    },
+    pageChanged(payload) {
+      let start = this.productsPerPage * (payload - 1)
+      let end = this.productsPerPage * payload
+
+      this.productsToShow = this.products.slice(start,end)
     }
   }
 };
 </script>
 
 <style scoped>
-  
+.section {
+  padding-top: 1em;
+}
 </style>

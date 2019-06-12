@@ -12,7 +12,7 @@
             <p class="level-left">{{product.name}}</p>
           </div>
           <div class="level-item">
-            <P class="level-right">{{product.price}}$</P>
+            <P class="level-right">${{product.price}}</P>
           </div>
         </div>
       </div>

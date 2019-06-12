@@ -50,11 +50,6 @@
                 </b-table-column>
             
             </template>
-            
-
-
-
-
         </b-table>
         <div slot="footer" class="is-fullwidth">
         

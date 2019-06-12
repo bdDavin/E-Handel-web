@@ -44,7 +44,7 @@ app.get('/api/products/?', (request, response) => {
 
     if (filter === '0') {
         console.log('all products')
-        database.all('SELECT * FROM products')
+        database.all('SELECT * FROM products ORDER BY id desc')
         .then(rows => {
             //rows kommer att vara en array
             console.log(rows)
@@ -54,7 +54,12 @@ app.get('/api/products/?', (request, response) => {
     } else if (filter === '1'){
         console.log('popular products')
         //Alla populära
-        response.send([{id: 1, name: 'Popis', price: 499}])
+        console.log('popular products')
+        database.all('SELECT * FROM products ORDER BY sales desc LIMIT 15')
+        .then(rows => {
+            //rows kommer att vara en array
+            response.send(rows)
+        })
     } else if (filter === '2'){
         console.log('filter by letter'+ letter)
         let n = numberToLetter(letter)+'%'

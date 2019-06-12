@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: 'Navbar',
+  name: 'MyFooter',
   props: {
     msg: String,
   }
