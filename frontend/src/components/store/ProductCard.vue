@@ -7,9 +7,11 @@
         </figure>
       </div>
       <div class="card-content">
-        <div class="level is-mobile">
+        <div class=" is-mobile">
           <div class="level-item">
-            <p class="level-left">{{product.name}}</p>
+            <!-- <p class="level-left">{{product.name.substring(0,20)}}</p>
+            <p v-if="product.name.length > 20">...</p> -->
+             <p class="level-left">{{product.name}}</p>
           </div>
           <div class="level-item">
             <P class="level-right">${{product.price}}</P>
