@@ -61,13 +61,12 @@ export default {
     },
   },
   watch: {
-      $route (to, from){
-        this.burgerTapped()
-        this.cartIsActive = false,
+    $route (to, from){
         this.burgerIsActive = false
-      },
-      cartItems (newCount, oldCount) {
-      this.bounceCart()
+        this.cartIsActive = false
+    },
+    cartItems (newCount, oldCount) {
+        this.bounceCart()
     }
   },
   components: {

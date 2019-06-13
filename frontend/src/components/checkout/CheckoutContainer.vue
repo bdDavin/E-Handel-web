@@ -1,4 +1,4 @@
-  <template>
+<template>
     <div class="container">
       <b-collapse
         class="panel">
@@ -524,6 +524,9 @@ export default {
 <script>
     import CartTable from '../CartTable.vue'
     export default {
+      created() {
+        
+      },
       components: {
         CartTable
       },
@@ -540,17 +543,21 @@ export default {
                 return '../src/assets/products/' +product.id +'.png'
             },
             newOrder() {
-            fetch('http://localhost:8080/api/order', {
+            fetch('http://localhost:5000/api/order', {
               body: '{ "name": "Teststad", "population": 123 }',
               headers: {
                 'Content-Type': 'application/json'
               },
-              method: 'POST' }).then(function (response) {
+            method: 'POST'
+            }).then(function (response) {
                 return response.json()
-              }).then(function (result) {
+            }).then(function (result) {
                 console.log(result)
-              })
-            }
+            })
+          },
+          testing() {
+
+          }
         }
     }
 </script>
