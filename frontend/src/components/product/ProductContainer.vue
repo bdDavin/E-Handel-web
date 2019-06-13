@@ -1,33 +1,37 @@
 
 <template>
-
-  <div id="app">
     <div class="container is-fluid">
      <div class="columns">
-        <div class="column is-half is-gapless">
-          <figure>
+        <div class="image-column column">
+          <figure class="image is-4by3" >
             <img id="image" :src="productImage" alt="Placeholder image">
           </figure>
         </div>
-        <div class="column is-half is-gapless">
-          <div class="product-info">
+        <div class="product-info column">
             <h1 class='is-size-1'><strong> {{ product.name }} </strong> </h1>
-            <p class="is-size-4">{{ product.description }}</p>
-            <p class="is-size-3"> ${{ product.price }}</p>
-           </div>
-            <b-button class="is-size-3" v-on:click="addToCart">Add to Cart</b-button>
+            <p class="is-size-3">Price: ${{ product.price }}</p>
+            <b-button class="is-size-3 is-button" v-on:click="addToCart">Add to Cart</b-button>
        </div>
      </div>
-      <div class="columns">
-        <div class="column is-full">
-          
+     <div class="columns">
+       <div class="column">
+         <h2 class="is-size-3"> <strong> Description </strong> </h2>
+         <p class="description is-size-4 "> {{ product.description }} </p>
+       </div>
+     </div>
+      <div class="container is-fluid">
+        <h2> <strong> YOU MIGHT ALSO LIKE </strong> </h2>
+           <div class="column is-one-quarter">
+           <product-slider></product-slider>
         </div>
-       </div>
-     </div>
-  </div>
+      </div>
+    </div>
 </template>
 
 <script>
+
+import ProductSlider from '../home/CarouselComponent.vue'
+
 export default {
   name: 'ProductContainer',
   created() {
@@ -35,13 +39,16 @@ export default {
   },
   data() {
     return {
-      product: {}
+      product: {},
     }
   },
   computed: {
     productImage() {
       return 'src/assets/products/' +this.product.id +'.png'
     }
+  },
+  components: {
+    ProductSlider
   },
   methods: {
     addToCart() {
@@ -60,11 +67,24 @@ export default {
       }).catch(error => {
           console.log(error.message)
       })
-    }
+    },
   }
 }
 </script>
 
 <style scoped>
 
+.product-info {
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  margin: 20;
+}
+.description {
+  text-align: start;
+}
+
+#image {
+  border-radius: 5px;
+}
 </style>

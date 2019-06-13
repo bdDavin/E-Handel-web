@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section ref="banner" class="hero is-large has-bg-img"> 
+    <section ref="banner" class="hero is-medium has-bg-img"> 
       <div class="hero-body"> 
         <div class="container has-text-centered">
           <a class="button is-button is-large" ref="rButton" @click="randomTapped">Get Product!</a>
@@ -19,9 +19,6 @@
 <script>
 import bCarousel from './CarouselComponent.vue';
 import anime from 'animejs';
-
-
-
 
 //delay
 async function delay(delayInms) {
@@ -62,7 +59,6 @@ export default {
   methods: {
     startAnimate() {
       let rButton = this.$refs.rButton
-      let banner = this.$refs.banner
       
       this.breathAnimation = anime({
         targets: rButton,
@@ -75,24 +71,19 @@ export default {
     },
     randomTapped() {
       let destination = '/product/'+this.randomProduct.id
-      window.scrollTo(0, 90)
       this.breathAnimation.pause()
 
       //animate
       let rButton = this.$refs.rButton
-      let banner = this.$refs.banner
       
       anime({
         targets: rButton,
-        height: {value: banner.clientHeight, delay: 500, duration:500},
-        width: {value: banner.clientWidth, duration:500},
-        background: {value: '#FFF', duration:500},
+        rotate: {value:720},
         duration: 1000,
-        easing: 'linear',
+        easing: 'easeInQuart',
       })
       
-
-      //browse product
+      //browse product page
       delayFunction(()=> {
         this.$router.push(destination)
       }, 1000)
@@ -107,8 +98,6 @@ export default {
           console.log(error.message)
       })
     },
-    
-    
   }
 }
 </script>
@@ -119,6 +108,7 @@ export default {
     background-size:cover; 
     margin: 0;
     padding: 0;
+    /* height: 50%; */
   }
 
   button {
@@ -126,9 +116,11 @@ export default {
     width: 20%;
   }
 
+  .hero {
+    height: 50%;
+  }
+
   .button.is-large {
-
     font-size: 1.5rem;
-
-}
+  } 
 </style>

@@ -7,9 +7,11 @@
         </figure>
       </div>
       <div class="card-content">
-        <div class="level is-mobile">
+        <div class=" is-mobile">
           <div class="level-item">
-            <p class="level-left">{{product.name}}</p>
+            <!-- <p class="level-left">{{product.name.substring(0,20)}}</p>
+            <p v-if="product.name.length > 20">...</p> -->
+             <p class="level-left">{{product.name}}</p>
           </div>
           <div class="level-item">
             <P class="level-right">${{product.price}}</P>
@@ -18,7 +20,7 @@
       </div>
     </router-link>
     <div class="card-footer">
-      <div class="card-footer-item">
+      <div v-if="buttonIsVisible" class="card-footer-item">
         <a class="button is-button is-medium is-fullwidth" @click="addToCart">Add to cart</a>
       </div>
     </div>
@@ -34,12 +36,16 @@ export default {
     },
     productImage() {
       return 'src/assets/products/' +this.product.id +'.png'
-    }
+    },
   },
   name: 'ProductCard',
   props: {
     product: {},
     isHoverable: {
+      type: Boolean,
+      default: true,
+    },
+    buttonIsVisible: {
       type: Boolean,
       default: true,
     }
@@ -67,13 +73,15 @@ export default {
       this.$store.commit('updateCart', this.product)
       
       let card = this.$refs.card
+      
       anime({
         targets: card,
         scale: [
           { value: 0},
           { value: 1},
         ],
-        duration: 600,
+        duration: 300,
+        easing: 'linear',
       });
     }
   }
