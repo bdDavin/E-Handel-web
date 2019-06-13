@@ -19,7 +19,7 @@
             </div>
             <div class="navbar-end">
                 <div class="navbar-item" v-bind:class="{'is-active': cartIsActive}">
-                    <a @click="cartTapped" class="button is-white navbar-link is-arrowless">
+                    <a @click="cartTapped" ref="cart" class="button is-white navbar-link is-arrowless">
                         <b-icon v-if="!cartIsActive"
                             pack="fas"
                             icon="shopping-cart"
@@ -32,10 +32,10 @@
                         </b-icon>
                     </a>
                     <div class="navbar-dropdown is-right">
-                        <div v-if="$store.state.cart.length > 0" class="navbar-item">
+                        <div v-if="$store.state.cart.length > 0 && cartIsActive" class="navbar-item">
                             <cart-table></cart-table>
                         </div>
-                        <div v-if="$store.state.cart.length > 0" class="navbar-item">
+                        <div v-if="$store.state.cart.length > 0 && cartIsActive" class="navbar-item">
                             <router-link to="/checkout" class="is-button button is-fullwidth">
                             Checkout
                             </router-link>
@@ -52,13 +52,22 @@
 
 <script>
 import CartTable from './CartTable.vue'
+import anime from 'animejs';
 export default {
   name: 'Navbar',
+  computed: {
+      cartItems() {
+      return this.$store.state.cart.length
+    },
+  },
   watch: {
-      $route (to, from){
-          this.burgerIsActive = false
-          this.cartIsActive = false
-      }
+    $route (to, from){
+        this.burgerIsActive = false
+        this.cartIsActive = false
+    },
+    cartItems (newCount, oldCount) {
+        this.bounceCart()
+    }
   },
   components: {
     CartTable
@@ -76,8 +85,21 @@ export default {
     },
     cartTapped() {
         this.cartIsActive = !this.cartIsActive
-
-    }
+    },
+    bounceCart() {
+        let cart = this.$refs.cart
+        
+        anime({
+          targets: cart,
+          translateY: [
+            {value: -10},
+          ],
+          scale: 1.2,
+          duration: 50,
+          easing: 'linear',
+          direction: 'alternate',
+        });
+      }
   }
 };
 </script>

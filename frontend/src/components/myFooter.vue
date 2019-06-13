@@ -1,8 +1,8 @@
 <template>
   <div class="foot">
-      <nav class="level">
-        <h1 class="level-item has-text-centered">
-          ©Yardsale Corperation
+      <nav class="level is-mobile">
+        <h1 class="level-item has-text-centered ">
+          ©Yardsale Corporation
         </h1>
         <p class="level-item has-text-centered">
           No refunds

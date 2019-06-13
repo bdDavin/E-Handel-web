@@ -1,9 +1,9 @@
 <template>
   <div ref="grid" class="contair">
     <div class="container is-fluide">
-      <div class="columns is-multilinee">
-        <div class="column is-mobile is-one-fifth" v-for="product in products" :key="product.id">
-          <product-card ref="product" :product="product"></product-card>
+      <div class="columns is-mobile">
+        <div class="column" v-for="product in products" :key="product.id">
+          <product-card ref="product" :isHoverable="false" :product="product"></product-card>
         </div>
       </div>
     </div>
@@ -15,7 +15,7 @@ import ProductCard from '../store/ProductCard.vue'
 import anime from 'animejs';
 
 export default {
-  name: 'ProductTest',
+  name: 'ProductSlider',
   created() {
     this.getProductsFromDB()  
   },
@@ -30,7 +30,7 @@ export default {
       });
     }
     async function delayFunction() {
-      let delayres = await delay(3000);
+      let delayres = await delay(1000);
       startAnimation()
     }
     delayFunction();     
@@ -46,10 +46,15 @@ export default {
     }
   },
   methods: {
-    getProductsFromDB(){
-      fetch('http://localhost:5000/api/products/?filter='+this.activeTab+'&letter='+this.activeLetter)
+    getProductsFromDB(payload){
+      fetch('http://localhost:5000/api/products/?filter=1')
       .then(response => response.json())
       .then(result => {
+        if (result.length === 0) {
+          this.totalCount = 0
+        }else {
+          this.totalCount = result[0].full_count
+        }
         this.products = result
       }).catch(error => {
           console.log(error.message)

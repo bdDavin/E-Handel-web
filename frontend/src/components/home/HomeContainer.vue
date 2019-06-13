@@ -1,14 +1,9 @@
 <template>
   <div>
-    <section class="hero is-large has-bg-img"> 
-      <div class="hero-body">
-        <h1 class="is-title is-large">
-            Welcome!
-          </h1> 
+    <section ref="banner" class="hero is-large has-bg-img"> 
+      <div class="hero-body"> 
         <div class="container has-text-centered">
-          <button ref="rButton" class="button is-large is-button is-one-fifth" @click="randomTapped">
-            Generate!
-          </button>
+          <a class="button is-button is-large" ref="rButton" @click="randomTapped">Get Product!</a>
         </div> 
       </div>
     </section>
@@ -27,6 +22,22 @@ import anime from 'animejs';
 
 
 
+
+//delay
+async function delay(delayInms) {
+  return new Promise(resolve  => {
+    setTimeout(() => {
+      resolve(2);
+    }, delayInms);
+  });
+} 
+
+//call this
+async function delayFunction(f, delayTime) {
+  let delayres = await delay(delayTime);
+  f()
+}
+
 export default {
   name: 'HomeContainer',
   components: {
@@ -34,43 +45,58 @@ export default {
   },
   data() {
     return {
-      randomProduct: null
+      randomProduct: null,
+      breathAnimation: null
     }
   },
   mounted() {
-      this.getRandomProductsFromDB()
-
-      async function delay(delayInms) {
-      return new Promise(resolve  => {
-        setTimeout(() => {
-          resolve(2);
-        }, delayInms);
-      });
-    } 
-    let that = this
-    async function delayFunction() {
-      let delayres = await delay(3000);
+    this.getRandomProductsFromDB()
+    delayFunction(this.startAnimate, 1000);   
+    
+  },
+  data() {
+    return {
+      breathe: true
+    }
+  },
+  methods: {
+    startAnimate() {
+      let rButton = this.$refs.rButton
+      let banner = this.$refs.banner
       
-      let rButton = that.$refs.rButton
-      
-      anime({
+      this.breathAnimation = anime({
         targets: rButton,
         scale: 1.2,
-        loop: true,
+        loop: this.breathe,
         duration: 2000,
         easing: 'linear',
         direction: 'alternate',
       });
-    }
-    delayFunction();     
-  },
-
-  methods: {
+    },
     randomTapped() {
       let destination = '/product/'+this.randomProduct.id
-      console.log(destination);
+      window.scrollTo(0, 90)
+      this.breathAnimation.pause()
+
+      //animate
+      let rButton = this.$refs.rButton
+      let banner = this.$refs.banner
       
-      this.$router.push(destination)
+      anime({
+        targets: rButton,
+        height: {value: banner.clientHeight, delay: 500, duration:500},
+        width: {value: banner.clientWidth, duration:500},
+        background: {value: '#FFF', duration:500},
+        duration: 1000,
+        easing: 'linear',
+      })
+      
+
+      //browse product
+      delayFunction(()=> {
+        this.$router.push(destination)
+      }, 1000)
+      
     },
     getRandomProductsFromDB(){
       fetch('http://localhost:5000/api/randomProduct')

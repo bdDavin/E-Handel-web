@@ -47,7 +47,7 @@ app.get('/api/products/?', (request, response) => {
         database.all('SELECT *, count(*) OVER() AS full_count FROM products ORDER BY id desc LIMIT 15 OFFSET ?',[offset])
         .then(rows => {
             //rows kommer att vara en array
-            console.log(rows)
+            console.log(rows.length)
             response.send(rows)
         })
     } else if (filter === '1'){
@@ -186,14 +186,11 @@ app.get('/api/randomProduct', (request, response) => {
     //SQL fråga för att hämta produkten med det rätt id
     database.all('SELECT COUNT(*) AS count FROM Products')
     .then(numberOfProducts => {
-        
         let min=0; 
         let max=numberOfProducts[0].count - 1;  
          let index = Math.round(Math.random() * (+max - +min) +min )
-        // response.send("index")
         database.all('SELECT * FROM Products WHERE id = ?',[index])
             .then(randomProduct => {
-                //response.sendStatus(302)
                 response.send(randomProduct[0])
         })
     })
