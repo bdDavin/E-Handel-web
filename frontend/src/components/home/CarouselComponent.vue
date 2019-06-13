@@ -1,5 +1,5 @@
 <template>
-  <div ref="grid" class="contair">
+  <div ref="grid" class="container">
     <div class="container is-fluide">
       <div class="columns is-mobile">
         <div class="column" v-for="product in products" :key="product.id">
@@ -85,5 +85,7 @@ export default {
 </script>
 
 <style scoped>
-  
+  .card {
+    height: 90%;
+  }
 </style>

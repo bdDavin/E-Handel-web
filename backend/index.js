@@ -38,13 +38,13 @@ app.get('/api/products/?', (request, response) => {
     //på filtret och sökning
     const filter = request.query.filter
     const letter = request.query.letter
-    const offset = 15 * (request.query.page - 1)
+    const offset = 16 * (request.query.page - 1)
     //order = asc or decs
     const order = request.query.order
     const searchTerm = request.query.term
     if (filter === '0') {
         console.log('all products')
-        database.all('SELECT *, count(*) OVER() AS full_count FROM products ORDER BY id desc LIMIT 15 OFFSET ?',[offset])
+        database.all('SELECT *, count(*) OVER() AS full_count FROM products ORDER BY id desc LIMIT 16 OFFSET ?',[offset])
         .then(rows => {
             //rows kommer att vara en array
             console.log(rows.length)

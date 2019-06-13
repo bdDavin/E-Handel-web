@@ -9,12 +9,10 @@
       <div class="card-content">
         <div class=" is-mobile">
           <div class="level-item">
-            <!-- <p class="level-left">{{product.name.substring(0,20)}}</p>
-            <p v-if="product.name.length > 20">...</p> -->
-             <p class="level-left">{{product.name}}</p>
+             <p class="level-left title is-6">{{product.name}}</p>
           </div>
           <div class="level-item">
-            <P class="level-right">${{product.price}}</P>
+            <P class="subtitle level-right">${{product.price}}</P>
           </div>
         </div>
       </div>
@@ -92,9 +90,31 @@ export default {
   .rectangle{
     border-radius: 0;
   }
+  .column {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .card > a {
+    flex-grow: 1;
+  } 
+
+  .level-left {
+    flex-shrink: unset;
+  }
+  .card{
+    border-radius: 5px;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
   .card{
     border-radius: 5px;
   }
+
   #image{
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
