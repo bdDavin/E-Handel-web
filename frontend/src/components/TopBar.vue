@@ -56,7 +56,8 @@ export default {
   name: 'Navbar',
   watch: {
       $route (to, from){
-          this.burgerTapped()
+          this.burgerIsActive = false
+          this.cartIsActive = false
       }
   },
   components: {
