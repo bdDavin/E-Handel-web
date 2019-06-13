@@ -1,8 +1,8 @@
 <template>
   <div class="foot">
-      <nav class="level">
-        <h1 class="level-item has-text-centered">
-          ©No single´s club
+      <nav class="level is-mobile">
+        <h1 class="level-item has-text-centered ">
+          ©Yardsale Corporation
         </h1>
         <p class="level-item has-text-centered">
           No refunds
@@ -18,16 +18,11 @@
 
 <script>
 export default {
-  name: 'Navbar',
-  props: {
-    msg: String,
-  }
-};
+  name: 'MyFooter'
+}
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-
 $primary-color: #009975;
 
 .foot {
@@ -48,7 +43,5 @@ $primary-color: #009975;
   flex-shrink: 40;
   padding: 1em
 }
-
-
 </style>
  

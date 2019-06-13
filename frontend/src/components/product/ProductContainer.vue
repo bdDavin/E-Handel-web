@@ -55,7 +55,7 @@ export default {
         if (result.length === 1) {
           this.product = result[0]
         } else {
-          this.$router.push('/404')
+          this.$router.replace('/404')
         }
       }).catch(error => {
           console.log(error.message)

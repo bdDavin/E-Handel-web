@@ -5,10 +5,10 @@
 <template>
   <div id="app" class="is-backround">
     <div class="pageContentWrapper">
-        <TopBar></TopBar>
-        <section class="section">
-          <router-view></router-view>
-        </section>
+      <TopBar></TopBar>
+      <section class="container is-fluid has-navbar-fixed-top">
+        <router-view></router-view>
+      </section>
     </div>
     <my-footer class="myFooter"></my-footer>
   </div>
@@ -16,9 +16,8 @@
 
 <script>
 import './style.scss';
-import TopBar from './components/Navbar.vue';
-import myFooter from './components/MyFooter.vue';
-import tot from './components/HelloWorld.vue';
+import TopBar from './components/TopBar.vue';
+import MyFooter from './components/MyFooter.vue';
 
 export default {
   created: function () {
@@ -27,7 +26,7 @@ export default {
   name: 'app',
   components: {
     TopBar,
-    myFooter, tot
+    MyFooter
   },
 };
 </script>

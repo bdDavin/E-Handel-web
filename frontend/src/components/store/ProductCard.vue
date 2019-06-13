@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div ref="card" @mouseover="hover(true)" @mouseleave="hover(false)" class="card">
     <router-link :to="productId">
       <div class="card-image">
         <figure class="image is-4by3">
@@ -12,7 +12,7 @@
             <p class="level-left">{{product.name}}</p>
           </div>
           <div class="level-item">
-            <P class="level-right">{{product.price}}$</P>
+            <P class="level-right">${{product.price}}</P>
           </div>
         </div>
       </div>
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import anime from 'animejs';
 export default {
   computed: {
     productId() {
@@ -37,16 +38,43 @@ export default {
   },
   name: 'ProductCard',
   props: {
-    product: {}
+    product: {},
+    isHoverable: {
+      type: Boolean,
+      default: true,
+    }
   }, 
   data() {
     return {
       
     }
-  },
+  },  
   methods: {
+    hover(hover) {
+      if(!this.isHoverable) {
+        return
+      }
+      let sc = 1
+      if(hover) {sc = 1.05} 
+      let card = this.$refs.card
+      anime({
+        targets: card,
+        scale: sc,
+        duration: 200,
+      });
+    },
     addToCart() {
       this.$store.commit('updateCart', this.product)
+      
+      let card = this.$refs.card
+      anime({
+        targets: card,
+        scale: [
+          { value: 0},
+          { value: 1},
+        ],
+        duration: 600,
+      });
     }
   }
 }
