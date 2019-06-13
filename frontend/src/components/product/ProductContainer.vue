@@ -1,6 +1,4 @@
 
-
-
 <template>
     <div class="container is-fluid">
      <div class="columns">
@@ -16,17 +14,15 @@
        </div>
      </div>
      <div class="columns">
-       <div class="column  ">
+       <div class="column">
          <h2 class="is-size-3"> <strong> Description </strong> </h2>
          <p class="description is-size-4 "> {{ product.description }} </p>
        </div>
      </div>
-      <div class="container2 is-fluid">
+      <div class="container is-fluid">
         <h2> <strong> YOU MIGHT ALSO LIKE </strong> </h2>
-         <div class="columns is-multiline">
-          <div class="column is-multiline is-one-third" v-for="product in products" :key="product.id">
-            <product-card :product="product"></product-card>
-          </div>
+           <div class="column is-one-quarter">
+           <product-slider></product-slider>
         </div>
       </div>
     </div>
@@ -34,20 +30,16 @@
 
 <script>
 
-import ProductCard from '../store/ProductCard.vue'
+import ProductSlider from '../home/CarouselComponent.vue'
 
 export default {
   name: 'ProductContainer',
   created() {
     this.getProduct()
-    this.getProductsFromDB()
   },
   data() {
     return {
       product: {},
-      activeTab: 0,
-      activeLetter: 0,
-      products: [],
     }
   },
   computed: {
@@ -56,7 +48,7 @@ export default {
     }
   },
   components: {
-    ProductCard
+    ProductSlider
   },
   methods: {
     addToCart() {
@@ -76,15 +68,6 @@ export default {
           console.log(error.message)
       })
     },
-    getProductsFromDB(){
-      fetch('http://localhost:5000/api/products/?filter='+this.activeTab+'&letter='+this.activeLetter)
-      .then(response => response.json())
-      .then(result => {
-        this.products = result.slice(1,4)
-      }).catch(error => {
-          console.log(error.message)
-      })
-    }
   }
 }
 </script>
