@@ -30,7 +30,6 @@ app.get('/api/product/:id', (request, response) => {
         console.log("product fetched")
         response.send(rows)
     })
-
 })
 
 app.get('/api/products/?', (request, response) => {
@@ -48,7 +47,7 @@ app.get('/api/products/?', (request, response) => {
         .then(rows => {
             //rows kommer att vara en array
             console.log(rows)
-            
+
             response.send(rows)
         })
     } else if (filter === '1'){
@@ -83,9 +82,8 @@ app.get('/api/products/?', (request, response) => {
     // }
 })
 
-app.post('/api/order', (request, response) => {
+app.get('/api/order', (request, response) => {
     //Lägg upp order i databasen
-    let newOrder = request.body
     response.send()
 })
 
