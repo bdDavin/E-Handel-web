@@ -86,6 +86,10 @@ export default {
 
 <style scoped>
   .card {
-    height: 90%;
+    height: 100%;
+  }
+
+  .column {
+    margin-bottom: 20px;
   }
 </style>
