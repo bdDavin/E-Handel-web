@@ -30,7 +30,6 @@ app.get('/api/product/:id', (request, response) => {
         console.log("product fetched")
         response.send(rows)
     })
-
 })
 
 app.get('/api/products/?', (request, response) => {
@@ -38,30 +37,33 @@ app.get('/api/products/?', (request, response) => {
     //på filtret och sökning
     const filter = request.query.filter
     const letter = request.query.letter
+    const offset = 15 * (request.query.page - 1)
     //order = asc or decs
     const order = request.query.order
     const searchTerm = request.query.term
-
     if (filter === '0') {
         console.log('all products')
-        database.all('SELECT * FROM products')
+        database.all('SELECT *, count(*) OVER() AS full_count FROM products ORDER BY id desc LIMIT 15 OFFSET ?',[offset])
         .then(rows => {
             //rows kommer att vara en array
-            console.log(rows)
-            
+            console.log(rows.length)
             response.send(rows)
         })
     } else if (filter === '1'){
         console.log('popular products')
-        //Alla populära
-        response.send([{id: 1, name: 'Popis', price: 499}])
+        database.all('SELECT *, 15 AS full_count FROM products ORDER BY sales desc LIMIT 15')
+        .then(rows => {
+            //rows kommer att vara en array
+            console.log(rows)
+            response.send(rows)
+        })
     } else if (filter === '2'){
         console.log('filter by letter'+ letter)
         let n = numberToLetter(letter)+'%'
-        console.log(n)
-        database.all('SELECT * FROM products WHERE name LIKE ?', [n])
+        database.all('SELECT *, count(*) OVER() AS full_count FROM products WHERE name LIKE ? ORDER BY id desc LIMIT 15 OFFSET ?', [n, offset])
         .then(rows => {
             //rows kommer att vara en array
+            console.log(rows)
             response.send(rows)
         })
     }
@@ -83,9 +85,8 @@ app.get('/api/products/?', (request, response) => {
     // }
 })
 
-app.post('/api/order', (request, response) => {
+app.get('/api/order', (request, response) => {
     //Lägg upp order i databasen
-    let newOrder = request.body
     response.send()
 })
 
@@ -176,4 +177,20 @@ function numberToLetter(n) {
 
 app.listen(5000, () => {
     console.log('Service is running')
+})
+
+app.get('/api/randomProduct', (request, response) => {
+    response.status(302)
+    //SQL fråga för att hämta produkten med det rätt id
+    database.all('SELECT COUNT(*) AS count FROM Products')
+    .then(numberOfProducts => {
+        let min=0;
+        let max=numberOfProducts[0].count - 1;
+         let index = Math.round(Math.random() * (+max - +min) +min )
+        database.all('SELECT * FROM Products WHERE id = ?',[index])
+            .then(randomProduct => {
+                response.send(randomProduct[0])
+        })
+    })
+
 })

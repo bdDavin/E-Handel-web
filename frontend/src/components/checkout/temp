@@ -552,3 +552,39 @@ name: 'CheckoutContainer'
       }
   }
 </script>
+
+
+
+<nav class="level">
+  <div class="level-left">
+
+
+
+
+
+
+<table class="table">
+<section v-for="item in $store.state.cart">
+<thead>
+  <th><abbr title="Position">{{item.id}}</abbr></th>
+  <th><abbr title="Image">
+               <figure class="image is-64x64">
+                  <img :src="productImage(item)" alt="image">
+              </figure></abbr></th>
+  <th><abbr title="Name">{{item.name}}</abbr></th>
+  <th><abbr title="Quantity">{{item.quantity}}x</abbr></th>
+  <th><abbr title="Price">{{item.price}}$</abbr></th>
+
+</thead>
+</section>
+</table>
+</div>
+<div class="level-right">
+
+Total pris:  123
+
+</div>
+
+
+
+</nav>

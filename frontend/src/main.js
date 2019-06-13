@@ -9,6 +9,7 @@ import Buefy from 'buefy';
 Vue.use(Buefy)
 
 
+
 new Vue({
   data: {
     horse: 'horse',

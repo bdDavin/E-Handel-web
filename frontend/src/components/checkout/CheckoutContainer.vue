@@ -1,5 +1,18 @@
-  <template>
+<template>
     <div class="container">
+      <b-collapse
+        class="panel">
+    <div
+        class="panel-heading"
+        role="button"
+        aria-controls="contentIdForA11y2">
+        <strong>Checkout</strong>
+    </div>
+    <section class="box">
+      <cart-table></cart-table>
+    </section>
+</b-collapse>
+
   <b-collapse
         aria-id="contentIdForA11y2"
         class="panel"
@@ -59,7 +72,7 @@
 </li>
 </ul>
 </b-field>
-<br>
+  <br>
 <b-field grouped position="is-centered">
   <b-field class="is-expanded custom-field-size">
       <div class="control has-icons-left">
@@ -122,7 +135,7 @@
      <div class="block">
        <button
        class="button is-medium is-button"
-       @click="isOpenTwo = !isOpenTwo"
+       @click="isOpenTwo = !isOpenTwo ; isOpenOne =! isOpenOne"
        aria-controls="contentIdForA11y2">
        Continue
      </button>
@@ -263,7 +276,7 @@ Shipping details collapse
    <div class="block">
      <button
      class="button is-medium is-button"
-     @click="isOpenThree = !isOpenThree"
+     @click="isOpenThree = !isOpenThree ; isOpenTwo = !isOpenTwo"
      aria-controls="contentIdForA11y2">
      Continue
    </button>
@@ -408,7 +421,7 @@ Payment
      <div class="block">
        <button
        class="button is-medium is-button"
-       @click="isOpenFour = !isOpenFour"
+       @click="isOpenFour = !isOpenFour ; isOpenThree = !isOpenThree ; newOrder()"
        aria-controls="contentIdForA11y2">
        Continue
      </button>
@@ -509,14 +522,42 @@ export default {
 </style>
 
 <script>
+    import CartTable from '../CartTable.vue'
     export default {
+      created() {
+        
+      },
+      components: {
+        CartTable
+      },
         data() {
             return {
                 isOpenOne: true,
                 isOpenTwo: false,
                 isOpenThree: false,
-                isOpenFour: false
+                isOpenFour: false,
             }
+        },
+        methods: {
+            productImage(product) {
+                return '../src/assets/products/' +product.id +'.png'
+            },
+            newOrder() {
+            fetch('http://localhost:5000/api/order', {
+              body: '{ "name": "Teststad", "population": 123 }',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+            method: 'POST'
+            }).then(function (response) {
+                return response.json()
+            }).then(function (result) {
+                console.log(result)
+            })
+          },
+          testing() {
+
+          }
         }
     }
 </script>

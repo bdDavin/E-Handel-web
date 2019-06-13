@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <product-grid></product-grid>
-  </div>
+  <product-grid></product-grid>
 </template>
 
 <script>

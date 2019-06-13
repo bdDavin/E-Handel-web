@@ -21,20 +21,20 @@
 <script>
 import CartTable from './CartTable.vue';
 export default {
-  name: 'Navbar',
-  components: {
-      CartTable
-  },
-  props: {
-  },
-  methods: {
-      
-  },
-  data: function () {
-    return {
-      
+    name: 'CartDropDown',
+    components: {
+        CartTable
+    },
+    props: {
+    },
+    methods: {
+        
+    },
+    data: function () {
+        return {
+        
+        }
     }
-  }
 };
 </script>
 
