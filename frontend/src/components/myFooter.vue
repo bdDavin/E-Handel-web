@@ -1,18 +1,17 @@
 <template>
-  <div class="foot">
+  <div class="foot is-primary">
       <nav class="level is-mobile">
-        <h1 class="level-item has-text-centered ">
-          ©Yardsale Corporation
-        </h1>
         <p class="level-item has-text-centered">
-          No refunds
+          Copyright © Yardsale Corporation, 2019. All rights reserved.
         </p>
-        <a href="mailto:friends@yardsale.com" class="level-item has-text-centered">
+        <a href="mailto:friends@yardsale.com" 
+        class="level-item has-text-centered">
           <p>
             Contact us
           </p>
         </a>
       </nav>
+      
   </div>
 </template>
 
@@ -31,6 +30,7 @@ $primary-color: #009975;
 }
 .level {
   height: 100%;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;

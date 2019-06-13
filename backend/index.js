@@ -30,7 +30,6 @@ app.get('/api/product/:id', (request, response) => {
         console.log("product fetched")
         response.send(rows)
     })
-
 })
 
 app.get('/api/products/?', (request, response) => {
@@ -38,7 +37,7 @@ app.get('/api/products/?', (request, response) => {
     //på filtret och sökning
     const filter = request.query.filter
     const letter = request.query.letter
-    const offset = 15 * (request.query.page - 1)    
+    const offset = 15 * (request.query.page - 1)
     //order = asc or decs
     const order = request.query.order
     const searchTerm = request.query.term
@@ -86,9 +85,8 @@ app.get('/api/products/?', (request, response) => {
     // }
 })
 
-app.post('/api/order', (request, response) => {
+app.get('/api/order', (request, response) => {
     //Lägg upp order i databasen
-    let newOrder = request.body
     response.send()
 })
 
@@ -186,13 +184,13 @@ app.get('/api/randomProduct', (request, response) => {
     //SQL fråga för att hämta produkten med det rätt id
     database.all('SELECT COUNT(*) AS count FROM Products')
     .then(numberOfProducts => {
-        let min=0; 
-        let max=numberOfProducts[0].count - 1;  
+        let min=0;
+        let max=numberOfProducts[0].count - 1;
          let index = Math.round(Math.random() * (+max - +min) +min )
         database.all('SELECT * FROM Products WHERE id = ?',[index])
             .then(randomProduct => {
                 response.send(randomProduct[0])
         })
     })
-    
+
 })

@@ -1,47 +1,62 @@
 
-<template>
 
-  <div id="app">
+
+<template>
     <div class="container is-fluid">
      <div class="columns">
-        <div class="column is-half is-gapless">
-          <figure>
+        <div class="image-column column">
+          <figure class="image is-4by3" >
             <img id="image" :src="productImage" alt="Placeholder image">
           </figure>
         </div>
-        <div class="column is-half is-gapless">
-          <div class="product-info">
+        <div class="product-info column">
             <h1 class='is-size-1'><strong> {{ product.name }} </strong> </h1>
-            <p class="is-size-4">{{ product.description }}</p>
-            <p class="is-size-3"> ${{ product.price }}</p>
-           </div>
-            <b-button class="is-size-3" v-on:click="addToCart">Add to Cart</b-button>
+            <p class="is-size-3">Price: ${{ product.price }}</p>
+            <b-button class="is-size-3 is-button" v-on:click="addToCart">Add to Cart</b-button>
        </div>
      </div>
-      <div class="columns">
-        <div class="column is-full">
-          
+     <div class="columns">
+       <div class="column  ">
+         <h2 class="is-size-3"> <strong> Description </strong> </h2>
+         <p class="description is-size-4 "> {{ product.description }} </p>
+       </div>
+     </div>
+      <div class="container2 is-fluid">
+        <h2> <strong> YOU MIGHT ALSO LIKE </strong> </h2>
+         <div class="columns is-multiline">
+          <div class="column is-multiline is-one-third" v-for="product in products" :key="product.id">
+            <product-card :product="product"></product-card>
+          </div>
         </div>
-       </div>
-     </div>
-  </div>
+      </div>
+    </div>
 </template>
 
 <script>
+
+import ProductCard from '../store/ProductCard.vue'
+
 export default {
   name: 'ProductContainer',
   created() {
     this.getProduct()
+    this.getProductsFromDB()
   },
   data() {
     return {
-      product: {}
+      product: {},
+      activeTab: 0,
+      activeLetter: 0,
+      products: [],
     }
   },
   computed: {
     productImage() {
       return 'src/assets/products/' +this.product.id +'.png'
     }
+  },
+  components: {
+    ProductCard
   },
   methods: {
     addToCart() {
@@ -60,6 +75,15 @@ export default {
       }).catch(error => {
           console.log(error.message)
       })
+    },
+    getProductsFromDB(){
+      fetch('http://localhost:5000/api/products/?filter='+this.activeTab+'&letter='+this.activeLetter)
+      .then(response => response.json())
+      .then(result => {
+        this.products = result.slice(1,4)
+      }).catch(error => {
+          console.log(error.message)
+      })
     }
   }
 }
@@ -67,4 +91,17 @@ export default {
 
 <style scoped>
 
+.product-info {
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  margin: 20;
+}
+.description {
+  text-align: start;
+}
+
+#image {
+  border-radius: 5px;
+}
 </style>
