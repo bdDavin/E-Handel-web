@@ -86,10 +86,17 @@ app.get('/api/products/?', (request, response) => {
     // }
 })
 
-app.post('/api/order', (request, response) => {
+app.post('/api/customer', (request, response) => {
     let req = request.body
     database.run('INSERT INTO buyers(first_name, last_name, mail, phone, address, zip_code, city, country) '+
-    'VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [req.fname, req.lname, req.mail, req.phone, req.address, req.zipCode, req.city, req.country])
+    'VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [req.fname, req.lname, req.mail, req.phone, req.address, req.zipCode, req.city, req.country]
+    //  function()  {
+    //   console.log('testi');
+    //   console.log(this.lastID);
+    // }
+  )
+  console.log();
+  console.log('test');
     response.send()
 })
 
