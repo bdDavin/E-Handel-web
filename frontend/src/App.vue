@@ -6,7 +6,7 @@
   <div id="app" class="is-backround">
     <div class="pageContentWrapper">
       <TopBar></TopBar>
-      <section class="container is-fluid has-navbar-fixed-top">
+      <section class=" is-fluid has-navbar-fixed-top">
         <router-view></router-view>
       </section>
     </div>
@@ -32,6 +32,8 @@ export default {
 </script>
 
 <style>
+
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

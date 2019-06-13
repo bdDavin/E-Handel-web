@@ -62,7 +62,9 @@ export default {
   },
   watch: {
       $route (to, from){
-          this.burgerTapped()
+        this.burgerTapped()
+        this.cartIsActive = false,
+        this.burgerIsActive = false
       },
       cartItems (newCount, oldCount) {
       this.bounceCart()
