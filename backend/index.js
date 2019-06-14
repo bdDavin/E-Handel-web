@@ -87,28 +87,23 @@ app.get('/api/products/?', (request, response) => {
 })
 
 app.post('/api/customer', (request, response) => {
-    let req = request.body
+    let customer = request.body.customer
+    let products = request.body.products
     database.run('INSERT INTO buyers(first_name, last_name, mail, phone, address, zip_code, city, country) '+
-    'VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [req.fname, req.lname, req.mail, req.phone, req.address, req.zipCode, req.city, req.country]
-    //  function()  {
-    //   console.log('testi');
-    //   console.log(this.lastID);
-    // }
+    'VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [customer.fname, customer.lname, customer.mail, customer.phone, customer.address, customer.zipCode, customer.city, customer.country]
   )
-  console.log();
-  console.log('test');
-    response.send()
+  .then(output => {
+      let buyerId = output.stmt.lastID
+      database.run('INSERT INTO orders(buyer_id) VALUES(?)', [buyerId])
+      .then(output => {
+        let orderId = output.stmt.lastID
+        for (var i = 0; i < products.length; i++) {
+          database.run('INSERT INTO ordersProduct(ordersProduct_p_id, ordersProduct_o_id) VALUES(?, ?)', [products[i].id, orderId])
+        }
+        response.send()
+      })
+  })
 })
-
-// , mail, phone, address, zip_code, city, country
-// , req.mail, req.phone, req.address, req.zipCode, req.city, req.address
-// (mail)
-// (phone)
-//
-// (address)
-// (zip_code)
-// (city)
-// (country)
 
 app.get('/api/order', (request, response) => {
   database.all('SELECT * FROM buyers')
@@ -222,5 +217,4 @@ app.get('/api/randomProduct', (request, response) => {
                 response.send(randomProduct[0])
         })
     })
-
 })

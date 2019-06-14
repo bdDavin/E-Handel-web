@@ -283,7 +283,7 @@ Shipping details collapse
    <div class="block">
      <button
      class="button is-medium is-button"
-     @click="isOpenThree = !isOpenThree ; isOpenTwo = !isOpenTwo ; newOrder()"
+     @click="isOpenThree = !isOpenThree ; isOpenTwo = !isOpenTwo"
      aria-controls="contentIdForA11y2">
      Continue
    </button>
@@ -428,7 +428,7 @@ Payment
      <div class="block">
        <button
        class="button is-medium is-button"
-       @click="isOpenFour = !isOpenFour ; isOpenThree = !isOpenThree"
+       @click="isOpenFour = !isOpenFour ; isOpenThree = !isOpenThree ; newCustomer()"
        aria-controls="contentIdForA11y2">
        Continue
      </button>
@@ -547,7 +547,7 @@ export default {
                 lname: null,
                 mail: null,
                 phone: null,
-                country: null,
+                country: "Sweden",
                 zipCode: null,
                 city: null,
                 address: null
@@ -557,10 +557,22 @@ export default {
             productImage(product) {
                 return '../src/assets/products/' +product.id +'.png'
             },
-            newOrder() {
+            newCustomer() {
+            let orderObj = {
+              customer: {
+                fname: this.fname,
+                lname: this.lname,
+                mail: this.mail,
+                phone: this.phone,
+                country: this.country,
+                zipCode: this.zipCode,
+                city: this.city,
+                address: this.address
+              },
+              products: this.$store.state.cart
+            }
             fetch('http://localhost:5000/api/customer', {
-              body:
-              '{ "fname": "'+this.fname+'", "lname": "'+this.lname+'", "mail": "'+this.mail+'", "phone": "'+this.phone+'", "country": "'+this.country+'", "zipCode": "'+this.zipCode+'", "city": "'+this.city+'", "address": "'+this.address+'" }',
+              body: JSON.stringify(orderObj),
               headers: {
                 'Content-Type': 'application/json'
               },
