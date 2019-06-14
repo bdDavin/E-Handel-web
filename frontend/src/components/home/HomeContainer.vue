@@ -78,15 +78,15 @@ export default {
       
       anime({
         targets: rButton,
-        rotate: {value:720},
-        duration: 1000,
+        rotate: {value:1440},
+        duration: 2100,
         easing: 'easeInQuart',
       })
       
       //browse product page
       delayFunction(()=> {
         this.$router.push(destination)
-      }, 1000)
+      }, 2000)
       
     },
     getRandomProductsFromDB(){
@@ -108,7 +108,6 @@ export default {
     background-size:cover; 
     margin: 0;
     padding: 0;
-    /* height: 50%; */
   }
 
   button {

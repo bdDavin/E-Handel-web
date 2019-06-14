@@ -26,6 +26,7 @@
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -73,6 +74,11 @@ export default {
 </script>
 
 <style scoped>
+
+.container {
+  margin: 10px;
+  margin-top: 80px;
+}
 
 .product-info {
   justify-content: space-between;

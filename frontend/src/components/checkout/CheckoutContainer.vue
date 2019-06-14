@@ -80,6 +80,7 @@
           class="input is-default is-medium is-primary"
           type="text"
           placeholder="First name"
+          v-model:value = "fname"
           >
           <span class="icon is-left">
             <i class="fas fa-user"></i>
@@ -92,6 +93,7 @@
     <div class="control has-icons-left">
       <input class="input is-default is-medium is-primary"
         type="text"
+        v-model:value = "lname"
         placeholder="Last name">
         <span class="icon is-left">
           <i class="fas fa-user"></i>
@@ -105,6 +107,7 @@
       <input
       class="input is-default is-medium is-primary"
       type="email"
+      v-model:value = "mail"
       placeholder="Email">
         <span class="icon is-left">
           <i class="fas fa-envelope"></i>
@@ -125,6 +128,7 @@
            <input
            class="input is-medium is-primary"
            type="tel"
+           v-model:value = "phone"
            placeholder="Phone number">
          </p>
        </div>
@@ -135,7 +139,7 @@
      <div class="block">
        <button
        class="button is-medium is-button"
-       @click="isOpenTwo = !isOpenTwo ; isOpenOne =! isOpenOne"
+         @click="isOpenTwo = !isOpenTwo ; isOpenOne =! isOpenOne"
        aria-controls="contentIdForA11y2">
        Continue
      </button>
@@ -217,7 +221,7 @@ Shipping details collapse
                  <div class="field">
                    <p class="control has-icons-left">
                      <span class="select is-medium is-primary">
-                       <select>
+                       <select v-model:value = "country">
                          <option selected>Sweden</option>
                          <option>USA</option>
                          <option>Germany</option>
@@ -240,6 +244,7 @@ Shipping details collapse
          <input
          class="input is-medium is-primary"
          type="text"
+         v-model:value = "zipCode"
          placeholder="ZIP Code">
        </p>
      </div>
@@ -251,6 +256,7 @@ Shipping details collapse
       <input
       class="input is-default is-medium is-primary"
       type="text"
+      v-model:value = "city"
       placeholder="City">
         <span class="icon is-left">
           <i class="fas fa-building"></i>
@@ -264,6 +270,7 @@ Shipping details collapse
       <input
       class="input is-default is-medium is-primary"
       type="text"
+      v-model:value = "address"
       placeholder="Address">
         <span class="icon is-left">
           <i class="fas fa-building"></i>
@@ -276,7 +283,7 @@ Shipping details collapse
    <div class="block">
      <button
      class="button is-medium is-button"
-     @click="isOpenThree = !isOpenThree ; isOpenTwo = !isOpenTwo"
+     @click="isOpenThree = !isOpenThree ; isOpenTwo = !isOpenTwo ; newOrder()"
      aria-controls="contentIdForA11y2">
      Continue
    </button>
@@ -421,7 +428,7 @@ Payment
      <div class="block">
        <button
        class="button is-medium is-button"
-       @click="isOpenFour = !isOpenFour ; isOpenThree = !isOpenThree ; newOrder()"
+       @click="isOpenFour = !isOpenFour ; isOpenThree = !isOpenThree"
        aria-controls="contentIdForA11y2">
        Continue
      </button>
@@ -525,7 +532,7 @@ export default {
     import CartTable from '../CartTable.vue'
     export default {
       created() {
-        
+
       },
       components: {
         CartTable
@@ -536,6 +543,14 @@ export default {
                 isOpenTwo: false,
                 isOpenThree: false,
                 isOpenFour: false,
+                fname: null,
+                lname: null,
+                mail: null,
+                phone: null,
+                country: null,
+                zipCode: null,
+                city: null,
+                address: null
             }
         },
         methods: {
@@ -543,20 +558,14 @@ export default {
                 return '../src/assets/products/' +product.id +'.png'
             },
             newOrder() {
-            fetch('http://localhost:5000/api/order', {
-              body: '{ "name": "Teststad", "population": 123 }',
+            fetch('http://localhost:5000/api/customer', {
+              body:
+              '{ "fname": "'+this.fname+'", "lname": "'+this.lname+'", "mail": "'+this.mail+'", "phone": "'+this.phone+'", "country": "'+this.country+'", "zipCode": "'+this.zipCode+'", "city": "'+this.city+'", "address": "'+this.address+'" }',
               headers: {
                 'Content-Type': 'application/json'
               },
-            method: 'POST'
-            }).then(function (response) {
-                return response.json()
-            }).then(function (result) {
-                console.log(result)
+              method: 'POST'
             })
-          },
-          testing() {
-
           }
         }
     }

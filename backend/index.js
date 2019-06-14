@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 const path = require('path')
 
 app.use((request, response, next) => {
+    response.header('Access-Control-Allow-Headers', 'Content-Type')
     response.header('Access-Control-Allow-Origin', '*')
     next()
 })
@@ -37,13 +38,13 @@ app.get('/api/products/?', (request, response) => {
     //på filtret och sökning
     const filter = request.query.filter
     const letter = request.query.letter
-    const offset = 15 * (request.query.page - 1)
+    const offset = 16 * (request.query.page - 1)
     //order = asc or decs
     const order = request.query.order
     const searchTerm = request.query.term
     if (filter === '0') {
         console.log('all products')
-        database.all('SELECT *, count(*) OVER() AS full_count FROM products ORDER BY id desc LIMIT 15 OFFSET ?',[offset])
+        database.all('SELECT *, count(*) OVER() AS full_count FROM products ORDER BY id desc LIMIT 16 OFFSET ?',[offset])
         .then(rows => {
             //rows kommer att vara en array
             console.log(rows.length)
@@ -85,9 +86,38 @@ app.get('/api/products/?', (request, response) => {
     // }
 })
 
-app.get('/api/order', (request, response) => {
-    //Lägg upp order i databasen
+app.post('/api/customer', (request, response) => {
+    let req = request.body
+    database.run('INSERT INTO buyers(first_name, last_name, mail, phone, address, zip_code, city, country) '+
+    'VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [req.fname, req.lname, req.mail, req.phone, req.address, req.zipCode, req.city, req.country]
+    //  function()  {
+    //   console.log('testi');
+    //   console.log(this.lastID);
+    // }
+  )
+  console.log();
+  console.log('test');
     response.send()
+})
+
+// , mail, phone, address, zip_code, city, country
+// , req.mail, req.phone, req.address, req.zipCode, req.city, req.address
+// (mail)
+// (phone)
+//
+// (address)
+// (zip_code)
+// (city)
+// (country)
+
+app.get('/api/order', (request, response) => {
+  database.all('SELECT * FROM buyers')
+  .then(rows => {
+      //rows kommer att vara en array
+      console.log(rows)
+      response.send(rows)
+  })
+  //response.send("xfg")
 })
 
 function numberToLetter(n) {

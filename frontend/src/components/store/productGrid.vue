@@ -38,8 +38,8 @@
     </b-tabs>
     <section class="section">
       <div class="columns is-multiline">
-        <div class="column is-one-third" v-for="product in products" :key="product.id">
-          <product-card :product="product"></product-card>
+        <div class="column is-one-quarter" v-for="product in products" :key="product.id">
+          <product-card ref="card" :product="product"></product-card>
         </div>
       </div>
       <b-pagination v-if="totalCount > productsPerPage" @change="pageChanged"
@@ -58,6 +58,7 @@
 
 <script>
 import ProductCard from './ProductCard.vue'
+import anime from 'animejs';
 
 export default {
   name: 'ProductGrid',
@@ -94,12 +95,27 @@ export default {
     },
     tabChanged() {
       this.currentPage = 1
+      
       this.getProductsFromDB(this.currentPage)
     },
     pageChanged(payload) {
       this.getProductsFromDB(payload)
       //Scroll to top of grid
       window.scrollTo(0, 90)
+      //this.animateProducts()
+    },
+    animateProducts() {
+        let pArray = this.$refs.card
+        let divArray = []
+        pArray.forEach(p => {
+            divArray.push(p.$el)
+        });
+        anime({
+        targets: divArray,
+        rotateY: 360,
+        duration: 500,
+        easing: 'linear',
+        });
     }
   }
 };
