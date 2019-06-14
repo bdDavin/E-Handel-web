@@ -21,7 +21,7 @@
      </div>
       <div class="container is-fluid">
         <h2> <strong> YOU MIGHT ALSO LIKE </strong> </h2>
-           <div class="column is-one-quarter">
+           <div class="column">
            <product-slider></product-slider>
         </div>
       </div>
