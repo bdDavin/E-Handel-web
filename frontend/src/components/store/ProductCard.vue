@@ -90,6 +90,7 @@ export default {
   .rectangle{
     border-radius: 0;
   }
+  
   .column {
     display: flex;
     flex-direction: column;
@@ -103,16 +104,13 @@ export default {
   .level-left {
     flex-shrink: unset;
   }
+
   .card{
     border-radius: 5px;
     align-self: stretch;
     display: flex;
     flex-direction: column;
     height: 100%;
-  }
-
-  .card{
-    border-radius: 5px;
   }
 
   #image{
