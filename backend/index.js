@@ -40,7 +40,6 @@ app.get('/api/products/?', (request, response) => {
     const letter = request.query.letter
     const offset = 16 * (request.query.page - 1)
     //order = asc or decs
-    const order = request.query.order
     const searchTerm = request.query.term
     if (filter === '0') {
         console.log('all products')
@@ -67,23 +66,19 @@ app.get('/api/products/?', (request, response) => {
             console.log(rows)
             response.send(rows)
         })
+    } else if (filter === '3') {
+        //example request api/products/?filter=3&term=green
+        //om inga inparametrar så svara med alla varor
+        console.log("searched products");
+        let search = '%' + searchTerm + '%'
+        database.all('SELECT *, 15 AS full_count FROM products WHERE name LIKE ? ORDER BY sales desc LIMIT 15', [search])
+        .then(rows => {
+            //rows kommer att vara en array
+            console.log(rows)
+            response.send(rows)
+        })
     }
-    //om inga inparametrar så svara med alla varor
-    // if(!filter && !searchTerm) {
-    //     console.log('all products');
-    //     database.all('SELECT * from products')
-    //     .then(rows => {
-    //         //rows kommer att vara en array
-    //         response.send(rows)
-    //     })
-    // } else {
-    //     let search = '%' + searchTerm + '%'
-    //     database.all('SELECT * from products WHERE name LIKE ?', [search])
-    //     .then(rows => {
-    //         //rows kommer att vara en array
-    //         response.send(rows)
-    //     })
-    // }
+    
 })
 
 app.post('/api/customer', (request, response) => {
@@ -105,15 +100,29 @@ app.post('/api/customer', (request, response) => {
   })
 })
 
-app.get('/api/order', (request, response) => {
-  database.all('SELECT * FROM buyers')
-  .then(rows => {
-      //rows kommer att vara en array
-      console.log(rows)
-      response.send(rows)
-  })
-  //response.send("xfg")
+app.get('/api/order/', (request, response) => {
+    database.all(`SELECT orders.order_id as Id, buyers.first_name as Name, buyers.mail as Mail, 
+	products.name as Product, products.price as Price
+  FROM orders 
+  INNER JOIN ordersProduct
+  ON orders.order_id = ordersProduct.ordersProduct_o_id
+  INNER JOIN products
+  ON ordersProduct.ordersProduct_p_id = products.id
+  INNER JOIN buyers
+  ON orders.buyer_id = buyers.buyer_id`)
+    .then(rows => {
+        //rows kommer att vara en array
+        console.log(rows)
+        response.send(rows)
+    })
 })
+
+app.get('/api/admin/?', (request, response) => {
+    const pw = request.query.pw
+    let loginSuccess = (pw === '1337')
+    response.send(loginSuccess)
+})
+
 
 function numberToLetter(n) {
     let letter

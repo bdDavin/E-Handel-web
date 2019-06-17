@@ -23,8 +23,7 @@ export default new Vuex.Store({
       let min = 80;
 
       // 100 = default
-
-      let max = 250;
+      let max = 150;
 
       let random = Math.random() * (+max - +min) + min;
       console.log(random);
@@ -111,10 +110,10 @@ export default new Vuex.Store({
           product.price = Math.round(product.price)
           product.price *= 10
 
-          console.log(product);
+          //console.log(product);
 
           //set image
-          product.image = 'src/assets/products/' +product.id +'.png'
+          //product.image = 'src/assets/products/' +product.id +'.png'
         });
 
         //set store products
