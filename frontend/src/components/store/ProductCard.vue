@@ -3,7 +3,7 @@
     <router-link :to="productId">
       <div class="card-image">
         <figure class="image is-4by3">
-          <img id="image" :src="productImage" alt="Placeholder image">
+          <img id="image" :src="productImage">
         </figure>
       </div>
       <div class="card-content">
@@ -118,4 +118,6 @@ export default {
     border-top-right-radius: 5px;
     object-fit: cover;
   }
+
+  
 </style>

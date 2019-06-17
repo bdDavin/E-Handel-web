@@ -78,4 +78,14 @@ html,body{
     height: 80px;
 }
 
+img {
+  width:100%;
+  height:100%;
+  background: url(https://via.placeholder.com/400/ffffff
+    ) no-repeat scroll 0 0;
+  background-size:cover; 
+  margin: 0;
+  padding: 0;
+}
+
 </style>
