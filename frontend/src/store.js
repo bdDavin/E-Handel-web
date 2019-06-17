@@ -14,8 +14,10 @@ export default new Vuex.Store({
         // { 'price': 45, 'name': 'Tiger', 'quantity': 1, 'id': 4},
         // { 'price': 59, 'name': 'Snowman', 'quantity': 2, 'id': 5},
     ],
-    productFilter: {tab: 0, letter: 0},
-    products: []
+    loggedIn: {
+      type: Boolean,
+      default: false
+    }
   },
   getters: {
     priceMultiplier() {
@@ -34,6 +36,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    setLoggedIn(state) {
+      state.loggedIn = true
+    },
     setProducts(state, products){
       state.products = products
     },

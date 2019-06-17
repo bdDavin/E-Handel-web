@@ -35,6 +35,11 @@ import ProductSlider from '../home/CarouselComponent.vue'
 
 export default {
   name: 'ProductContainer',
+  watch: {
+    getId() {
+      this.getProduct()
+    }
+  },
   created() {
     this.getProduct()
   },
@@ -44,6 +49,9 @@ export default {
     }
   },
   computed: {
+    getId() {
+      return this.$route.params.id
+    },
     productImage() {
       return 'src/assets/products/' +this.product.id +'.png'
     }
@@ -62,6 +70,8 @@ export default {
       .then(result => {
         if (result.length === 1) {
           this.product = result[0]
+          //Scroll to top of grid
+          window.scrollTo(0, 0)
         } else {
           this.$router.replace('/404')
         }

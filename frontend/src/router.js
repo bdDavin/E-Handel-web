@@ -7,6 +7,7 @@ import HomeContainer from './components/home/HomeContainer.vue';
 import ProductContainer from './components/product/ProductContainer.vue';
 import CheckoutContainer from './components/checkout/CheckoutContainer.vue';
 import NotFoundContainer from './components/NotFoundContainer.vue';
+import AdminContainer from './components/admin/AdminContainer.vue';
 
 export default new VueRouter( {
   routes: [ {
@@ -21,6 +22,9 @@ export default new VueRouter( {
       }, {
       component: ProductContainer,
       path: '/product/:id'
+      }, {
+      component: AdminContainer,
+      path: '/admin'
       }, {
       component: NotFoundContainer,
       path: '/404' 

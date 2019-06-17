@@ -102,20 +102,6 @@ export default {
       this.getProductsFromDB(payload)
       //Scroll to top of grid
       window.scrollTo(0, 90)
-      //this.animateProducts()
-    },
-    animateProducts() {
-        let pArray = this.$refs.card
-        let divArray = []
-        pArray.forEach(p => {
-            divArray.push(p.$el)
-        });
-        anime({
-        targets: divArray,
-        rotateY: 360,
-        duration: 500,
-        easing: 'linear',
-        });
     }
   }
 };
