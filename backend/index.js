@@ -117,9 +117,19 @@ app.get('/api/order/', (request, response) => {
     })
 })
 
+app.post('/api/product/add', (request, response) => {
+    let product = request.body
+    database.run(`INSERT INTO products(name, price, description, sales) 
+    VALUES(?, ?, ?, 0)`,
+    [product.name, product.price, product.desc]
+  )
+  response.send()
+})
+
 app.get('/api/admin/?', (request, response) => {
     const pw = request.query.pw
-    let loginSuccess = (pw === '1337')
+    let password = '1337'
+    let loginSuccess = (pw === password)
     response.send(loginSuccess)
 })
 

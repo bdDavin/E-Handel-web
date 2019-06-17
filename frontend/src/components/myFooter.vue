@@ -26,7 +26,7 @@ $primary-color: #009975;
 
 .foot {
   background-color: $primary-color;
-  color: #D9D872;
+  //color: #D9D872;
 }
 .level {
   height: 100%;
@@ -38,7 +38,7 @@ $primary-color: #009975;
 }
 .level-item {
   background-color: $primary-color;
-  color: #D9D872;
+  color: #ffffff;
   height: 100%;
   flex-shrink: 40;
   padding: 1em
