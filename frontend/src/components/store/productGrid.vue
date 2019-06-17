@@ -75,11 +75,11 @@ export default {
       currentPage: 1,
       productsPerPage: 15,
       products: [],
-      totalCount: 0
+      totalCount: 0,
     }
   },
   methods: {
-    getProductsFromDB(payload){
+    getProductsFromDB(payload) {
       fetch('http://localhost:5000/api/products/?filter='+this.activeTab+'&letter='+this.activeLetter+'&page='+payload)
       .then(response => response.json())
       .then(result => {

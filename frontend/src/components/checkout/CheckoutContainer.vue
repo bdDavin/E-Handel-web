@@ -571,7 +571,7 @@ export default {
               },
               products: this.$store.state.cart
             }
-            fetch('http://localhost:5000/api/customer', {
+            fetch('http://localhost:5000/api/order', {
               body: JSON.stringify(orderObj),
               headers: {
                 'Content-Type': 'application/json'

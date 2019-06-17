@@ -47,7 +47,7 @@ app.get('/api/products/?', (request, response) => {
         database.all('SELECT *, count(*) OVER() AS full_count FROM products ORDER BY id desc LIMIT 16 OFFSET ?',[offset])
         .then(rows => {
             //rows kommer att vara en array
-            console.log(rows.length)
+            console.log(rows)
             response.send(rows)
         })
     } else if (filter === '1'){
@@ -86,7 +86,7 @@ app.get('/api/products/?', (request, response) => {
     // }
 })
 
-app.post('/api/customer', (request, response) => {
+app.post('/api/order', (request, response) => {
     let customer = request.body.customer
     let products = request.body.products
     database.run('INSERT INTO buyers(first_name, last_name, mail, phone, address, zip_code, city, country) '+
