@@ -14,7 +14,7 @@
       <div class="level-right">
         <div class="level-item">
           <b-field class="file">
-            <b-upload @input="OnFileSelected" :drag-drop="true" v-model="product.image">
+            <b-upload @input="OnFileSelected" v-model="product.image">
               <a class="button is-primary">
                 <b-icon icon="upload"></b-icon>
                 <span>Click to upload</span>
@@ -44,14 +44,34 @@
             errorMessage: "",
             upload: false,
             product: {
-              name: "name",
-              price: "200",
-              description: "desc",
+              name: "",
+              price: "",
+              description: "",
               image: null
             }
         }
     },
     methods: {
+      missingInput() 
+      {
+        this.$notification.open({
+            duration: 5000,
+            message: "Please fill in the form and upload an image!",
+            position: 'is-bottom-right',
+            type: 'is-danger',
+            hasIcon: true
+        })
+      },
+      uploaded() 
+      {
+        this.$notification.open({
+            duration: 5000,
+            message: "Product have been uploaded!",
+            position: 'is-bottom-right',
+            type: 'is-success',
+            hasIcon: true
+        })
+      },
       OnFileSelected(event) {
           //test if image
           this.upload = true
@@ -70,22 +90,30 @@
         return file && acceptedImageTypes.includes(file['type'])
       },
       addProduct() {
-        const formData = new FormData()
 
+        if(!(this.product.image && this.product.name &&
+        this.product.description && this.product.price)) {
+          this.missingInput()
+          return
+        }
+
+        const formData = new FormData()
         formData.append('productName',this.product.name)
         formData.append('productPrice',this.product.price)
         formData.append('productDescription',this.product.description)
         formData.append('productImage',this.product.image)
-        //console.log(formData);
         
         axios.post('http://localhost:5000/api/product/add', formData)
         .then(result => {
           console.log("upload product");
+          if(result.status === 200) {
+            this.uploaded()
+          }
         })
 
         //reset
-        //this.product = null
-        //this.upload = false
+        this.product = {}
+        this.upload = false
       }
     }
   }

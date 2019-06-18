@@ -88,15 +88,6 @@ export default {
         }else {
           this.totalCount = result[0].full_count
         }
-        
-        // result.forEach(product => {
-        //   let multiplier = this.$store.getters.priceMultiplier
-
-        //   product.price *= multiplier
-        //   product.price /= 10
-        //   product.price = Math.round(product.price)
-        //   product.price *= 10
-        // });
         this.products = result
       }).catch(error => {
           console.log(error.message)

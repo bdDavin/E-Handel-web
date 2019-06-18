@@ -6,7 +6,17 @@ const sqlite = require('sqlite')
 const bodyParser = require('body-parser')
 const path = require('path')
 const multer = require('multer')
-const upload = multer({dest:'uploads/'})
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, './public/uploads/')
+    },
+    filename: function(req, file, cb) {
+        cb(null, new Date().toISOString() + file.originalname)
+    }
+})
+
+const upload = multer({storage: storage})
 
 app.use((request, response, next) => {
     response.header('Access-Control-Allow-Headers', 'Content-Type')
@@ -15,6 +25,9 @@ app.use((request, response, next) => {
 })
 app.use(bodyParser.json())
 app.use(express.static(path.join(path.resolve(), 'public')))
+
+app.use(express.static(__dirname + '/uploads'));// you can access image 
+//using this url: http://localhost:5000/uploads/a.png
 
 //skapar refference till databas
 let database
@@ -48,7 +61,6 @@ app.get('/api/products/?', (request, response) => {
         database.all('SELECT *, count(*) OVER() AS full_count FROM products ORDER BY id desc LIMIT 16 OFFSET ?',[offset])
         .then(rows => {
             //rows kommer att vara en array
-            console.log(rows)
             response.send(rows)
         })
     } else if (filter === '1'){
@@ -102,36 +114,63 @@ app.post('/api/order', (request, response) => {
   })
 })
 
-app.get('/api/orders/', (request, response) => {
-    database.all(`SELECT orders.order_id as Id, buyers.first_name as Name, buyers.mail as Mail, 
-	products.name as Product, products.price as Price
-  FROM orders 
-  INNER JOIN ordersProduct
-  ON orders.order_id = ordersProduct.ordersProduct_o_id
-  INNER JOIN products
-  ON ordersProduct.ordersProduct_p_id = products.id
-  INNER JOIN buyers
-  ON orders.buyer_id = buyers.buyer_id
-  GROUP BY order_id`)
+app.get('/api/orders', (request, response) => {
+    let orders = []
+    let products = []
+    database.all(`SELECT orders.order_id as id, buyers.first_name as fName, 
+    buyers.last_name as lName, buyers.mail as mail, buyers.phone as phone, 
+    buyers.address as address, buyers.zip_code as zipCode, buyers.city as city, buyers.country as country
+    FROM orders
+    INNER JOIN buyers
+    ON orders.buyer_id = buyers.buyer_id`)
     .then(rows => {
-        //rows kommer att vara en array
-        console.log(rows)
-        response.send(rows)
+        orders = rows
+        database.all(`SELECT orders.order_id as orderId, products.id as productId, 
+        products.name as product, products.price as price, products.description as desc
+        FROM orders
+        INNER JOIN ordersProduct
+        ON orders.order_id = ordersProduct.ordersProduct_o_id
+        INNER JOIN products
+        ON ordersProduct.ordersProduct_p_id = products.id`)
+        .then(rows => {
+            products = rows
+            for (let i = 0; i < orders.length; i++) {
+                orders[i]['products'] = []
+                for (let j = 0; j < products.length; j++) {
+                    if (products[j].orderId === orders[i].id) {
+                    orders[i]['products'].push({id: products[j].productId, 
+                                                name: products[j].product, 
+                                                price: products[j].price,
+                                                desc: products[j].desc})
+                    }
+                }
+            }
+            response.send(orders)
+        })
     })
 })
 
 app.post('/api/product/add',upload.single('productImage'), (request, response) => {
 
-    //console.log(request.body)
+    console.log(request.body)
+    let imageUrl = ""
+    if(request.file) {
     console.log("name: " +request.file.filename);
     console.log("path: " +request.file.path);
+    const baseUrl = "http://localhost:5000/uploads/"
+    imageUrl = baseUrl + request.file.filename
+    console.log(imageUrl);
+    }
     
-
-    //let product = request.body
-//     database.run(`INSERT INTO products(name, price, description, sales) 
-//     VALUES(?, ?, ?, 0)`,
-//     [product.name, product.price, product.desc]
-//   )
+    let product = request.body
+    console.log(product);
+    
+    database.run(`INSERT INTO products(name, price, description, image, sales) 
+    VALUES(?, ?, ?, ?, 0)`,
+    [product.productName, product.productPrice, product.productDescription, imageUrl]
+  ).then(res => {
+      console.log(res); 
+  })
   response.send("Adding product")
 })
 

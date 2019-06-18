@@ -21,7 +21,7 @@
                 <b-table-column field="name" center label="Product">
                     <router-link :to="'/product/'+props.row.id">
                     <figure class="image is-64x64">
-                    <img id="image" :src="productImage(props.row)" alt="image">
+                    <img id="image" :src="props.row.image" alt="image">
                     {{ props.row.name }}
                     </figure>
 
@@ -84,9 +84,6 @@
             }
         },
         methods: {
-            productImage(product) {
-                return 'src/assets/products/' +product.id +'.png'
-            }
         }
     }
 </script>
