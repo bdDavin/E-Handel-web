@@ -12,7 +12,6 @@
       <b-carousel ref="grid">
       </b-carousel>
     </div>
-
   </div>
 </template>
 

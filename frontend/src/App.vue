@@ -32,17 +32,13 @@ export default {
 </script>
 
 <style>
-
-
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   margin-top: 60px;
-  /* TODO: Change to $color-backround */
-  /* background-color: #454d66;  */
-
+  
   /*position:fixed;*/
     padding:0;
     margin:0;
@@ -54,7 +50,6 @@ export default {
     width: 100%;
     height: 100%;
 }
-
 
 /* Fixes the footer to the bottom */
 html{
