@@ -555,7 +555,7 @@ export default {
         },
         methods: {
             productImage(product) {
-                return '../src/assets/products/' +product.id +'.png'
+                return '../src/assets/products/'+product.id+'.png'
             },
             newCustomer() {
             let orderObj = {

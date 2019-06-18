@@ -18,47 +18,58 @@
           {{ props.row.id }}
         </b-table-column>
 
-        <b-table-column field="use.first_name" label="First Name" sortable>
-          {{ props.row.first_name }}
+        <b-table-column field="first_name" label="First Name" sortable>
+          {{ props.row.fName }}
         </b-table-column>
 
-        <b-table-column field="user.last_name" label="Last Name" sortable>
-          {{ props.row.last_name }}
+        <b-table-column field="last_name" label="Last Name" sortable>
+          {{ props.row.lName }}
         </b-table-column>
 
-        <b-table-column field="date" label="Date" sortable centered>
+        <b-table-column field="email" label="Email" sortable>
+          {{ props.row.mail }}
+        </b-table-column>
+
+        <b-table-column field="phone" label="Phone" sortable>
+          {{ props.row.phone }}
+        </b-table-column>
+
+        <b-table-column field="address" label="Address" sortable>
+          {{ props.row.address }} {{ props.row.zipCode }} {{ props.row.city }}
+        </b-table-column>
+
+        <b-table-column field="country" label="Country" sortable>
+          {{ props.row.country }}
+        </b-table-column>
+
+        <!--<b-table-column field="date" label="Date" sortable centered>
           <span class="tag is-success">
             {{ new Date(props.row.date).toLocaleDateString() }}
           </span>
-        </b-table-column>
-
-        <b-table-column label="Gender">
-          <b-icon pack="fa"
-            :icon="props.row.gender === 'Male' ? 'mars' : 'venus'">
-          </b-icon>
-            {{ props.row.gender }}
-        </b-table-column>
+        </b-table-column>-->
       </template>
 
       <template slot="detail" slot-scope="props">
-        <article class="media">
+        <article class="media" v-for="product in props.row.products" :key="product.productId">
           <figure class="media-left">
             <p class="image is-64x64">
-              <img src="/static/img/placeholder-128x128.png">
+              <img :src="'src/assets/products/'+product.id+'.png'">
             </p>
           </figure>
           <div class="media-content">
             <div class="content">
               <p>
-                <strong>{{ props.row.user.first_name }} {{ props.row.user.last_name }}</strong>
-                <small>@{{ props.row.user.first_name }}</small>
-                <small>31m</small>
+                <strong>{{ product.name }}</strong>
                 <br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Proin ornare magna eros, eu pellentesque tortor vestibulum ut.
-                Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
+                {{ product.desc }}
               </p>
             </div>
+          </div>
+          <div class="media-right">
+            <strong>Id: {{ product.id }}</strong>
+            <br>
+            <br>
+            <strong>${{ product.price }}</strong>
           </div>
         </article>
       </template>
@@ -70,21 +81,37 @@
 
   export default {
     name: 'Orders',
+    created() {
+      this.getOrders()
+    },
+    computed: {
+      
+    },
     data() {
         return {
-            data: [
-                    { 'id': 1, 'first_name': 'Jesse', 'last_name': 'Simmons', 'date': '2016-10-15 13:43:27', 'gender': 'Male' },
-                    { 'id': 2, 'first_name': 'John', 'last_name': 'Jacobs', 'date': '2016-12-15 06:00:53', 'gender': 'Male' },
-                    { 'id': 3, 'first_name': 'Tina', 'last_name': 'Gilbert', 'date': '2016-04-26 06:26:28', 'gender': 'Female' },
-                    { 'id': 4, 'first_name': 'Clarence', 'last_name': 'Flores', 'date': '2016-04-10 10:28:46', 'gender': 'Male' },
-                    { 'id': 5, 'first_name': 'Anne', 'last_name': 'Lee', 'date': '2016-12-06 14:38:38', 'gender': 'Female' }
-                ]
+            data: []
         }
     },
     methods: {
-        toggle(row) {
-            this.$refs.table.toggleDetails(row)
-        }
+      getOrders() {
+        fetch('http://localhost:5000/api/orders')
+        .then(response => response.json())
+        .then(result => {          
+          this.data = result
+          console.log(this.data)
+          
+        }).catch(error => {
+            console.log(error.message)
+        })
+      },
+      productImage(id) {
+        return 'src/assets/products/' +id+'.png'
+      }
     }
   }
 </script>
+
+<style scoped>
+
+
+</style>

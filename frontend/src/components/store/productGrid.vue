@@ -88,9 +88,7 @@ export default {
         }else {
           this.totalCount = result[0].full_count
         }
-
-        //TODO: testing with price multiplier
-        
+                
         result.forEach(product => {
           let multiplier = this.$store.getters.priceMultiplier
 
