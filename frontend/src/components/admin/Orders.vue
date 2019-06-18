@@ -99,7 +99,7 @@
         .then(response => response.json())
         .then(result => {          
           this.data = result
-          console.log(this.data)
+          
           
         }).catch(error => {
             console.log(error.message)

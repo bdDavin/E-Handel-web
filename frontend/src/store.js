@@ -18,7 +18,6 @@ export default new Vuex.Store({
       let max = 150;
 
       let random = Math.random() * (+max - +min) + min;
-      console.log(random);
 
       //return value between 0.8 and 2.5 ∞∞∞ 80 250
       return random / 100

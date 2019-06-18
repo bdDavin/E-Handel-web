@@ -48,6 +48,91 @@ app.get('/api/product/:id', (request, response) => {
     })
 })
 
+function numberToLetter(n) {
+    let letter
+    switch (n) {
+        case '0':
+            letter = 'A'
+            break;
+        case '1':
+            letter = 'B'
+            break;
+        case '2':
+            letter = 'C'
+            break;
+        case '3':
+            letter = 'D'
+            break;
+        case '4':
+            letter = 'E'
+            break;
+        case '5':
+            letter = 'F'
+            break;
+        case '6':
+            letter = 'G'
+            break;
+        case '7':
+            letter = 'H'
+            break;
+        case '8':
+            letter = 'I'
+            break;
+        case '9':
+            letter = 'J'
+            break;
+        case '10':
+            letter = 'K'
+            break;
+        case '11':
+            letter = 'L'
+            break;
+        case '12':
+            letter = 'M'
+            break;
+        case '13':
+            letter = 'N'
+            break;
+        case '14':
+            letter = 'O'
+            break;
+        case '15':
+            letter = 'P'
+            break;
+        case '16':
+            letter = 'Q'
+            break;
+        case '17':
+            letter = 'R'
+            break;
+        case '18':
+            letter = 'S'
+            break;
+        case '19':
+            letter = 'T'
+            break;
+        case '20':
+            letter = 'U'
+            break;
+        case '21':
+            letter = 'V'
+            break;
+        case '22':
+            letter = 'W'
+            break;
+        case '23':
+            letter = 'X'
+            break;
+        case '24':
+            letter = 'Y'
+            break;
+        case '25':
+            letter = 'Z'
+            break;
+    }
+    return letter
+}
+
 app.get('/api/products/?', (request, response) => {
     //SQL fråga för att hämta alla produkter baserat
     //på filtret och sökning
@@ -136,22 +221,22 @@ app.get('/api/orders', (request, response) => {
                 ON ordersProduct.ordersProduct_p_id = products.id`)
         .then(rows => {
             products = rows
-            for (let i = 0; i < orders.length; i++) {
-                orders[i]['products'] = []
-                for (let j = 0; j < products.length; j++) {
+            for (let i = 0; i < orders.length; i += 1) {
+                orders[i].products = []
+                for (let j = 0; j < products.length; j+= 1) {
                     if (products[j].orderId === orders[i].id) {
                         let found = false
-                        for (let l = 0; l < orders[i]['products'].length; l++) {
-                            if (orders[i]['products'][l].id === products[j].productId) {
+                        for (let l = 0; l < orders[i].products.length; l+= 1) {
+                            if (orders[i].products[l].id === products[j].productId) {
                                 found = true
                                 break;
                             }
                         }
                         if (found) {
-                            let indexOfProduct = orders[i]['products'].findIndex(x => x.id === products[j].productId)
-                            orders[i]['products'][indexOfProduct]['quantity'] = orders[i]['products'][indexOfProduct]['quantity'] + 1
+                            let indexOfProduct = orders[i].products.findIndex(x => x.id === products[j].productId)
+                            orders[i].products[indexOfProduct].quantity = orders[i].products[indexOfProduct].quantity + 1
                         } else {
-                            orders[i]['products'].push({id: products[j].productId, 
+                            orders[i].products.push({id: products[j].productId, 
                                 name: products[j].product, 
                                 price: products[j].price,
                                 desc: products[j].desc,
@@ -198,90 +283,7 @@ app.get('/api/admin/?', (request, response) => {
 })
 
 
-function numberToLetter(n) {
-    let letter
-    switch (n) {
-        case '0':
-            letter = 'A'
-            break;
-        case '1':
-            letter = 'B'
-            break;
-        case '2':
-            letter = 'C'
-            break;
-        case '3':
-            letter = 'D'
-            break;
-        case '4':
-            letter = 'E'
-            break;
-        case '5':
-            letter = 'F'
-            break;
-        case '6':
-            letter = 'G'
-            break;
-        case '7':
-            letter = 'H'
-            break;
-        case '8':
-            letter = 'I'
-            break;
-        case '9':
-            letter = 'J'
-            break;
-        case '10':
-            letter = 'K'
-            break;
-        case '11':
-            letter = 'L'
-            break;
-        case '12':
-            letter = 'M'
-            break;
-        case '13':
-            letter = 'N'
-            break;
-        case '14':
-            letter = 'O'
-            break;
-        case '15':
-            letter = 'P'
-            break;
-        case '16':
-            letter = 'Q'
-            break;
-        case '17':
-            letter = 'R'
-            break;
-        case '18':
-            letter = 'S'
-            break;
-        case '19':
-            letter = 'T'
-            break;
-        case '20':
-            letter = 'U'
-            break;
-        case '21':
-            letter = 'V'
-            break;
-        case '22':
-            letter = 'W'
-            break;
-        case '23':
-            letter = 'X'
-            break;
-        case '24':
-            letter = 'Y'
-            break;
-        case '25':
-            letter = 'Z'
-            break;
-    }
-    return letter
-}
+
 
 app.get('/api/randomProduct', (request, response) => {
     response.status(302)
