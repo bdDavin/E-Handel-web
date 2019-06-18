@@ -53,7 +53,7 @@
         <article class="media" v-for="product in props.row.products" :key="product.productId">
           <figure class="media-left">
             <p class="image is-64x64">
-              <img :src="'src/assets/products/'+product.id+'.png'">
+              <img :src="product.image">
             </p>
           </figure>
           <div class="media-content">
@@ -104,9 +104,6 @@
         }).catch(error => {
             console.log(error.message)
         })
-      },
-      productImage(id) {
-        return 'src/assets/products/' +id+'.png'
       }
     }
   }
