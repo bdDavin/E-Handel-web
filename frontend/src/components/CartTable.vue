@@ -20,12 +20,10 @@
 
                 <b-table-column field="name" center label="Product">
                     <router-link :to="'/product/'+props.row.id">
-                    <figure class="image is-64x64">
-                    <img id="image" :src="props.row.image" alt="image">
-                    {{ props.row.name }}
-                    </figure>
-
-
+                        <figure class="image is-64x64">
+                            <img id="image" :src="productImage(props.row)" alt="image">
+                        </figure>
+                        {{ props.row.name }}
                     </router-link>
                 </b-table-column>
 
