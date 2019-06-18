@@ -127,7 +127,8 @@ app.get('/api/orders', (request, response) => {
     .then(rows => {
         orders = rows
         database.all(`SELECT orders.order_id as orderId, products.id as productId, 
-                products.name as product, products.price as price, products.description as desc
+                products.name as product, products.image as image,
+                products.price as price, products.description as desc
                 FROM orders
                 INNER JOIN ordersProduct
                 ON orders.order_id = ordersProduct.ordersProduct_o_id
@@ -154,6 +155,7 @@ app.get('/api/orders', (request, response) => {
                                 name: products[j].product, 
                                 price: products[j].price,
                                 desc: products[j].desc,
+                                image: products[j].image,
                                 quantity: 1})
                         }
                     }

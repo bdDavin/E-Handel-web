@@ -1,5 +1,5 @@
 <template>
-  <admin-consol v-if="$store.state.loggedIn"></admin-consol>
+  <admin-consol v-if="!$store.state.loggedIn"></admin-consol>
   <password v-else></password>
 </template>
 
