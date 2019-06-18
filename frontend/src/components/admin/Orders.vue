@@ -68,8 +68,9 @@
           <div class="media-right">
             <strong>Id: {{ product.id }}</strong>
             <br>
+            <strong>Quantity: {{ product.quantity }}</strong>
             <br>
-            <strong>${{ product.price }}</strong>
+            <strong>Price: ${{ product.price }}</strong>
           </div>
         </article>
       </template>

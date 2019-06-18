@@ -79,7 +79,7 @@
           class="input is-default is-medium is-primary"
           type="text"
           placeholder="First name"
-          v-model:value = "fname"
+          v-model="fname"
           >
           <span class="icon is-left">
             <i class="fas fa-user"></i>
@@ -93,7 +93,7 @@
         <input
           class="input is-default is-medium is-primary"
           type="text"
-          v-model:value = "lname"
+          v-model="lname"
           placeholder="Last name"
           >
           <span class="icon is-left">
@@ -108,7 +108,7 @@
         <input
         class="input is-default is-medium is-primary"
         type="email"
-        v-model:value = "mail"
+        v-model="mail"
         placeholder="Email"
         >
         <span class="icon is-left">
@@ -129,7 +129,7 @@
         <input
         class="input is-medium is-primary"
         type="tel"
-        v-model:value = "phone"
+        v-model="phone"
         placeholder="Phone number">
         </p>
       </div>
@@ -222,7 +222,7 @@ Shipping details collapse
             <div class="field">
               <p class="control has-icons-left">
                 <span class="select is-medium is-primary">
-                  <select v-model:value = "country">
+                  <select v-model="country">
                     <option selected>Sweden</option>
                     <option>USA</option>
                     <option>Germany</option>
@@ -245,7 +245,7 @@ Shipping details collapse
          <input
          class="input is-medium is-primary"
          type="text"
-         v-model:value = "zipCode"
+         v-model="zipCode"
          placeholder="ZIP Code">
        </p>
      </div>
@@ -257,7 +257,7 @@ Shipping details collapse
       <input
       class="input is-default is-medium is-primary"
       type="text"
-      v-model:value = "city"
+      v-model="city"
       placeholder="City"
       >
       <span class="icon is-left">
@@ -272,7 +272,7 @@ Shipping details collapse
       <input
       class="input is-default is-medium is-primary"
       type="text"
-      v-model:value = "address"
+      v-model="address"
       placeholder="Address"
       >
       <span class="icon is-left">
@@ -556,28 +556,38 @@ export default {
             productImage(product) {
                 return '../src/assets/products/'+product.id+'.png'
             },
+            getCart() {
+              let cart = this.$store.state.cart
+              let newCart = []
+              for (let i = 0; i < cart.length; i++) {
+                for (let j = 0; j < cart[i].quantity; j++) {
+                  newCart.push(cart[i])
+                }
+              }
+              return newCart
+            },
             newCustomer() {
-            let orderObj = {
-              customer: {
-                fname: this.fname,
-                lname: this.lname,
-                mail: this.mail,
-                phone: this.phone,
-                country: this.country,
-                zipCode: this.zipCode,
-                city: this.city,
-                address: this.address
-              },
-              products: this.$store.state.cart
+              let orderObj = {
+                customer: {
+                  fname: this.fname,
+                  lname: this.lname,
+                  mail: this.mail,
+                  phone: this.phone,
+                  country: this.country,
+                  zipCode: this.zipCode,
+                  city: this.city,
+                  address: this.address
+                },
+                products: this.getCart()
+              }
+              fetch('http://localhost:5000/api/order', {
+                body: JSON.stringify(orderObj),
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                method: 'POST'
+              })
             }
-            fetch('http://localhost:5000/api/order', {
-              body: JSON.stringify(orderObj),
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              method: 'POST'
-            })
-          }
         }
     }
 </script>
