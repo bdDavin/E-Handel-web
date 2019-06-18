@@ -1,10 +1,8 @@
 <template>
   <div>
     <b-tabs @change="tabChanged" position="is-centered" v-model="activeTab">
-      <b-tab-item label="All">
-      </b-tab-item>
-      <b-tab-item label="Popular">
-      </b-tab-item>
+      <b-tab-item label="All"></b-tab-item>
+      <b-tab-item label="Popular"></b-tab-item>
       <b-tab-item label="A-Z">
         <b-tabs @change="tabChanged" :animated="false" position="is-centered" size="is-small" v-model="activeLetter">
           <b-tab-item label="A"></b-tab-item>
@@ -43,22 +41,22 @@
         </div>
       </div>
       <b-pagination v-if="totalCount > productsPerPage" @change="pageChanged"
-            :total="totalCount"
-            :current.sync="currentPage"
-            order="is-centered"
-            :per-page="productsPerPage"
-            aria-next-label="Next page"
-            aria-previous-label="Previous page"
-            aria-page-label="Page"
-            aria-current-label="Current page">
-        </b-pagination>
+        :total="totalCount"
+        :current.sync="currentPage"
+        order="is-centered"
+        :per-page="productsPerPage"
+        aria-next-label="Next page"
+        aria-previous-label="Previous page"
+        aria-page-label="Page"
+        aria-current-label="Current page">
+      </b-pagination>
     </section>
   </div>
 </template>
 
 <script>
 import ProductCard from './ProductCard.vue'
-import anime from 'animejs';
+import anime from 'animejs'
 
 export default {
   name: 'ProductGrid',
@@ -83,7 +81,7 @@ export default {
       fetch('http://localhost:5000/api/products/?filter='+this.activeTab+'&letter='+this.activeLetter+'&page='+payload)
       .then(response => response.json())
       .then(result => {
-        if (result.length === 0) {
+        if(result.length === 0) {
           this.totalCount = 0
         }else {
           this.totalCount = result[0].full_count
@@ -95,7 +93,6 @@ export default {
     },
     tabChanged() {
       this.currentPage = 1
-      
       this.getProductsFromDB(this.currentPage)
     },
     pageChanged(payload) {

@@ -1,5 +1,5 @@
 <template>
-  <admin-consol v-if="!$store.state.loggedIn"></admin-consol>
+  <admin-consol v-if="$store.state.loggedIn"></admin-consol>
   <password v-else></password>
 </template>
 
@@ -9,18 +9,9 @@ import AdminConsol from './AdminConsol.vue'
 
 export default {
   name: 'AdminContainer',
-  data() {
-    return {
-
-    }
-  },
   components: {
     Password,
     AdminConsol
   }
 }
 </script>
-
-<style scoped>
-
-</style>

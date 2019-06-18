@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <b-tabs position="is-centered" v-model="activeTab">
-      <b-tab-item label="Add products">
-        <add-product-form></add-product-form>
-      </b-tab-item>
-      <b-tab-item label="Orders">
-        <orders></orders>
-      </b-tab-item>
-    </b-tabs>
-  </div>
+  <b-tabs position="is-centered" v-model="activeTab">
+    <b-tab-item label="Orders">
+      <orders></orders>
+    </b-tab-item>
+    <b-tab-item label="Add products">
+      <add-product-form></add-product-form>
+    </b-tab-item>
+  </b-tabs>
 </template>
 
 <script>
@@ -28,7 +26,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>
