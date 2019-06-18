@@ -5,6 +5,8 @@ const app = express()
 const sqlite = require('sqlite')
 const bodyParser = require('body-parser')
 const path = require('path')
+const multer = require('multer')
+const upload = multer({dest:'uploads/'})
 
 app.use((request, response, next) => {
     response.header('Access-Control-Allow-Headers', 'Content-Type')
@@ -92,7 +94,7 @@ app.post('/api/order', (request, response) => {
       database.run('INSERT INTO orders(buyer_id) VALUES(?)', [buyerId])
       .then(output => {
         let orderId = output.stmt.lastID
-        for (var i = 0; i < products.length; i++) {
+        for (var i = 0; i < products.length; i += 1) {
           database.run('INSERT INTO ordersProduct(ordersProduct_p_id, ordersProduct_o_id) VALUES(?, ?)', [products[i].id, orderId])
         }
         response.send()
@@ -100,7 +102,7 @@ app.post('/api/order', (request, response) => {
   })
 })
 
-app.get('/api/order/', (request, response) => {
+app.get('/api/orders/', (request, response) => {
     database.all(`SELECT orders.order_id as Id, buyers.first_name as Name, buyers.mail as Mail, 
 	products.name as Product, products.price as Price
   FROM orders 
@@ -109,7 +111,8 @@ app.get('/api/order/', (request, response) => {
   INNER JOIN products
   ON ordersProduct.ordersProduct_p_id = products.id
   INNER JOIN buyers
-  ON orders.buyer_id = buyers.buyer_id`)
+  ON orders.buyer_id = buyers.buyer_id
+  GROUP BY order_id`)
     .then(rows => {
         //rows kommer att vara en array
         console.log(rows)
@@ -117,13 +120,19 @@ app.get('/api/order/', (request, response) => {
     })
 })
 
-app.post('/api/product/add', (request, response) => {
-    let product = request.body
-    database.run(`INSERT INTO products(name, price, description, sales) 
-    VALUES(?, ?, ?, 0)`,
-    [product.name, product.price, product.desc]
-  )
-  response.send()
+app.post('/api/product/add',upload.single('productImage'), (request, response) => {
+
+    //console.log(request.body)
+    console.log("name: " +request.file.filename);
+    console.log("path: " +request.file.path);
+    
+
+    //let product = request.body
+//     database.run(`INSERT INTO products(name, price, description, sales) 
+//     VALUES(?, ?, ?, 0)`,
+//     [product.name, product.price, product.desc]
+//   )
+  response.send("Adding product")
 })
 
 app.get('/api/admin/?', (request, response) => {
@@ -219,10 +228,6 @@ function numberToLetter(n) {
     return letter
 }
 
-app.listen(5000, () => {
-    console.log('Service is running')
-})
-
 app.get('/api/randomProduct', (request, response) => {
     response.status(302)
     //SQL fråga för att hämta produkten med det rätt id
@@ -232,8 +237,14 @@ app.get('/api/randomProduct', (request, response) => {
         let max=numberOfProducts[0].count - 1;
          let index = Math.round(Math.random() * (+max - +min) +min )
         database.all('SELECT * FROM Products WHERE id = ?',[index])
-            .then(randomProduct => {
-                response.send(randomProduct[0])
+        .then(randomProduct => {
+            response.send(randomProduct[0])
         })
     })
 })
+
+app.listen(5000, () => {
+    console.log('Service is running')
+})
+
+
