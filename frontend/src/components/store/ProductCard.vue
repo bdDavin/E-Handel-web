@@ -3,7 +3,7 @@
     <router-link :to="productId">
       <div class="card-image">
         <figure class="image is-4by3">
-          <img id="image" :src="productImage">
+          <img id="image" :src="product.image">
         </figure>
       </div>
       <div class="card-content">
@@ -33,7 +33,7 @@ export default {
       return '/product/'+this.product.id
     },
     productImage() {
-      return 'src/assets/products/' +this.product.id +'.png'
+      return this.product.image
     },
   },
   name: 'ProductCard',

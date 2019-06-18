@@ -4,7 +4,7 @@
      <div class="columns">
         <div class="image-column column">
           <figure class="image is-4by3" >
-            <img id="image" :src="productImage" alt="Placeholder image">
+            <img id="image" :src="product.image" alt="Placeholder image">
           </figure>
         </div>
         <div class="product-info column">
@@ -51,9 +51,6 @@ export default {
   computed: {
     getId() {
       return this.$route.params.id
-    },
-    productImage() {
-      return 'src/assets/products/' +this.product.id +'.png'
     }
   },
   components: {

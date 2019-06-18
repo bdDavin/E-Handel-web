@@ -5,6 +5,18 @@ const app = express()
 const sqlite = require('sqlite')
 const bodyParser = require('body-parser')
 const path = require('path')
+const multer = require('multer')
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, './public/uploads/')
+    },
+    filename: function(req, file, cb) {
+        cb(null, new Date().toISOString() + file.originalname)
+    }
+})
+
+const upload = multer({storage: storage})
 
 app.use((request, response, next) => {
     response.header('Access-Control-Allow-Headers', 'Content-Type')
@@ -13,6 +25,9 @@ app.use((request, response, next) => {
 })
 app.use(bodyParser.json())
 app.use(express.static(path.join(path.resolve(), 'public')))
+
+app.use(express.static(__dirname + '/uploads'));// you can access image 
+//using this url: http://localhost:5000/uploads/a.png
 
 //skapar refference till databas
 let database
@@ -46,7 +61,6 @@ app.get('/api/products/?', (request, response) => {
         database.all('SELECT *, count(*) OVER() AS full_count FROM products ORDER BY id desc LIMIT 16 OFFSET ?',[offset])
         .then(rows => {
             //rows kommer att vara en array
-            console.log(rows)
             response.send(rows)
         })
     } else if (filter === '1'){
@@ -92,7 +106,7 @@ app.post('/api/order', (request, response) => {
       database.run('INSERT INTO orders(buyer_id) VALUES(?)', [buyerId])
       .then(output => {
         let orderId = output.stmt.lastID
-        for (var i = 0; i < products.length; i++) {
+        for (var i = 0; i < products.length; i += 1) {
           database.run('INSERT INTO ordersProduct(ordersProduct_p_id, ordersProduct_o_id) VALUES(?, ?)', [products[i].id, orderId])
         }
         response.send()
@@ -150,13 +164,28 @@ app.get('/api/orders', (request, response) => {
     })
 })
 
-app.post('/api/product/add', (request, response) => {
+app.post('/api/product/add',upload.single('productImage'), (request, response) => {
+
+    console.log(request.body)
+    let imageUrl = ""
+    if(request.file) {
+    console.log("name: " +request.file.filename);
+    console.log("path: " +request.file.path);
+    const baseUrl = "http://localhost:5000/uploads/"
+    imageUrl = baseUrl + request.file.filename
+    console.log(imageUrl);
+    }
+    
     let product = request.body
-    database.run(`INSERT INTO products(name, price, description, sales) 
-    VALUES(?, ?, ?, 0)`,
-    [product.name, product.price, product.desc]
-  )
-  response.send()
+    console.log(product);
+    
+    database.run(`INSERT INTO products(name, price, description, image, sales) 
+    VALUES(?, ?, ?, ?, 0)`,
+    [product.productName, product.productPrice, product.productDescription, imageUrl]
+  ).then(res => {
+      console.log(res); 
+  })
+  response.send("Adding product")
 })
 
 app.get('/api/admin/?', (request, response) => {
@@ -252,10 +281,6 @@ function numberToLetter(n) {
     return letter
 }
 
-app.listen(5000, () => {
-    console.log('Service is running')
-})
-
 app.get('/api/randomProduct', (request, response) => {
     response.status(302)
     //SQL fråga för att hämta produkten med det rätt id
@@ -265,8 +290,14 @@ app.get('/api/randomProduct', (request, response) => {
         let max=numberOfProducts[0].count - 1;
          let index = Math.round(Math.random() * (+max - +min) +min )
         database.all('SELECT * FROM Products WHERE id = ?',[index])
-            .then(randomProduct => {
-                response.send(randomProduct[0])
+        .then(randomProduct => {
+            response.send(randomProduct[0])
         })
     })
 })
+
+app.listen(5000, () => {
+    console.log('Service is running')
+})
+
+

@@ -82,9 +82,6 @@
             }
         },
         methods: {
-            productImage(product) {
-                return 'src/assets/products/' +product.id +'.png'
-            }
         }
     }
 </script>
