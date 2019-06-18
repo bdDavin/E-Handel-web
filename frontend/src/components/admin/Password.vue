@@ -13,18 +13,40 @@ export default {
   name: 'Password',
   data() {
     return {
-        pass: null
+        pass: ""
     }
   },
   methods: {
+    wronPassword() 
+    {
+      this.$notification.open({
+          duration: 5000,
+          message: `Wrong Password`,
+          position: 'is-bottom-right',
+          type: 'is-danger',
+          hasIcon: true
+      })
+    },
+    correctPassword() 
+    {
+      this.$notification.open({
+          duration: 5000,
+          message: `Welcome!`,
+          position: 'is-bottom-right',
+          type: 'is-success',
+          hasIcon: true
+      })
+    },
     login() {
-        fetch('http://localhost:5000/api/admin/?pw='+pass)
+        fetch('http://localhost:5000/api/admin/?pw='+this.pass)
         .then(response => response.json())
         .then(result => {
             if (result) {
-                $store.commit('setLoggedIn')
+                this.$store.commit('setLoggedIn')
+                this.correctPassword()
             } else {
                 //Wrong pass
+                this.wronPassword()
             }
         }).catch(error => {
             console.log(error.message)

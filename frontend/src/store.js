@@ -6,18 +6,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-
-    cart: [
-        // { 'price': 200, 'name': 'Horse', 'quantity': 1, 'id': 1},
-        // { 'price': 40, 'name': 'Dog', 'quantity': 1, 'id': 2 },
-        // { 'price': 600, 'name': 'Elephant', 'quantity': 3, 'id': 3},
-        // { 'price': 45, 'name': 'Tiger', 'quantity': 1, 'id': 4},
-        // { 'price': 59, 'name': 'Snowman', 'quantity': 2, 'id': 5},
-    ],
-    loggedIn: {
-      type: Boolean,
-      default: false
-    }
+    cart: [],
+    loggedIn: false
   },
   getters: {
     priceMultiplier() {
