@@ -532,7 +532,6 @@ export default {
     import CartTable from '../CartTable.vue'
     export default {
       created() {
-
       },
       components: {
         CartTable
@@ -557,28 +556,38 @@ export default {
             productImage(product) {
                 return '../src/assets/products/'+product.id+'.png'
             },
+            getCart() {
+              let cart = this.$store.state.cart
+              let newCart = []
+              for (let i = 0; i < cart.length; i++) {
+                for (let j = 0; j < cart[i].quantity; j++) {
+                  newCart.push(cart[i])
+                }
+              }
+              return newCart
+            },
             newCustomer() {
-            let orderObj = {
-              customer: {
-                fname: this.fname,
-                lname: this.lname,
-                mail: this.mail,
-                phone: this.phone,
-                country: this.country,
-                zipCode: this.zipCode,
-                city: this.city,
-                address: this.address
-              },
-              products: this.$store.state.cart
+              let orderObj = {
+                customer: {
+                  fname: this.fname,
+                  lname: this.lname,
+                  mail: this.mail,
+                  phone: this.phone,
+                  country: this.country,
+                  zipCode: this.zipCode,
+                  city: this.city,
+                  address: this.address
+                },
+                products: this.getCart()
+              }
+              fetch('http://localhost:5000/api/order', {
+                body: JSON.stringify(orderObj),
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                method: 'POST'
+              })
             }
-            fetch('http://localhost:5000/api/order', {
-              body: JSON.stringify(orderObj),
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              method: 'POST'
-            })
-          }
         }
     }
 </script>

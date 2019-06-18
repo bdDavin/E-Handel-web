@@ -104,30 +104,43 @@ app.get('/api/orders', (request, response) => {
     let orders = []
     let products = []
     database.all(`SELECT orders.order_id as id, buyers.first_name as fName, 
-    buyers.last_name as lName, buyers.mail as mail, buyers.phone as phone, 
-    buyers.address as address, buyers.zip_code as zipCode, buyers.city as city, buyers.country as country
-    FROM orders
-    INNER JOIN buyers
-    ON orders.buyer_id = buyers.buyer_id`)
+            buyers.last_name as lName, buyers.mail as mail, buyers.phone as phone, 
+            buyers.address as address, buyers.zip_code as zipCode, buyers.city as city, buyers.country as country
+            FROM orders
+            INNER JOIN buyers
+            ON orders.buyer_id = buyers.buyer_id`)
     .then(rows => {
         orders = rows
         database.all(`SELECT orders.order_id as orderId, products.id as productId, 
-        products.name as product, products.price as price, products.description as desc
-        FROM orders
-        INNER JOIN ordersProduct
-        ON orders.order_id = ordersProduct.ordersProduct_o_id
-        INNER JOIN products
-        ON ordersProduct.ordersProduct_p_id = products.id`)
+                products.name as product, products.price as price, products.description as desc
+                FROM orders
+                INNER JOIN ordersProduct
+                ON orders.order_id = ordersProduct.ordersProduct_o_id
+                INNER JOIN products
+                ON ordersProduct.ordersProduct_p_id = products.id`)
         .then(rows => {
             products = rows
             for (let i = 0; i < orders.length; i++) {
                 orders[i]['products'] = []
                 for (let j = 0; j < products.length; j++) {
                     if (products[j].orderId === orders[i].id) {
-                    orders[i]['products'].push({id: products[j].productId, 
-                                                name: products[j].product, 
-                                                price: products[j].price,
-                                                desc: products[j].desc})
+                        let found = false
+                        for (let l = 0; l < orders[i]['products'].length; l++) {
+                            if (orders[i]['products'][l].id === products[j].productId) {
+                                found = true
+                                break;
+                            }
+                        }
+                        if (found) {
+                            let indexOfProduct = orders[i]['products'].findIndex(x => x.id === products[j].productId)
+                            orders[i]['products'][indexOfProduct]['quantity'] = orders[i]['products'][indexOfProduct]['quantity'] + 1
+                        } else {
+                            orders[i]['products'].push({id: products[j].productId, 
+                                name: products[j].product, 
+                                price: products[j].price,
+                                desc: products[j].desc,
+                                quantity: 1})
+                        }
                     }
                 }
             }
