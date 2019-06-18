@@ -73,6 +73,7 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 export default {
   name: 'Orders',
   created() {
@@ -81,6 +82,33 @@ export default {
   data() {
       return {
           data: []
+=======
+
+  export default {
+    name: 'Orders',
+    created() {
+      this.getOrders()
+    },
+    computed: {
+      
+    },
+    data() {
+        return {
+            data: []
+        }
+    },
+    methods: {
+      getOrders() {
+        fetch('http://localhost:5000/api/orders')
+        .then(response => response.json())
+        .then(result => {          
+          this.data = result
+          
+          
+        }).catch(error => {
+            console.log(error.message)
+        })
+>>>>>>> c0b209cf2526f8e87d0703c9cc4612d1b1afb920
       }
   },
   methods: {

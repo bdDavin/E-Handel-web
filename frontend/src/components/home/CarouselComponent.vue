@@ -61,13 +61,16 @@ export default {
       })
     },
     startGridAnimation() {
+
         let grid = this.$refs.grid
         let pArray = this.$refs.product
         let divArray = []
-
+        //get all productcards
         pArray.forEach(p => {
             divArray.push(p.$el)
         });
+
+        //move productcards
         anime({
         targets: divArray,
         translateX: [

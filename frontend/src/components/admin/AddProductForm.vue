@@ -2,13 +2,13 @@
   <div class="container">
     <h1 class="title">Add a product</h1>
     <b-field label="Product name">
-      <b-input v-model:value="product.name"></b-input>
+      <b-input v-model="product.name"></b-input>
     </b-field>
     <b-field label="Product price">
-      <b-input v-model:value="product.price"></b-input>
+      <b-input v-model="product.price"></b-input>
     </b-field>
     <b-field label="Message">
-      <b-input v-model:value="product.description" type="textarea"></b-input>
+      <b-input v-model="product.description" type="textarea"></b-input>
     </b-field>
     <div class="level">
       <div class="level-right">
