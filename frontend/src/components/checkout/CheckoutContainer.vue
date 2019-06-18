@@ -79,7 +79,7 @@
           class="input is-default is-medium is-primary"
           type="text"
           placeholder="First name"
-          v-model:value = "fname"
+          v-model="fname"
           >
           <span class="icon is-left">
             <i class="fas fa-user"></i>
@@ -93,7 +93,7 @@
         <input
           class="input is-default is-medium is-primary"
           type="text"
-          v-model:value = "lname"
+          v-model="lname"
           placeholder="Last name"
           >
           <span class="icon is-left">
@@ -108,7 +108,7 @@
         <input
         class="input is-default is-medium is-primary"
         type="email"
-        v-model:value = "mail"
+        v-model="mail"
         placeholder="Email"
         >
         <span class="icon is-left">
@@ -129,7 +129,7 @@
         <input
         class="input is-medium is-primary"
         type="tel"
-        v-model:value = "phone"
+        v-model="phone"
         placeholder="Phone number">
         </p>
       </div>
@@ -222,7 +222,7 @@ Shipping details collapse
             <div class="field">
               <p class="control has-icons-left">
                 <span class="select is-medium is-primary">
-                  <select v-model:value = "country">
+                  <select v-model="country">
                     <option selected>Sweden</option>
                     <option>USA</option>
                     <option>Germany</option>
@@ -245,7 +245,7 @@ Shipping details collapse
          <input
          class="input is-medium is-primary"
          type="text"
-         v-model:value = "zipCode"
+         v-model="zipCode"
          placeholder="ZIP Code">
        </p>
      </div>
@@ -257,7 +257,7 @@ Shipping details collapse
       <input
       class="input is-default is-medium is-primary"
       type="text"
-      v-model:value = "city"
+      v-model="city"
       placeholder="City"
       >
       <span class="icon is-left">
@@ -272,7 +272,7 @@ Shipping details collapse
       <input
       class="input is-default is-medium is-primary"
       type="text"
-      v-model:value = "address"
+      v-model="address"
       placeholder="Address"
       >
       <span class="icon is-left">

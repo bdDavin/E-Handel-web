@@ -108,7 +108,8 @@ app.get('/api/orders', (request, response) => {
             buyers.address as address, buyers.zip_code as zipCode, buyers.city as city, buyers.country as country
             FROM orders
             INNER JOIN buyers
-            ON orders.buyer_id = buyers.buyer_id`)
+            ON orders.buyer_id = buyers.buyer_id
+            ORDER BY orders.order_id desc`)
     .then(rows => {
         orders = rows
         database.all(`SELECT orders.order_id as orderId, products.id as productId, 
