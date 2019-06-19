@@ -211,16 +211,16 @@ app.get('/api/orders', (request, response) => {
             //When done saves the result to products array
             products = rows
             //Combines the arrays by putting products in orders
-            for (let i = 0; i < orders.length; i++) {
+            for (let i = 0; i < orders.length; i+= 1) {
                 //Adds an empty array with name products in all orders
-                orders[i]['products'] = []
-                for (let j = 0; j < products.length; j++) {
+                orders[i].products = []
+                for (let j = 0; j < products.length; j+= 1) {
                     //if the products order id match the order add the product to that order
                     if (products[j].orderId === orders[i].id) {
                         let found = false
                         //Checks if product already exists
-                        for (let l = 0; l < orders[i]['products'].length; l++) {
-                            if (orders[i]['products'][l].id === products[j].productId) {
+                        for (let l = 0; l < orders[i].products.length; l+= 1) {
+                            if (orders[i].products[l].id === products[j].productId) {
                                 found = true
                                 break;
                             }
