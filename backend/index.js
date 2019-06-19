@@ -25,18 +25,17 @@ app.use((request, response, next) => {
 })
 app.use(bodyParser.json())
 app.use(express.static(path.join(path.resolve(), 'public')))
-
 app.use(express.static(__dirname + '/uploads'));// you can access image 
 //using this url: http://localhost:5000/uploads/a.png
 
-//skapar refference till databas
+//skapar reference till databas
 let database
 sqlite.open('database.sqlite').then(database_ => {
   database = database_
 })
 
 app.get('/api/product/:id', (request, response) => {
-    //SQL fråga för att hämta produkten med det rätt id
+    //SQL fråga för att hämta produkten med rätt id
     let id = request.params.id
     console.log("product id: " +id)
     response.status(230)
@@ -134,13 +133,10 @@ function numberToLetter(n) {
 }
 
 app.get('/api/products/?', (request, response) => {
-    //SQL fråga för att hämta alla produkter baserat
-    //på filtret och sökning
+    //SQL fråga för att hämta alla produkter baserat filter
     const filter = request.query.filter
     const letter = request.query.letter
     const offset = 16 * (request.query.page - 1)
-    //order = asc or decs
-    const searchTerm = request.query.term
     if (filter === '0') {
         console.log('all products')
         database.all('SELECT *, count(*) OVER() AS full_count FROM products ORDER BY id desc LIMIT 16 OFFSET ?',[offset])
@@ -165,73 +161,71 @@ app.get('/api/products/?', (request, response) => {
             console.log(rows)
             response.send(rows)
         })
-    } else if (filter === '3') {
-        //example request api/products/?filter=3&term=green
-        //om inga inparametrar så svara med alla varor
-        console.log("searched products");
-        let search = '%' + searchTerm + '%'
-        database.all('SELECT *, 15 AS full_count FROM products WHERE name LIKE ? ORDER BY sales desc LIMIT 15', [search])
-        .then(rows => {
-            //rows kommer att vara en array
-            console.log(rows)
-            response.send(rows)
-        })
     }
-    
 })
 
 app.post('/api/order', (request, response) => {
     let customer = request.body.customer
     let products = request.body.products
     database.run('INSERT INTO buyers(first_name, last_name, mail, phone, address, zip_code, city, country) '+
-    'VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [customer.fname, customer.lname, customer.mail, customer.phone, customer.address, customer.zipCode, customer.city, customer.country]
-  )
-  .then(output => {
-      let buyerId = output.stmt.lastID
-      database.run('INSERT INTO orders(buyer_id) VALUES(?)', [buyerId])
-      .then(output => {
-        let orderId = output.stmt.lastID
-        for (var i = 0; i < products.length; i += 1) {
-          database.run('INSERT INTO ordersProduct(ordersProduct_p_id, ordersProduct_o_id) VALUES(?, ?)', [products[i].id, orderId])
-        }
-        response.send()
-      })
-  })
+        'VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [customer.fname, customer.lname, customer.mail, customer.phone, customer.address, customer.zipCode, customer.city, customer.country])
+    .then(output => {
+        let buyerId = output.stmt.lastID
+        database.run('INSERT INTO orders(buyer_id) VALUES(?)', [buyerId])
+        .then(output => {
+            let orderId = output.stmt.lastID
+            for (var i = 0; i < products.length; i += 1) {
+                database.run('INSERT INTO ordersProduct(ordersProduct_p_id, ordersProduct_o_id) VALUES(?, ?)', [products[i].id, orderId])
+            }
+            response.send()
+        })
+    })
 })
 
 app.get('/api/orders', (request, response) => {
+    //Defines 2 arrays
     let orders = []
     let products = []
+    //Asks db for all orders
     database.all(`SELECT orders.order_id as id, buyers.first_name as fName, 
-            buyers.last_name as lName, buyers.mail as mail, buyers.phone as phone, 
-            buyers.address as address, buyers.zip_code as zipCode, buyers.city as city, buyers.country as country
-            FROM orders
-            INNER JOIN buyers
-            ON orders.buyer_id = buyers.buyer_id
-            ORDER BY orders.order_id desc`)
+        buyers.last_name as lName, buyers.mail as mail, buyers.phone as phone, 
+        buyers.address as address, buyers.zip_code as zipCode, 
+        buyers.city as city, buyers.country as country
+        FROM orders
+        INNER JOIN buyers
+        ON orders.buyer_id = buyers.buyer_id
+        ORDER BY orders.order_id desc`)
     .then(rows => {
+        //When done saves the result to orders array
         orders = rows
+        //Asks db for all products with order id
         database.all(`SELECT orders.order_id as orderId, products.id as productId, 
-                products.name as product, products.image as image,
-                products.price as price, products.description as desc
-                FROM orders
-                INNER JOIN ordersProduct
-                ON orders.order_id = ordersProduct.ordersProduct_o_id
-                INNER JOIN products
-                ON ordersProduct.ordersProduct_p_id = products.id`)
+            products.name as product, products.image as image,
+            products.price as price, products.description as desc
+            FROM orders
+            INNER JOIN ordersProduct
+            ON orders.order_id = ordersProduct.ordersProduct_o_id
+            INNER JOIN products
+            ON ordersProduct.ordersProduct_p_id = products.id`)
         .then(rows => {
+            //When done saves the result to products array
             products = rows
-            for (let i = 0; i < orders.length; i += 1) {
-                orders[i].products = []
-                for (let j = 0; j < products.length; j+= 1) {
+            //Combines the arrays by putting products in orders
+            for (let i = 0; i < orders.length; i++) {
+                //Adds an empty array with name products in all orders
+                orders[i]['products'] = []
+                for (let j = 0; j < products.length; j++) {
+                    //if the products order id match the order add the product to that order
                     if (products[j].orderId === orders[i].id) {
                         let found = false
-                        for (let l = 0; l < orders[i].products.length; l+= 1) {
-                            if (orders[i].products[l].id === products[j].productId) {
+                        //Checks if product already exists
+                        for (let l = 0; l < orders[i]['products'].length; l++) {
+                            if (orders[i]['products'][l].id === products[j].productId) {
                                 found = true
                                 break;
                             }
                         }
+                        //Adds product if it not exits and adds quantity if it do
                         if (found) {
                             let indexOfProduct = orders[i].products.findIndex(x => x.id === products[j].productId)
                             orders[i].products[indexOfProduct].quantity = orders[i].products[indexOfProduct].quantity + 1
@@ -252,27 +246,25 @@ app.get('/api/orders', (request, response) => {
 })
 
 app.post('/api/product/add',upload.single('productImage'), (request, response) => {
-
     console.log(request.body)
     let imageUrl = ""
     if(request.file) {
-    console.log("name: " +request.file.filename);
-    console.log("path: " +request.file.path);
-    const baseUrl = "http://localhost:5000/uploads/"
-    imageUrl = baseUrl + request.file.filename
-    console.log(imageUrl);
+        console.log("name: " +request.file.filename);
+        console.log("path: " +request.file.path);
+        const baseUrl = "http://localhost:5000/uploads/"
+        imageUrl = baseUrl + request.file.filename
+        console.log(imageUrl)
     }
-    
     let product = request.body
-    console.log(product);
+    console.log(product)
     
     database.run(`INSERT INTO products(name, price, description, image, sales) 
-    VALUES(?, ?, ?, ?, 0)`,
-    [product.productName, product.productPrice, product.productDescription, imageUrl]
-  ).then(res => {
-      console.log(res); 
-  })
-  response.send("Adding product")
+        VALUES(?, ?, ?, ?, 0)`,
+    [product.productName, product.productPrice, product.productDescription, imageUrl])
+    .then(res => {
+        console.log(res) 
+    })
+    response.send("Adding product")
 })
 
 app.get('/api/admin/?', (request, response) => {
@@ -282,9 +274,6 @@ app.get('/api/admin/?', (request, response) => {
     response.send(loginSuccess)
 })
 
-
-
-
 app.get('/api/randomProduct', (request, response) => {
     response.status(302)
     //SQL fråga för att hämta produkten med det rätt id
@@ -292,7 +281,7 @@ app.get('/api/randomProduct', (request, response) => {
     .then(numberOfProducts => {
         let min=0;
         let max=numberOfProducts[0].count - 1;
-         let index = Math.round(Math.random() * (+max - +min) +min )
+        let index = Math.round(Math.random() * (+max - +min) +min )
         database.all('SELECT * FROM Products WHERE id = ?',[index])
         .then(randomProduct => {
             response.send(randomProduct[0])
@@ -303,5 +292,3 @@ app.get('/api/randomProduct', (request, response) => {
 app.listen(5000, () => {
     console.log('Service is running')
 })
-
-

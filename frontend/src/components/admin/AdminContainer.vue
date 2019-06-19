@@ -9,18 +9,9 @@ import AdminConsol from './AdminConsol.vue'
 
 export default {
   name: 'AdminContainer',
-  data() {
-    return {
-
-    }
-  },
   components: {
     Password,
     AdminConsol
   }
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -9,7 +9,7 @@
       <div class="card-content">
         <div class=" is-mobile">
           <div class="level-item">
-             <p class="level-left title is-6">{{product.name}}</p>
+            <p class="level-left title is-6">{{product.name}}</p>
           </div>
           <div class="level-item">
             <P class="subtitle level-right">${{product.price}}</P>
@@ -26,7 +26,8 @@
 </template>
 
 <script>
-import anime from 'animejs';
+import anime from 'animejs'
+
 export default {
   computed: {
     productId() {
@@ -48,11 +49,6 @@ export default {
       default: true,
     }
   }, 
-  data() {
-    return {
-      
-    }
-  },  
   methods: {
     hover(hover) {
       if(!this.isHoverable) {
@@ -65,13 +61,12 @@ export default {
         targets: card,
         scale: sc,
         duration: 200,
-      });
+      })
     },
     addToCart() {
       this.$store.commit('updateCart', this.product)
-      
       let card = this.$refs.card
-      
+
       anime({
         targets: card,
         scale: [
@@ -80,7 +75,7 @@ export default {
         ],
         duration: 300,
         easing: 'linear',
-      });
+      })
     }
   }
 }
@@ -118,6 +113,4 @@ export default {
     border-top-right-radius: 5px;
     object-fit: cover;
   }
-
-  
 </style>

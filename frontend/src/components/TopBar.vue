@@ -1,4 +1,3 @@
-
 <template>
     <nav class="navbar is-primary is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
@@ -52,54 +51,55 @@
 
 <script>
 import CartTable from './CartTable.vue'
-import anime from 'animejs';
+import anime from 'animejs'
+
 export default {
-  name: 'Navbar',
-  computed: {
-      cartItems() {
-      return this.$store.state.cart.length
+    name: 'Navbar',
+    computed: {
+        cartItems() {
+        return this.$store.state.cart.length
+        },
     },
-  },
-  watch: {
-    $route (to, from){
-        this.burgerIsActive = false
-        this.cartIsActive = false
+    watch: {
+        $route (to, from){
+            this.burgerIsActive = false
+            this.cartIsActive = false
+        },
+        cartItems (newCount, oldCount) {
+            this.bounceCart()
+        }
     },
-    cartItems (newCount, oldCount) {
-        this.bounceCart()
+    components: {
+        CartTable
+    },
+    data: function () {
+        return {
+            cartIsActive: false,
+            burgerIsActive: false
+        }
+    },
+    methods: {
+        burgerTapped() {
+            this.burgerIsActive = !this.burgerIsActive
+            this.cartIsActive = false
+        },
+        cartTapped() {
+            this.cartIsActive = !this.cartIsActive
+        },
+        bounceCart() {
+            let cart = this.$refs.cart
+            
+            anime({
+            targets: cart,
+            translateY: [
+                {value: -10},
+            ],
+            scale: 1.2,
+            duration: 50,
+            easing: 'linear',
+            direction: 'alternate',
+            })
+        }
     }
-  },
-  components: {
-    CartTable
-  },
-  data: function () {
-    return {
-        cartIsActive: false,
-        burgerIsActive: false
-    }
-  },
-  methods: {
-    burgerTapped() {
-        this.burgerIsActive = !this.burgerIsActive
-        this.cartIsActive = false
-    },
-    cartTapped() {
-        this.cartIsActive = !this.cartIsActive
-    },
-    bounceCart() {
-        let cart = this.$refs.cart
-        
-        anime({
-          targets: cart,
-          translateY: [
-            {value: -10},
-          ],
-          scale: 1.2,
-          duration: 50,
-          easing: 'linear',
-          direction: 'alternate',
-        });
-      }
-  }
-};
+}
 </script>
