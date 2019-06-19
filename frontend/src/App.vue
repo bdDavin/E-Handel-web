@@ -14,6 +14,13 @@
   </div>
 </template>
 
+<style lang="scss">
+@import url('https://cdn.rawgit.com/octoshrimpy/bulma-o-steps/master/bulma-steps.css');
+@import url('https://use.fontawesome.com/releases/v5.2.0/css/all.css');
+@import url('https://cdn.materialdesignicons.com/2.5.94/css/materialdesignicons.min.css');
+</style>
+
+
 <script>
 import './style.scss';
 import TopBar from './components/TopBar.vue';
